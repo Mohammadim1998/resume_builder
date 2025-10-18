@@ -76,16 +76,16 @@ const Sidebar = () => {
         <div className="w-7 h-7 group-hover:bg-purple-50 text-xl flex justify-center items-center rounded-full">
           <IoMdShare />
         </div>
-        <span className="text-sm font-medium">Download</span>
+        <span className="text-sm font-medium">share</span>
       </div>
       <div className="group flex items-center gap-x-2 transition-colors duration-300 text-[#676F72] hover:text-purple-400 cursor-pointer pl-4">
-        <div className="w-7 h-7 group-hover:bg-purple-50 text-xl flex justify-center items-center rounded-full">
+        <div className="w-7 h-7 group-hover:bg-purple-50 text-yellow-500 text-xl flex justify-center items-center rounded-full">
           <FaCrown />
         </div>
-        <span className="text-sm font-medium">Share</span>
+        <span className="text-sm font-medium">History</span>
       </div>
       <div className="group flex items-center gap-x-2 transition-colors duration-300 text-[#676F72] hover:text-purple-400 cursor-pointer pl-4">
-        <div className="w-7 h-7 group-hover:bg-purple-50 text-xl flex justify-center items-center rounded-full">
+        <div className="w-7 h-7 group-hover:bg-purple-50 text-yellow-500 text-xl flex justify-center items-center rounded-full">
           <FaCrown />
         </div>
         <span className="text-sm font-medium">branding</span>
