@@ -1,9 +1,20 @@
+import { IoEyeOutline } from "react-icons/io5";
+import Sidebar from "../sidebar/sidebar";
+
 const ResumeEditor = () => {
-    return (
-        <div>
-            resumeEditor
+  return (
+    <section className="w-full h-dvh flex gap-x-10 p-4">
+      <aside className="w-[12%]  bg-white rounded">
+        <Sidebar />
+      </aside>
+
+      <div className="relative w-[70%] bg-purple-300 border-[1px] border-gray-400">
+        <div className="absolute top-0 -right-14 text-2xl w-10 h-10 bg-white cursor-pointer flex justify-center items-center rounded">
+          <IoEyeOutline />
         </div>
-    )
-}
+      </div>
+    </section>
+  );
+};
 
 export default ResumeEditor;
