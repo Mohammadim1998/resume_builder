@@ -7,23 +7,11 @@ import { IoLocationSharp, IoSettingsOutline } from "react-icons/io5";
 import { useState, useEffect } from "react";
 import { BsArrowsAngleContract } from "react-icons/bs";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { useMobile } from "../../../context/mobileContext";
 
 const Address = () => {
-  const [isMobile, setIsMobile] = useState(false);
   const [closeHeaderInMobileState, setCloseHeaderInMobileState] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-    };
-  }, []);
+ const {isMobile} = useMobile();
 
   return (
     <>
@@ -127,7 +115,7 @@ const Address = () => {
           {/* End Header section */}
 
           <div className="w-full">
-            <div className="">
+            <div>
               <div className="flex justify-between items-center">
                 <span className="font-normal">Personal details</span>
 

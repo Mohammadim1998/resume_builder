@@ -1,10 +1,11 @@
 import { IoEyeOutline } from "react-icons/io5";
 import Sidebar from "../sidebar/sidebar";
 import Address from "../sections/address/address";
+import Summary from "../sections/summary/summary";
 
 const ResumeEditor = () => {
   return (
-    <section className="w-full h-full flex gap-x-10 p-2 md:p-4">
+    <section className="w-full h-full md:h-dvh flex gap-x-10 p-2 md:p-4">
       <aside className="w-[12%] bg-white rounded hidden md:flex">
         <Sidebar />
       </aside>
@@ -16,6 +17,9 @@ const ResumeEditor = () => {
         </div>
 
         <Address />
+        <div className="w-full flex flex-col gap-y-2 mt-4 bg-blue-50">
+          <Summary />
+        </div>
       </div>
     </section>
   );
