@@ -107,7 +107,7 @@ const Projects = () => {
 
           {/* The blow code is for open the edit page */}
           <div
-            className={`w-full h-full fixed top-0 ${
+            className={`w-full h-full fixed top-0 bottom-0 z-50 overflow-y-scroll ${
               openEdit ? "right-0" : "right-[-100%]"
             } bg-white transition-all duration-300`}
           >
