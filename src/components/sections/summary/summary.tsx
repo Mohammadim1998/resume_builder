@@ -13,7 +13,7 @@ const Summary = () => {
   return (
     <>
       {!isMobile ? (
-        <div className="w-[50%] h-20 bg-white">
+        <div className="w-full h-fit">
           <input
             className="placeholder:text-black border-none outline-none font-medium bg-transparent"
             placeholder="SUMMARY"
@@ -75,7 +75,7 @@ const Summary = () => {
               </div>
             </div>
 
-            <div className="w-full px-6 bg-[#FAFBFD]">
+            <form className="w-full px-6 bg-[#FAFBFD]">
               <span className="mb-3 block text-[#75696C] font-medium">
                 SUMMARY
               </span>
@@ -106,7 +106,7 @@ const Summary = () => {
               <button className="w-full h-12 bg-[#5e41f0] cursor-pointer rounded mt-9 text-white text-base">
                 Done
               </button>
-            </div>
+            </form>
           </div>
         </>
       )}

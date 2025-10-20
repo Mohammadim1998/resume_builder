@@ -8,8 +8,9 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaCalendarAlt } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
 
-const Education = () => {
+const Experience = () => {
   const { isMobile } = useMobile();
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -22,32 +23,59 @@ const Education = () => {
         <div className="w-full h-fit">
           <input
             className="placeholder:text-black border-none outline-none font-medium bg-transparent"
-            placeholder="EDUCATION"
+            placeholder="EXPERIENCE"
           />
           <div className="w-full h-1 bg-black"></div>
           <input
             type="text"
             className="w-full text-md h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-            placeholder="Degree and Field of Study"
+            placeholder="Title"
           />
           <input
             type="text"
-            className="w-full placeholder:text-[#8FC8FF] text-[#1E90FF] font-bold text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-            placeholder="School or University"
+            className="w-full text-md h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+            placeholder="Company Name"
           />
 
-          <div className="flex items-center gap-x-1 ml-2">
-            <div className="text-[#65696D] text-sm">
-              <FaCalendarAlt />
+          <div className="flex items-center justify-start">
+            <div className="flex items-center gap-x-1 ml-2">
+              <div className="text-[#65696D] text-sm">
+                <FaCalendarAlt />
+              </div>
+              <DatePicker
+                selected={selectedDate}
+                onChange={(date) => setSelectedDate(date)}
+                dateFormat="yyyy/MM/dd"
+                placeholderText="Date period"
+                isClearable
+                className="custom-datepicker w-24 outline-none text-[#A9A9A9] text-sm"
+                calendarClassName="custom-calendar"
+              />
             </div>
-            <DatePicker
-              selected={selectedDate}
-              onChange={(date) => setSelectedDate(date)}
-              dateFormat="yyyy/MM/dd"
-              placeholderText="Date period"
-              isClearable
-              className="custom-datepicker outline-none text-[#A9A9A9] text-sm bg-transparent"
-              calendarClassName="custom-calendar"
+            <div className="flex items-center">
+              <div className="text-[#65696D] text-sm">
+                <FaLocationDot />
+              </div>
+              <input
+                type="text"
+                className="w-full text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+                placeholder="Project Name"
+              />
+            </div>
+          </div>
+
+          <input
+            type="text"
+            className="w-full text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+            placeholder="Company Description"
+          />
+
+          <div className="flex items-center mt-2">
+            <div className="w-1 h-1 rounded-full bg-[#3E3E3E]"></div>
+            <input
+              type="text"
+              className="w-full text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+              placeholder="Highlight your accomplishments,using numbers if possible."
             />
           </div>
         </div>
@@ -55,7 +83,7 @@ const Education = () => {
         <>
           <div className="w-full bg-white mt-4 rounded-2xl p-4">
             <div className="flex justify-between items-center mb-6">
-              <span className="font-semibold select-none">Education</span>
+              <span className="font-semibold select-none">Experience</span>
 
               <div className="text-xl cursor-pointer">
                 <GoPencil />
@@ -67,8 +95,8 @@ const Education = () => {
               className="w-full relative bg-[#FAFBFD]"
             >
               <div className="w-full flex flex-col select-none text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] transition-all duration-300 rounded">
-                <span className="font-bold">Degree and Field of Study</span>
-                <span>School or University</span>
+                <span className="font-bold">Title</span>
+                <span>Company Name</span>
               </div>
               <div className="absolute right-6 cursor-pointer top-[50%] translate-y-[-50%] flex flex-col gap-y-[2px]">
                 <div className="w-[3px] h-[3px] bg-[#7D8588] rounded-full"></div>
@@ -104,26 +132,27 @@ const Education = () => {
 
             <form className="w-full px-6 bg-[#FAFBFD]">
               <span className="mb-3 block text-[#75696C] font-medium">
-                EDUCATION
+                Experience
               </span>
               <div className="w-full">
                 <span className="text-[#75696C] font-medium mb-2 block">
-                  Education
+                  Title
                 </span>
                 <input
                   className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
-                  placeholder="Degree and Field of Study"
+                  placeholder="Title"
                 />
               </div>
-              <div className="w-full mt-2">
+              <div className="w-full">
                 <span className="text-[#75696C] font-medium mb-2 block">
-                  School or University
+                  Company Name
                 </span>
                 <input
                   className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
-                  placeholder="School or University"
+                  placeholder="Company Name"
                 />
               </div>
+
               <div className="w-full mt-2">
                 <span className="text-[#75696C] font-medium mb-2 block">
                   Date period
@@ -158,6 +187,37 @@ const Education = () => {
                 </div>
               </div>
 
+              <div className="w-full mt-2">
+                <span className="text-[#75696C] font-medium mb-2 block">
+                  Location
+                </span>
+                <input
+                  className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
+                  placeholder="Location"
+                />
+              </div>
+
+              <div className="w-full mt-2">
+                <span className="text-[#75696C] font-medium mb-2 block">
+                 company Description
+                </span>
+                <input
+                  className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
+                  placeholder="company Description"
+                />
+              </div>
+
+              <div className="w-full mt-2">
+                <span className="text-[#75696C] font-medium mb-2 block">
+                  Bullets
+                </span>
+
+                  <input
+                    className="w-full text-sm h-16 text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
+                    placeholder="What was a successful outcome of your work? (e.g. Raises $3,000 for the charity)"
+                  />
+              </div>
+
               <div className="w-full h-10 flex justify-between items-center px-4 border-[1px] border-[#dde7e9] mt-2 rounded">
                 <div className="flex items-center gap-x-1">
                   <div className="w-6 h-6 flex justify-center items-center text-xl text-[#4e4f50] rounded-full">
@@ -183,4 +243,4 @@ const Education = () => {
   );
 };
 
-export default Education;
+export default Experience;
