@@ -54,7 +54,7 @@ const Projects = () => {
               <input
                 type="text"
                 className="w-full text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-                placeholder="Project Name"
+                placeholder="Location"
               />
             </div>
           </div>
@@ -148,7 +148,7 @@ const Projects = () => {
                     selected={startDateTime}
                     onChange={(date) => setStartDateTime(date)}
                     // showTimeSelect
-                    className="text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
+                    className="text-sm w-full text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
                     timeFormat="HH:mm"
                     timeIntervals={15}
                     timeCaption="زمان"
@@ -161,7 +161,7 @@ const Projects = () => {
                     selected={endDateTime}
                     onChange={(date) => setEndDateTime(date)}
                     // showTimeSelect
-                    className="text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
+                    className="text-sm w-full text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
                     timeFormat="HH:mm"
                     timeIntervals={15}
                     timeCaption="زمان"
