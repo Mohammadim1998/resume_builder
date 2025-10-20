@@ -11,7 +11,7 @@ import Languages from "../sections/languages/languages";
 const ResumeEditor = () => {
   return (
     <section className="w-full flex justify-center gap-x-10 p-2 md:p-4">
-      <aside className="w-[12%] fixed top-0 left-0 h-dvh bg-white rounded hidden md:flex">
+      <aside className="w-[12%] fixed top-4 left-4 h-[90%] bg-white rounded hidden md:flex">
         <Sidebar />
       </aside>
 
