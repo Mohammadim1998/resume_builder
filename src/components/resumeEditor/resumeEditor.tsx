@@ -6,6 +6,7 @@ import Education from "../sections/education/education";
 import Achievement from "../sections/achievements/achievements";
 import Projects from "../sections/projects/projects";
 import Experience from "../sections/experience/experienc";
+import Languages from "../sections/languages/languages";
 
 const ResumeEditor = () => {
   return (
@@ -27,6 +28,7 @@ const ResumeEditor = () => {
           <Achievement />
           <Projects />
           <Experience />
+          <Languages />
           
         </div>
       </div>
