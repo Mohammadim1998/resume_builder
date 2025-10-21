@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import { IoEyeOutline } from "react-icons/io5";
 import Sidebar from "../sidebar/sidebar";
 import Address from "../sections/address/address";
@@ -7,12 +8,98 @@ import Achievement from "../sections/achievements/achievements";
 import Projects from "../sections/projects/projects";
 import Experience from "../sections/experience/experienc";
 import Languages from "../sections/languages/languages";
+import RearrangePanel from "../reArrangePanel/reArrangePanel";
+const initialSections = [
+  { id: "profile", title: "Profile" },
+  { id: "experience", title: "Experience" },
+  { id: "education", title: "Education" },
+  { id: "skills", title: "Skills" },
+  { id: "projects", title: "Projects" },
+];
 
 const ResumeEditor = () => {
+  /* This place for reArrange */
+  const [sections, setSections] = useState(() => {
+    const saved = localStorage.getItem("resumeSections");
+    return saved ? JSON.parse(saved) : initialSections;
+  });
+  const [showRearrange, setShowRearrange] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("resumeSections", JSON.stringify(sections));
+  }, [sections]);
+
+  const updateOrder = (newOrder) => setSections(newOrder);
+  /* End place for reArrange */
+
+  const [formData, setFormData] = useState({
+    summary: { title: "", description: "" },
+    education: { title: "", degree: "", school: "", date: "" },
+    projects: {
+      title: "",
+      name: "",
+      date: "",
+      location: "",
+      shortDescription: "",
+      outcome: "",
+    },
+    achievement: { title: "", name: "", description: "" },
+    experience: {
+      title: "",
+      subTitle: "",
+      company: "",
+      date: "",
+      location: "",
+      shortDescription: "",
+      longDescription: "",
+    },
+    languages:{title:"",lang:"",level:""}
+  });
+
+  console.log("one: ", formData);
+
+  const handleSummaryChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      summary: { ...prev.summary, [field]: value },
+    }));
+  };
+
+  const handleEducationChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      education: { ...prev.education, [field]: value },
+    }));
+  };
+  const handleProjectsChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      projects: { ...prev.projects, [field]: value },
+    }));
+  };
+  const handleAchievementChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      achievement: { ...prev.achievement, [field]: value },
+    }));
+  };
+  const handleExperienceChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      experience: { ...prev.experience, [field]: value },
+    }));
+  };
+  const handleLanguagesChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      languages: { ...prev.languages, [field]: value },
+    }));
+  };
+
   return (
     <section className="w-full flex justify-center gap-x-10 p-2 md:p-4">
       <aside className="w-[12%] fixed top-4 left-4 h-[90%] bg-white rounded hidden md:flex">
-        <Sidebar />
+        <Sidebar setShowRearrange={setShowRearrange} />
       </aside>
 
       <div className="relative w-full md:w-[70%] shadow-[0px_0px_5px_1px_rgba(0,0,0,0.23)] md:p-12 rounded-2xl">
@@ -23,15 +110,37 @@ const ResumeEditor = () => {
 
         <Address />
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 gap-y-2 mt-4">
-          <Summary />
-          <Education />
-          <Achievement />
-          <Projects />
-          <Experience />
-          <Languages />
-          
+          <Summary value={formData.summary} onChange={handleSummaryChange} />
+          <Education
+            value={formData.education}
+            onChange={handleEducationChange}
+          />
+          <Projects value={formData.projects} onChange={handleProjectsChange} />
+          <Achievement
+            value={formData.achievement}
+            onChange={handleAchievementChange}
+          />
+          <Experience
+            value={formData.experience}
+            onChange={handleExperienceChange}
+            />
+          <Languages 
+            value={formData.languages}
+            onChange={handleLanguagesChange}
+          />
         </div>
       </div>
+
+      {showRearrange && (
+        <RearrangePanel
+          sections={sections}
+          onClose={() => setShowRearrange(false)}
+          onSave={(newOrder) => {
+            updateOrder(newOrder);
+            setShowRearrange(false);
+          }}
+        />
+      )}
     </section>
   );
 };

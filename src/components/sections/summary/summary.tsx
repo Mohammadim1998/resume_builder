@@ -6,7 +6,7 @@ import { IoIosCheckmark } from "react-icons/io";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import React, { useState } from "react";
 
-const Summary = () => {
+const Summary = ({ value, onChange }) => {
   const { isMobile } = useMobile();
   const [openEdit, setOpenEdit] = useState(false);
 
@@ -15,11 +15,15 @@ const Summary = () => {
       {!isMobile ? (
         <div className="w-full h-fit">
           <input
+            value={value.title}
+            onChange={(event) => onChange("title", event.target.value)}
             className="placeholder:text-black border-none outline-none font-medium bg-transparent"
             placeholder="SUMMARY"
           />
           <div className="w-full h-1 bg-black"></div>
           <textarea
+            value={value.description}
+            onChange={(event) => onChange("description", event.target.value)}
             className="w-full text-sm mt-1 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
             placeholder="Briefly explain why you're a great fit for the role - use the AI assistant to tailor this summary for each job posting."
           ></textarea>
@@ -84,6 +88,8 @@ const Summary = () => {
                   Summary
                 </span>
                 <textarea
+                  value={value.title}
+                  onChange={(event) => onChange("title", event.target.value)}
                   className="w-full select-none text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
                   placeholder="Briefly explain why you're a great fit for the role - use the AI assistant to tailor this summary for each job posting."
                 ></textarea>

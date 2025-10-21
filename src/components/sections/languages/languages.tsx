@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FaCalendarAlt } from "react-icons/fa";
 import { IoDiamondOutline } from "react-icons/io5";
 
-const Languages = () => {
+const Languages = ({ value, onChange }) => {
   const { isMobile } = useMobile();
   const [openEdit, setOpenEdit] = useState(false);
 
@@ -19,17 +19,23 @@ const Languages = () => {
       {!isMobile ? (
         <div className="w-full h-fit">
           <input
+            value={value.title}
+            onChange={(event) => onChange("title", event.target.value)}
             className="placeholder:text-black border-none outline-none font-medium bg-transparent"
             placeholder="LANGUAGES"
           />
           <div className="w-full h-1 bg-black"></div>
 
           <input
+            value={value.lang}
+            onChange={(event) => onChange("lang", event.target.value)}
             type="text"
             className="w-full text-md h-5 bg-transparent outline-none px-2 font-bold focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
             placeholder="Language"
           />
           <input
+            value={value.level}
+            onChange={(event) => onChange("level", event.target.value)}
             type="text"
             className="w-full text-xs h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
             placeholder="Proficient"
@@ -95,6 +101,8 @@ const Languages = () => {
                   Language
                 </span>
                 <input
+                  value={value.lang}
+                  onChange={(event) => onChange("lang", event.target.value)}
                   className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
                   placeholder="Language"
                 />
@@ -104,6 +112,8 @@ const Languages = () => {
                   Proficiency
                 </span>
                 <input
+                  value={value.level}
+                  onChange={(event) => onChange("level", event.target.value)}
                   className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
                   placeholder="Advanced"
                 />

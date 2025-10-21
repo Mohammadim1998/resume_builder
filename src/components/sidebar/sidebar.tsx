@@ -11,7 +11,7 @@ import { PiArrowArcRightBold } from "react-icons/pi";
 import { PiArrowArcLeftBold } from "react-icons/pi";
 
 
-const Sidebar = () => {
+const Sidebar = ({setShowRearrange}) => {
   return (
     <div className="w-full h-full flex flex-col justify-evenly">
       <div className="flex items-center justify-evenly gap-x-2">
@@ -34,7 +34,7 @@ const Sidebar = () => {
         <div className="w-7 h-7 group-hover:bg-purple-50 text-xl flex justify-center items-center rounded-full">
           <LuArrowUpDown />
         </div>
-        <span className="text-sm font-medium">Rearrange</span>
+        <span onClick={() => setShowRearrange(true)} className="text-sm font-medium">Rearrange</span>
       </div>
       <div className="group flex items-center gap-x-2 transition-colors duration-300 text-[#676F72] hover:text-purple-400 cursor-pointer pl-4">
         <div className="w-7 h-7 group-hover:bg-purple-50 text-xl flex justify-center items-center rounded-full">

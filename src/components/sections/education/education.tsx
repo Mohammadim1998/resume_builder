@@ -9,7 +9,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaCalendarAlt } from "react-icons/fa";
 
-const Education = () => {
+const Education = ({ value, onChange }) => {
   const { isMobile } = useMobile();
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -21,17 +21,23 @@ const Education = () => {
       {!isMobile ? (
         <div className="w-full h-fit">
           <input
+            value={value.title}
+            onChange={(event) => onChange("title", event.target.value)}
             className="placeholder:text-black border-none outline-none font-medium bg-transparent"
             placeholder="EDUCATION"
           />
           <div className="w-full h-1 bg-black"></div>
           <input
             type="text"
+            value={value.degree}
+            onChange={(event) => onChange("degree", event.target.value)}
             className="w-full text-md h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
             placeholder="Degree and Field of Study"
           />
           <input
             type="text"
+            value={value.school}
+            onChange={(event) => onChange("school", event.target.value)}
             className="w-full placeholder:text-[#8FC8FF] text-[#1E90FF] font-bold text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
             placeholder="School or University"
           />
@@ -41,8 +47,10 @@ const Education = () => {
               <FaCalendarAlt />
             </div>
             <DatePicker
-              selected={selectedDate}
-              onChange={(date) => setSelectedDate(date)}
+              selected={value.date}
+              // onChange={(date) => setSelectedDate(date)}
+              value={value.date}
+              onChange={(date) => onChange("date", date)}
               dateFormat="yyyy/MM/dd"
               placeholderText="Date period"
               isClearable
@@ -111,6 +119,8 @@ const Education = () => {
                   Education
                 </span>
                 <input
+                  value={value.degree}
+                  onChange={(event) => onChange("degree", event.target.value)}
                   className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
                   placeholder="Degree and Field of Study"
                 />
@@ -120,6 +130,8 @@ const Education = () => {
                   School or University
                 </span>
                 <input
+                  value={value.school}
+                  onChange={(event) => onChange("school", event.target.value)}
                   className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
                   placeholder="School or University"
                 />
@@ -130,8 +142,10 @@ const Education = () => {
                 </span>
                 <div className="flex items-center gap-x-2">
                   <DatePicker
-                    selected={startDateTime}
-                    onChange={(date) => setStartDateTime(date)}
+                    selected={value.date}
+                    // onChange={(date) => setStartDateTime(date)}
+                    value={value.date}
+                    onChange={(date) => onChange("date", date)}
                     // showTimeSelect
                     className="text-sm w-full text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
                     timeFormat="HH:mm"
@@ -143,8 +157,10 @@ const Education = () => {
                     minDate={new Date()}
                   />
                   <DatePicker
-                    selected={endDateTime}
-                    onChange={(date) => setEndDateTime(date)}
+                    selected={value.date}
+                    // onChange={(date) => setEndDateTime(date)}
+                    value={value.date}
+                    onChange={(date) => onChange("date", date)}
                     // showTimeSelect
                     className="text-sm w-full text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
                     timeFormat="HH:mm"

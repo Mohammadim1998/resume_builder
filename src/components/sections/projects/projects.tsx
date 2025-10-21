@@ -10,23 +10,36 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FaCalendarAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 
-const Projects = () => {
+const Projects = ({ value, onChange }) => {
   const { isMobile } = useMobile();
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [startDateTime, setStartDateTime] = useState(null);
   const [endDateTime, setEndDateTime] = useState(null);
 
+  /*
+  title
+name
+date
+location
+shortDescription
+outcome
+  */
+
   return (
     <>
       {!isMobile ? (
         <div className="w-full h-fit">
           <input
+            value={value.title}
+            onChange={(event) => onChange("title", event.target.value)}
             className="placeholder:text-black border-none outline-none font-medium bg-transparent"
             placeholder="PROJECTS"
           />
           <div className="w-full h-1 bg-black"></div>
           <input
+            value={value.name}
+            onChange={(event) => onChange("name", event.target.value)}
             type="text"
             className="w-full text-md h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
             placeholder="Project Name"
@@ -38,8 +51,10 @@ const Projects = () => {
                 <FaCalendarAlt />
               </div>
               <DatePicker
-                selected={selectedDate}
-                onChange={(date) => setSelectedDate(date)}
+                selected={value.date}
+                value={value.date}
+                onChange={(date) => onChange("date", date)}
+                // onChange={(date) => setSelectedDate(date)}
                 dateFormat="yyyy/MM/dd"
                 placeholderText="Date period"
                 isClearable
@@ -52,6 +67,8 @@ const Projects = () => {
                 <FaLocationDot />
               </div>
               <input
+                value={value.location}
+                onChange={(event) => onChange("location", event.target.value)}
                 type="text"
                 className="w-full text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
                 placeholder="Location"
@@ -60,6 +77,10 @@ const Projects = () => {
           </div>
 
           <input
+            value={value.shortDescription}
+            onChange={(event) =>
+              onChange("shortDescription", event.target.value)
+            }
             type="text"
             className="w-full text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
             placeholder="Short summary of your work"
@@ -68,6 +89,8 @@ const Projects = () => {
           <div className="flex items-center mt-2">
             <div className="w-1 h-1 rounded-full bg-[#3E3E3E]"></div>
             <input
+              value={value.outcome}
+              onChange={(event) => onChange("outcome", event.target.value)}
               type="text"
               className="w-full text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
               placeholder="What was a successful outcome of your work? (e.g. Raises $3,000 for the charity)"
@@ -134,6 +157,8 @@ const Projects = () => {
                   Project Name
                 </span>
                 <input
+                  value={value.title}
+                  onChange={(event) => onChange("title", event.target.value)}
                   className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
                   placeholder="Project Name"
                 />
@@ -145,8 +170,10 @@ const Projects = () => {
                 </span>
                 <div className="flex items-center gap-x-2">
                   <DatePicker
-                    selected={startDateTime}
-                    onChange={(date) => setStartDateTime(date)}
+                    selected={value.date}
+                    // onChange={(date) => setStartDateTime(date)}
+                    value={value.date}
+                    onChange={(date) => onChange("date", date)}
                     // showTimeSelect
                     className="text-sm w-full text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
                     timeFormat="HH:mm"
@@ -158,8 +185,10 @@ const Projects = () => {
                     minDate={new Date()}
                   />
                   <DatePicker
-                    selected={endDateTime}
-                    onChange={(date) => setEndDateTime(date)}
+                    selected={value.date}
+                    // onChange={(date) => setEndDateTime(date)}
+                    value={value.date}
+                    onChange={(date) => onChange("date", date)}
                     // showTimeSelect
                     className="text-sm w-full text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
                     timeFormat="HH:mm"
@@ -178,6 +207,8 @@ const Projects = () => {
                   Location
                 </span>
                 <input
+                 value={value.location}
+                onChange={(event) => onChange("location", event.target.value)}
                   className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
                   placeholder="Location"
                 />
@@ -188,6 +219,8 @@ const Projects = () => {
                   Description
                 </span>
                 <input
+                 value={value.shortDescription}
+                onChange={(event) => onChange("shortDescription", event.target.value)}
                   className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
                   placeholder="Short summary of your work"
                 />
@@ -198,10 +231,12 @@ const Projects = () => {
                   Bullets
                 </span>
 
-                  <input
-                    className="w-full text-sm h-16 text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
-                    placeholder="What was a successful outcome of your work? (e.g. Raises $3,000 for the charity)"
-                  />
+                <input
+                 value={value.outcome}
+                onChange={(event) => onChange("outcome", event.target.value)}
+                  className="w-full text-sm h-16 text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
+                  placeholder="What was a successful outcome of your work? (e.g. Raises $3,000 for the charity)"
+                />
               </div>
 
               <div className="w-full h-10 flex justify-between items-center px-4 border-[1px] border-[#dde7e9] mt-2 rounded">
