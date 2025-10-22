@@ -2,6 +2,8 @@ import { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 
 export default function RearrangePanel({ sections, onClose, onSave }) {
+  console.log("Sections: ",sections);
+  
   // تقسیم اولیه به دو ستون
   const [columns, setColumns] = useState({
     left: sections.slice(0, Math.ceil(sections.length / 2)),

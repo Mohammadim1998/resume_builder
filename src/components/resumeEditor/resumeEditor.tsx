@@ -9,25 +9,29 @@ import Projects from "../sections/projects/projects";
 import Experience from "../sections/experience/experienc";
 import Languages from "../sections/languages/languages";
 import RearrangePanel from "../reArrangePanel/reArrangePanel";
+
+const sectionComponents = {
+  summary: Summary,
+  education: Education,
+  projects: Projects,
+  achievement: Achievement,
+  experience: Experience,
+  languages: Languages,
+};
+
 const initialSections = [
-  { id: "profile", title: "Profile" },
-  { id: "experience", title: "Experience" },
-  { id: "education", title: "Education" },
-  { id: "skills", title: "Skills" },
-  { id: "projects", title: "Projects" },
+  { id: "summary", title: "Summary", component: "summary" },
+  { id: "experience", title: "Experience", component: "experience" },
+  { id: "education", title: "Education", component: "education" },
+  { id: "projects", title: "Projects", component: "projects" },
+  { id: "achievement", title: "Achievements", component: "achievement" },
+  { id: "languages", title: "Languages", component: "languages" },
 ];
 
 const ResumeEditor = () => {
   /* This place for reArrange */
-  const [sections, setSections] = useState(() => {
-    const saved = localStorage.getItem("resumeSections");
-    return saved ? JSON.parse(saved) : initialSections;
-  });
+  const [sections, setSections] = useState(initialSections);
   const [showRearrange, setShowRearrange] = useState(false);
-
-  useEffect(() => {
-    localStorage.setItem("resumeSections", JSON.stringify(sections));
-  }, [sections]);
 
   const updateOrder = (newOrder) => setSections(newOrder);
   /* End place for reArrange */
@@ -53,7 +57,7 @@ const ResumeEditor = () => {
       shortDescription: "",
       longDescription: "",
     },
-    languages:{title:"",lang:"",level:""}
+    languages: { title: "", lang: "", level: "" },
   });
 
   console.log("one: ", formData);
@@ -96,6 +100,28 @@ const ResumeEditor = () => {
     }));
   };
 
+  const renderSections = (section) => {
+    const Component = sectionComponents[section.component];
+    if (!Component) return null;
+
+    const handlers = {
+      summary: handleSummaryChange,
+      education: handleEducationChange,
+      projects: handleProjectsChange,
+      achievement: handleAchievementChange,
+      experience: handleExperienceChange,
+      languages: handleLanguagesChange,
+    };
+
+    return (
+      <Component
+        key={section.id}
+        value={formData[section.component]}
+        onChange={handlers[section.component]}
+      />
+    );
+  };
+
   return (
     <section className="w-full flex justify-center gap-x-10 p-2 md:p-4">
       <aside className="w-[12%] fixed top-4 left-4 h-[90%] bg-white rounded hidden md:flex">
@@ -110,7 +136,7 @@ const ResumeEditor = () => {
 
         <Address />
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 gap-y-2 mt-4">
-          <Summary value={formData.summary} onChange={handleSummaryChange} />
+          {/* <Summary value={formData.summary} onChange={handleSummaryChange} />
           <Education
             value={formData.education}
             onChange={handleEducationChange}
@@ -123,11 +149,12 @@ const ResumeEditor = () => {
           <Experience
             value={formData.experience}
             onChange={handleExperienceChange}
-            />
-          <Languages 
+          />
+          <Languages
             value={formData.languages}
             onChange={handleLanguagesChange}
-          />
+          /> */}
+          {sections.map(renderSections)}
         </div>
       </div>
 
