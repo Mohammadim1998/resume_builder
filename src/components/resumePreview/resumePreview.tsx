@@ -156,7 +156,7 @@ const ResumePreview = ({ setShowPreview, formData, sections }) => {
   return (
     <div
       onClick={() => setShowPreview(false)}
-      className="fixed w-full h-full pt-[600px] md:pt-96 flex justify-center items-center top-0 right-0 bg-opacity-70 bg-[#59566A] overflow-y-scroll"
+      className="z-50 fixed w-full h-full pt-[600px] md:pt-96 flex justify-center items-center top-0 right-0 bg-opacity-70 bg-[#59566A] overflow-y-scroll"
     >
       <div
         onClick={(event) => event.stopPropagation()}
@@ -218,7 +218,7 @@ const ResumePreview = ({ setShowPreview, formData, sections }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 pb-32">
+        <div className="grid grid-cols-2 gap-x-4 pb-32">
           {sections && sections.length > 0 ? (
             sections.map(renderSection)
           ) : (

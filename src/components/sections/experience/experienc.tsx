@@ -17,15 +17,6 @@ const Experience = ({ value, onChange }) => {
   const [startDateTime, setStartDateTime] = useState(null);
   const [endDateTime, setEndDateTime] = useState(null);
 
-  /*
-  title
-subTitle
-company
-date
-location
-shortDescription
-longDescription
-  */
   return (
     <>
       {!isMobile ? (
@@ -65,7 +56,7 @@ longDescription
                 dateFormat="yyyy/MM/dd"
                 placeholderText="Date period"
                 isClearable
-                className="custom-datepicker w-24 outline-none text-[#A9A9A9] text-sm"
+                className="custom-datepicker w-24 bg-inherit outline-none text-[#A9A9A9] text-sm"
                 calendarClassName="custom-calendar"
               />
             </div>

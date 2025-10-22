@@ -30,8 +30,6 @@ export default function RearrangePanel({ sections, onClose, onSave }) {
   return (
     <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
       <div className="bg-white w-[90%] max-w-5xl rounded-xl shadow-lg p-6">
-        <h2 className="text-xl font-bold mb-4">Rearrange Sections</h2>
-
         <DragDropContext onDragEnd={onDragEnd}>
           <div className="grid grid-cols-2 gap-4">
             {["left", "right"].map((colId) => (
