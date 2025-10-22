@@ -11,6 +11,8 @@ import Languages from "../sections/languages/languages";
 import RearrangePanel from "../reArrangePanel/reArrangePanel";
 import ResumePreview from "../resumePreview/resumePreview";
 import { IoMdClose } from "react-icons/io";
+import { PiArrowArcLeftBold, PiArrowArcRightBold } from "react-icons/pi";
+import { FiEdit } from "react-icons/fi";
 
 const sectionComponents = {
   // address: Address,
@@ -154,7 +156,7 @@ const ResumeEditor = () => {
   };
 
   return (
-    <section className="w-full flex justify-center gap-x-10 p-2 md:p-4">
+    <section className="w-full flex justify-center gap-x-10 p-2 md:p-4 pb-24">
       <aside
         className={`z-30 lg:w-[12%] w-[17%] shrink-0 fixed max-lg:top-16 lg:top-4 max-lg:left-16 lg:left-4 h-[90%] bg-white rounded max-md:hidden ${
           showSidebar ? "flex" : "hidden"
@@ -212,6 +214,42 @@ const ResumeEditor = () => {
           sections={sections}
         />
       )}
+
+      {/* This is menu in mobile state */}
+      <div className="z-40 fixed left-0 right-0 bottom-0 w-full flex justify-between md:hidden h-16 bg-white px-4 py-2 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]">
+        <div className="flex items-center justify-evenly gap-x-2">
+          <div className="flex flex-col items-center text-[#AFB4B5]">
+            <div className="w-7 h-7 text-xl flex justify-center items-center rounded-full cursor-not-allowed">
+              <PiArrowArcLeftBold />
+            </div>
+            <span className="text-sm font-semibold">Undo</span>
+          </div>
+          <div className="flex flex-col items-center text-[#AFB4B5]">
+            <div className="w-7 h-7 text-xl flex justify-center items-center rounded-full cursor-not-allowed">
+              <PiArrowArcRightBold />
+            </div>
+            <span className="text-sm font-semibold">Redo</span>
+          </div>
+        </div>
+
+        <div className="w-[1px] h-full bg-[#AFB4B5]"></div>
+
+        <div className="flex flex-col items-center text-[#AFB4B5]">
+          <div className="group-hover:bg-purple-50 text-[#384347] text-2xl flex justify-center items-center rounded-full">
+            <FiEdit />
+          </div>
+          <span className="text-sm font-semibold">Sections</span>
+        </div>
+
+        <div className="w-[1px] h-full bg-[#AFB4B5]"></div>
+        <button
+          onClick={() => setShowPreview(true)}
+          className="bg-[#5F4DC7] hover:bg-[#9283e9] px-24 cursor-pointer rounded-md text-white font-bold transition-all duration-300"
+        >
+          Preview
+        </button>
+      </div>
+      {/* End menu in mobile state */}
     </section>
   );
 };

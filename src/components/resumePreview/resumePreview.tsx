@@ -3,9 +3,9 @@ import { GoPerson } from "react-icons/go";
 import { FaPhone } from "react-icons/fa6";
 import { MdFolderShared } from "react-icons/md";
 import { IoLocationSharp } from "react-icons/io5";
+import { MdKeyboardArrowLeft } from "react-icons/md";
 
 const ResumePreview = ({ setShowPreview, formData, sections }) => {
-
   const formatValue = (value) => {
     if (value === null || value === undefined) return "";
     if (value instanceof Date) {
@@ -158,6 +158,22 @@ const ResumePreview = ({ setShowPreview, formData, sections }) => {
       onClick={() => setShowPreview(false)}
       className="z-50 fixed w-full h-full pt-[600px] md:pt-96 flex justify-center items-center top-0 right-0 bg-opacity-70 bg-[#59566A] overflow-y-scroll"
     >
+      {/* header for mobile state for print pdf */}
+      <div className="fixed left-0 right-0 top-0 flex md:hidden items-center justify-evenly px-4 py-2 w-full h-[67px] bg-[#2D3639]">
+        <div onClick={() => setShowPreview(false)} className="w-10 h-10 bg-[#424A4D] rounded-full cursor-pointer shrink-0 text-white text-3xl flex justify-center items-center">
+          <MdKeyboardArrowLeft />
+        </div>
+
+        <button className="w-full h-full cursor-pointer bg-[#5F4DC7] rounded text-white text-lg font-bold ml-5 mr-4">
+          Download PDF
+        </button>
+
+        <div className="w-16 h-full cursor-pointer bg-[#5F4DC7] text-2xl text-white flex justify-center rounded">
+          ...
+        </div>
+      </div>
+      {/* End header for mobile state for print pdf */}
+
       <div
         onClick={(event) => event.stopPropagation()}
         className="relative w-[95%] md:w-[70%] min-h-full bg-white p-4 md:p-16"
@@ -244,7 +260,7 @@ const ResumePreview = ({ setShowPreview, formData, sections }) => {
         {/* the close button */}
         <div
           onClick={() => setShowPreview(false)}
-          className="group absolute right-[-15px] top-[-15px] w-10 h-10 bg-[#8C7CDB] flex justify-center items-center text-white text-2xl rounded-full cursor-pointer"
+          className="group absolute right-[-15px] top-[-15px] w-10 h-10 bg-[#8C7CDB] hidden md:flex justify-center items-center text-white text-2xl rounded-full cursor-pointer"
         >
           <IoMdClose />
 
