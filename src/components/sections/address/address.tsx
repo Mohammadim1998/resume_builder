@@ -9,9 +9,10 @@ import { BsArrowsAngleContract } from "react-icons/bs";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useMobile } from "../../../context/mobileContext";
 
-const Address = () => {
-  const [closeHeaderInMobileState, setCloseHeaderInMobileState] = useState(false);
- const {isMobile} = useMobile();
+const Address = ({ value, onChange }) => {
+  const [closeHeaderInMobileState, setCloseHeaderInMobileState] =
+    useState(false);
+  const { isMobile } = useMobile();
 
   return (
     <>
@@ -21,6 +22,8 @@ const Address = () => {
             <form>
               <div className="w-full h-10">
                 <input
+                  value={value.name}
+                  onChange={(event) => onChange("name", event.target.value)}
                   type="text"
                   className="w-full h-full border-none outline-none bg-transparent placeholder:text-[#7F7F7F] text-4xl font-semibold"
                   placeholder="YOUR NAME"
@@ -28,6 +31,8 @@ const Address = () => {
               </div>
               <div className="w-full h-10">
                 <input
+                  value={value.apply}
+                  onChange={(event) => onChange("apply", event.target.value)}
                   type="text"
                   className="w-full h-full border-none outline-none bg-transparent placeholder:text-[#94CAFF] text-lg font-medium text-[#1E90FF]"
                   placeholder="The role you are applying for?"
@@ -41,6 +46,10 @@ const Address = () => {
                   </div>
                   <div className="">
                     <input
+                      value={value.phone}
+                      onChange={(event) =>
+                        onChange("phone", event.target.value)
+                      }
                       type="text"
                       className="w-full h-full border-none outline-none bg-transparent placeholder:text-[#7F7F7F] text-sm font-medium"
                       placeholder="Phone"
@@ -53,6 +62,10 @@ const Address = () => {
                   </div>
                   <div className="">
                     <input
+                      value={value.email}
+                      onChange={(event) =>
+                        onChange("email", event.target.value)
+                      }
                       type="text"
                       className="w-full h-full border-none outline-none bg-transparent placeholder:text-[#7F7F7F] text-sm font-medium"
                       placeholder="Email"
@@ -65,6 +78,10 @@ const Address = () => {
                   </div>
                   <div className="">
                     <input
+                      value={value.linkedin}
+                      onChange={(event) =>
+                        onChange("linkedin", event.target.value)
+                      }
                       type="text"
                       className="w-full h-full border-none outline-none bg-transparent placeholder:text-[#7F7F7F] text-sm font-medium"
                       placeholder="LinkedIn/Portfolio"
@@ -77,6 +94,10 @@ const Address = () => {
                   </div>
                   <div className="">
                     <input
+                      value={value.location}
+                      onChange={(event) =>
+                        onChange("location", event.target.value)
+                      }
                       type="text"
                       className="w-full h-full border-none outline-none bg-transparent placeholder:text-[#7F7F7F] text-sm font-medium"
                       placeholder="Location"
@@ -104,7 +125,11 @@ const Address = () => {
           {/* End user's profile */}
         </div>
       ) : (
-        <div className={`w-full ${closeHeaderInMobileState ? "h-44 overflow-y-hidden" : "min-h-screen"} bg-white rounded-2xl p-4`}>
+        <div
+          className={`w-full ${
+            closeHeaderInMobileState ? "h-44 overflow-y-hidden" : "min-h-screen"
+          } bg-white rounded-2xl p-4`}
+        >
           <div className="flex justify-between items-center mb-6">
             <span className="font-semibold">Header</span>
 
@@ -119,7 +144,10 @@ const Address = () => {
               <div className="flex justify-between items-center">
                 <span className="font-normal">Personal details</span>
 
-                <div onClick={() => setCloseHeaderInMobileState((prev) => !prev)} className="text-xl cursor-pointer">
+                <div
+                  onClick={() => setCloseHeaderInMobileState((prev) => !prev)}
+                  className="text-xl cursor-pointer"
+                >
                   <BsArrowsAngleContract />
                 </div>
               </div>
@@ -142,6 +170,10 @@ const Address = () => {
                   <span className="">Job Title</span>
                   <div className="w-full h-10 border-[1px] border-[#AFB4B5] rounded">
                     <input
+                      value={value.apply}
+                      onChange={(event) =>
+                        onChange("apply", event.target.value)
+                      }
                       type="text"
                       className="w-full h-full px-2 outline-none placeholder:text-[#AFBBCF] rounded"
                       placeholder="The role you are applying for?"
@@ -152,6 +184,8 @@ const Address = () => {
                   <span className="">Your Name *</span>
                   <div className="w-full h-10 border-[1px] border-[#AFB4B5] rounded">
                     <input
+                      value={value.name}
+                      onChange={(event) => onChange("name", event.target.value)}
                       type="text"
                       className="w-full h-full px-2 outline-none placeholder:text-[#AFBBCF] rounded"
                       placeholder="Your Name"
@@ -162,6 +196,10 @@ const Address = () => {
                   <span className="">Phone</span>
                   <div className="w-full h-10 border-[1px] border-[#AFB4B5] rounded">
                     <input
+                      value={value.phone}
+                      onChange={(event) =>
+                        onChange("phone", event.target.value)
+                      }
                       type="text"
                       className="w-full h-full px-2 outline-none placeholder:text-[#AFBBCF] rounded"
                       placeholder="Phone"
@@ -172,6 +210,10 @@ const Address = () => {
                   <span className="">Email</span>
                   <div className="w-full h-10 border-[1px] border-[#AFB4B5] rounded">
                     <input
+                      value={value.email}
+                      onChange={(event) =>
+                        onChange("email", event.target.value)
+                      }
                       type="text"
                       className="w-full h-full px-2 outline-none placeholder:text-[#AFBBCF] rounded"
                       placeholder="Email"
@@ -182,6 +224,10 @@ const Address = () => {
                   <span className="">Location</span>
                   <div className="w-full h-10 border-[1px] border-[#AFB4B5] rounded">
                     <input
+                      value={value.location}
+                      onChange={(event) =>
+                        onChange("location", event.target.value)
+                      }
                       type="text"
                       className="w-full h-full px-2 outline-none placeholder:text-[#AFBBCF] rounded"
                       placeholder="Location"
@@ -192,6 +238,10 @@ const Address = () => {
                   <span className="">LinkedIn/Portfolio</span>
                   <div className="w-full h-10 border-[1px] border-[#AFB4B5] rounded">
                     <input
+                      value={value.linkedin}
+                      onChange={(event) =>
+                        onChange("linkedin", event.target.value)
+                      }
                       type="text"
                       className="w-full h-full px-2 outline-none placeholder:text-[#AFBBCF] rounded"
                       placeholder="LinkedIn/Portfolio"

@@ -2,9 +2,7 @@ import { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 
 export default function RearrangePanel({ sections, onClose, onSave }) {
-  console.log("Sections: ",sections);
   
-  // تقسیم اولیه به دو ستون
   const [columns, setColumns] = useState({
     left: sections.slice(0, Math.ceil(sections.length / 2)),
     right: sections.slice(Math.ceil(sections.length / 2)),
@@ -17,7 +15,6 @@ export default function RearrangePanel({ sections, onClose, onSave }) {
     const sourceCol = source.droppableId;
     const destCol = destination.droppableId;
 
-    // کپی از ستون‌ها
     const newColumns = { ...columns };
     const [moved] = newColumns[sourceCol].splice(source.index, 1);
     newColumns[destCol].splice(destination.index, 0, moved);

@@ -9,8 +9,10 @@ import Projects from "../sections/projects/projects";
 import Experience from "../sections/experience/experienc";
 import Languages from "../sections/languages/languages";
 import RearrangePanel from "../reArrangePanel/reArrangePanel";
+import ResumePreview from "../resumePreview/resumePreview";
 
 const sectionComponents = {
+  // address: Address,
   summary: Summary,
   education: Education,
   projects: Projects,
@@ -20,6 +22,7 @@ const sectionComponents = {
 };
 
 const initialSections = [
+  // { id: "Address", title: "Address", component: "address" },
   { id: "summary", title: "Summary", component: "summary" },
   { id: "experience", title: "Experience", component: "experience" },
   { id: "education", title: "Education", component: "education" },
@@ -32,11 +35,30 @@ const ResumeEditor = () => {
   /* This place for reArrange */
   const [sections, setSections] = useState(initialSections);
   const [showRearrange, setShowRearrange] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
 
   const updateOrder = (newOrder) => setSections(newOrder);
   /* End place for reArrange */
 
+  useEffect(() => {
+    if (showPreview) {
+      document.body.style.overflow = "hidden";
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [showPreview]);
+
   const [formData, setFormData] = useState({
+    address: {
+      name: "",
+      apply: "",
+      phone: "",
+      email: "",
+      linkedin: "",
+      location: "",
+    },
     summary: { title: "", description: "" },
     education: { title: "", degree: "", school: "", date: "" },
     projects: {
@@ -62,6 +84,12 @@ const ResumeEditor = () => {
 
   console.log("one: ", formData);
 
+  const handleAddressChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      address: { ...prev.address, [field]: value },
+    }));
+  };
   const handleSummaryChange = (field, value) => {
     setFormData((prev) => ({
       ...prev,
@@ -105,6 +133,7 @@ const ResumeEditor = () => {
     if (!Component) return null;
 
     const handlers = {
+      // address: handleAddressChange,
       summary: handleSummaryChange,
       education: handleEducationChange,
       projects: handleProjectsChange,
@@ -130,11 +159,15 @@ const ResumeEditor = () => {
 
       <div className="relative w-full md:w-[70%] shadow-[0px_0px_5px_1px_rgba(0,0,0,0.23)] md:p-12 rounded-2xl">
         {/* THIS BOX IS FOR WHEM WE CLICK ON THIS BOX THEN RESUME-PREVEIW will OPEN */}
-        <div className="absolute top-0 -right-14 text-2xl w-10 h-10 bg-white cursor-pointer hidden md:flex justify-center items-center rounded">
+        <div
+          onClick={() => setShowPreview(true)}
+          className="absolute top-0 -right-14 text-2xl w-10 h-10 bg-white cursor-pointer hidden md:flex justify-center items-center rounded"
+        >
           <IoEyeOutline />
         </div>
 
-        <Address />
+        {/* <Address /> */}
+        <Address value={formData.address} onChange={handleAddressChange} />
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 gap-y-2 mt-4">
           {/* <Summary value={formData.summary} onChange={handleSummaryChange} />
           <Education
@@ -166,6 +199,14 @@ const ResumeEditor = () => {
             updateOrder(newOrder);
             setShowRearrange(false);
           }}
+        />
+      )}
+
+      {showPreview && (
+        <ResumePreview
+          setShowPreview={setShowPreview}
+          formData={formData}
+          sections={sections}
         />
       )}
     </section>
