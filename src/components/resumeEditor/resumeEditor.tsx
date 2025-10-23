@@ -13,9 +13,10 @@ import ResumePreview from "../resumePreview/resumePreview";
 import { IoMdClose } from "react-icons/io";
 import { PiArrowArcLeftBold, PiArrowArcRightBold } from "react-icons/pi";
 import { FiEdit } from "react-icons/fi";
+import { useMobile } from "../../context/mobileContext";
+import AddSection from "../addSection/addSection";
 
 const sectionComponents = {
-  // address: Address,
   summary: Summary,
   education: Education,
   projects: Projects,
@@ -24,22 +25,22 @@ const sectionComponents = {
   languages: Languages,
 };
 
-const initialSections = [
-  // { id: "Address", title: "Address", component: "address" },
-  { id: "summary", title: "Summary", component: "summary" },
-  { id: "experience", title: "Experience", component: "experience" },
-  { id: "education", title: "Education", component: "education" },
-  { id: "projects", title: "Projects", component: "projects" },
-  { id: "achievement", title: "Achievements", component: "achievement" },
-  { id: "languages", title: "Languages", component: "languages" },
-];
-
 const ResumeEditor = () => {
   /* This place for reArrange */
+  const {
+    formData,
+    setFormData,
+    handleDownloadPDF,
+    resumeRef,
+    initialSections,
+    removeSection,
+  } = useMobile();
   const [sections, setSections] = useState(initialSections);
   const [showRearrange, setShowRearrange] = useState(false);
+  const [showAddSection, setShowAddSection] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [showSidebar, setshowSidebar] = useState(false);
+  
 
   const updateOrder = (newOrder) => setSections(newOrder);
   /* End place for reArrange */
@@ -53,40 +54,6 @@ const ResumeEditor = () => {
       document.body.style.overflow = "unset";
     };
   }, [showPreview]);
-
-  const [formData, setFormData] = useState({
-    address: {
-      name: "",
-      apply: "",
-      phone: "",
-      email: "",
-      linkedin: "",
-      location: "",
-    },
-    summary: { title: "", description: "" },
-    education: { title: "", degree: "", school: "", date: "" },
-    projects: {
-      title: "",
-      name: "",
-      date: "",
-      location: "",
-      shortDescription: "",
-      outcome: "",
-    },
-    achievement: { title: "", name: "", description: "" },
-    experience: {
-      title: "",
-      subTitle: "",
-      company: "",
-      date: "",
-      location: "",
-      shortDescription: "",
-      longDescription: "",
-    },
-    languages: { title: "", lang: "", level: "" },
-  });
-
-  console.log("one: ", formData);
 
   const handleAddressChange = (field, value) => {
     setFormData((prev) => ({
@@ -137,7 +104,6 @@ const ResumeEditor = () => {
     if (!Component) return null;
 
     const handlers = {
-      // address: handleAddressChange,
       summary: handleSummaryChange,
       education: handleEducationChange,
       projects: handleProjectsChange,
@@ -151,6 +117,7 @@ const ResumeEditor = () => {
         key={section.id}
         value={formData[section.component]}
         onChange={handlers[section.component]}
+        removeSection={removeSection}
       />
     );
   };
@@ -162,7 +129,11 @@ const ResumeEditor = () => {
           showSidebar ? "flex" : "hidden"
         } lg:flex`}
       >
-        <Sidebar setShowRearrange={setShowRearrange} />
+        <Sidebar
+          setShowRearrange={setShowRearrange}
+          setShowAddSection={setShowAddSection}
+          handleDownloadPDF={handleDownloadPDF}
+        />
       </aside>
 
       {!showSidebar ? (
@@ -206,12 +177,16 @@ const ResumeEditor = () => {
           }}
         />
       )}
+      {showAddSection && (
+        <AddSection sections={sections} setShowAddSection={setShowAddSection} />
+      )}
 
       {showPreview && (
         <ResumePreview
           setShowPreview={setShowPreview}
           formData={formData}
           sections={sections}
+          resumeRef={resumeRef}
         />
       )}
 

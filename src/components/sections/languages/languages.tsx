@@ -9,15 +9,16 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaCalendarAlt } from "react-icons/fa";
 import { IoDiamondOutline } from "react-icons/io5";
+import { FaRegTrashAlt } from "react-icons/fa";
 
-const Languages = ({ value, onChange }) => {
+const Languages = ({ value, onChange ,removeSection}) => {
   const { isMobile } = useMobile();
   const [openEdit, setOpenEdit] = useState(false);
 
   return (
     <>
       {!isMobile ? (
-        <div className="w-full h-fit">
+        <div className="relative group w-full h-fit">
           <input
             value={value.title}
             onChange={(event) => onChange("title", event.target.value)}
@@ -40,6 +41,7 @@ const Languages = ({ value, onChange }) => {
             className="w-full text-xs h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
             placeholder="Proficient"
           />
+           <div className="absolute -top-4 right-0 w-8 h-8 cursor-pointer hidden group-hover:flex justify-center items-center rounded bg-white border-[1px] border-gray-600 border-opacity-40" onClick={() => removeSection("languages")}><FaRegTrashAlt /></div>
         </div>
       ) : (
         <>

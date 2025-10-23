@@ -9,9 +9,13 @@ import { IoMdShare } from "react-icons/io";
 import { FaCrown } from "react-icons/fa";
 import { PiArrowArcRightBold } from "react-icons/pi";
 import { PiArrowArcLeftBold } from "react-icons/pi";
+import { useMobile } from "../../context/mobileContext";
 
-
-const Sidebar = ({setShowRearrange}) => {
+const Sidebar = ({
+  setShowRearrange,
+  setShowAddSection,
+  handleDownloadPDF,
+}) => {
   return (
     <div className="w-full h-full flex flex-col justify-evenly">
       <div className="flex items-center justify-evenly gap-x-2">
@@ -24,7 +28,10 @@ const Sidebar = ({setShowRearrange}) => {
         </div>
       </div>
       <div className="w-full h-[1px] bg-[#E4E4E4]"></div>
-      <div className="group flex items-center gap-x-0 pl-4 transition-colors duration-300 text-[#676F72] hover:text-purple-400 cursor-pointer">
+      <div
+        onClick={() => setShowAddSection(true)}
+        className="group flex items-center gap-x-0 pl-4 transition-colors duration-300 text-[#676F72] hover:text-purple-400 cursor-pointer"
+      >
         <div className="w-7 h-7 group-hover:bg-purple-50 text-xl flex justify-center items-center rounded-full">
           <FiEdit />
         </div>
@@ -34,7 +41,12 @@ const Sidebar = ({setShowRearrange}) => {
         <div className="w-7 h-7 group-hover:bg-purple-50 text-xl flex justify-center items-center rounded-full">
           <LuArrowUpDown />
         </div>
-        <span onClick={() => setShowRearrange(true)} className="text-sm font-medium">Rearrange</span>
+        <span
+          onClick={() => setShowRearrange(true)}
+          className="text-sm font-medium"
+        >
+          Rearrange
+        </span>
       </div>
       <div className="group flex items-center gap-x-2 transition-colors duration-300 text-[#676F72] hover:text-purple-400 cursor-pointer pl-4">
         <div className="w-7 h-7 group-hover:bg-purple-50 text-xl flex justify-center items-center rounded-full">
@@ -70,7 +82,12 @@ const Sidebar = ({setShowRearrange}) => {
         <div className="w-7 h-7 group-hover:bg-purple-50 text-xl flex justify-center items-center rounded-full">
           <MdOutlineFileDownload />
         </div>
-        <span className="text-sm font-medium">Download</span>
+        <span
+          onClick={() => handleDownloadPDF()}
+          className="text-sm font-medium"
+        >
+          Download
+        </span>
       </div>
       <div className="group flex items-center gap-x-2 transition-colors duration-300 text-[#676F72] hover:text-purple-400 cursor-pointer pl-4">
         <div className="w-7 h-7 group-hover:bg-purple-50 text-xl flex justify-center items-center rounded-full">

@@ -7,9 +7,9 @@ import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FaCalendarAlt } from "react-icons/fa";
+import { FaCalendarAlt, FaRegTrashAlt } from "react-icons/fa";
 
-const Education = ({ value, onChange }) => {
+const Education = ({ value, onChange,removeSection }) => {
   const { isMobile } = useMobile();
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -19,7 +19,7 @@ const Education = ({ value, onChange }) => {
   return (
     <>
       {!isMobile ? (
-        <div className="w-full h-fit">
+        <div className="relative group w-full h-fit">
           <input
             value={value.title}
             onChange={(event) => onChange("title", event.target.value)}
@@ -58,6 +58,7 @@ const Education = ({ value, onChange }) => {
               calendarClassName="custom-calendar"
             />
           </div>
+           <div className="absolute -top-4 right-0 w-8 h-8 cursor-pointer hidden group-hover:flex justify-center items-center rounded bg-white border-[1px] border-gray-600 border-opacity-40" onClick={() => removeSection("education")}><FaRegTrashAlt /></div>
         </div>
       ) : (
         <>

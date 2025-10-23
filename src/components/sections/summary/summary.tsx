@@ -5,15 +5,16 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { IoIosCheckmark } from "react-icons/io";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import React, { useState } from "react";
+import { FaRegTrashAlt } from "react-icons/fa";
 
-const Summary = ({ value, onChange }) => {
+const Summary = ({ value, onChange, removeSection }) => {
   const { isMobile } = useMobile();
   const [openEdit, setOpenEdit] = useState(false);
 
   return (
     <>
       {!isMobile ? (
-        <div className="w-full h-fit">
+        <div className="relative group w-full h-fit">
           <input
             value={value.title}
             onChange={(event) => onChange("title", event.target.value)}
@@ -27,6 +28,13 @@ const Summary = ({ value, onChange }) => {
             className="w-full text-sm mt-1 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
             placeholder="Briefly explain why you're a great fit for the role - use the AI assistant to tailor this summary for each job posting."
           ></textarea>
+
+          <div
+            className="absolute -top-4 right-0 w-8 h-8 cursor-pointer hidden group-hover:flex justify-center items-center rounded bg-white border-[1px] border-gray-600 border-opacity-40"
+            onClick={() => removeSection("summary")}
+          >
+            <FaRegTrashAlt />
+          </div>
         </div>
       ) : (
         <>

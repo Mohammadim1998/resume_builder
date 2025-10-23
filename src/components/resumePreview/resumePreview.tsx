@@ -4,18 +4,24 @@ import { FaPhone } from "react-icons/fa6";
 import { MdFolderShared } from "react-icons/md";
 import { IoLocationSharp } from "react-icons/io5";
 import { MdKeyboardArrowLeft } from "react-icons/md";
+import { useRef } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import { useMobile } from "../../context/mobileContext";
 
-const ResumePreview = ({ setShowPreview, formData, sections }) => {
+const ResumePreview = ({ setShowPreview, formData, sections,resumeRef }) => {
+  /* conver everything to string*/
   const formatValue = (value) => {
     if (value === null || value === undefined) return "";
     if (value instanceof Date) {
-      return value.toLocaleDateString(); // تبدیل تاریخ به string
+      return value.toLocaleDateString();
     }
     if (typeof value === "object") {
-      return JSON.stringify(value); // تبدیل object به string
+      return JSON.stringify(value);
     }
-    return String(value); // تبدیل سایر انواع به string
+    return String(value);
   };
+  /* End conver everything to string*/
 
   const renderSection = (section) => {
     const sectionData = formData[section.component];
@@ -153,18 +159,28 @@ const ResumePreview = ({ setShowPreview, formData, sections }) => {
         return null;
     }
   };
+
+ const {handleDownloadPDF} = useMobile();
+
+  /* End Download PDF */
   return (
     <div
       onClick={() => setShowPreview(false)}
-      className="z-50 fixed w-full h-full pt-[600px] md:pt-96 flex justify-center items-center top-0 right-0 bg-opacity-70 bg-[#59566A] overflow-y-scroll"
+      className="z-50 fixed w-full h-full pt-[400px] md:pt-96 flex justify-center items-center top-0 right-0 bg-opacity-70 bg-[#59566A] overflow-y-scroll"
     >
       {/* header for mobile state for print pdf */}
       <div className="fixed left-0 right-0 top-0 flex md:hidden items-center justify-evenly px-4 py-2 w-full h-[67px] bg-[#2D3639]">
-        <div onClick={() => setShowPreview(false)} className="w-10 h-10 bg-[#424A4D] rounded-full cursor-pointer shrink-0 text-white text-3xl flex justify-center items-center">
+        <div
+          onClick={() => setShowPreview(false)}
+          className="w-10 h-10 bg-[#424A4D] rounded-full cursor-pointer shrink-0 text-white text-3xl flex justify-center items-center"
+        >
           <MdKeyboardArrowLeft />
         </div>
 
-        <button className="w-full h-full cursor-pointer bg-[#5F4DC7] rounded text-white text-lg font-bold ml-5 mr-4">
+        <button
+          onClick={handleDownloadPDF}
+          className="w-full h-full cursor-pointer bg-[#5F4DC7] rounded text-white text-lg font-bold ml-5 mr-4"
+        >
           Download PDF
         </button>
 
@@ -175,6 +191,7 @@ const ResumePreview = ({ setShowPreview, formData, sections }) => {
       {/* End header for mobile state for print pdf */}
 
       <div
+        ref={resumeRef}
         onClick={(event) => event.stopPropagation()}
         className="relative w-[95%] md:w-[70%] min-h-full bg-white p-4 md:p-16"
       >
