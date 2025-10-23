@@ -153,6 +153,7 @@ export const MobileProvider = ({ children }) => {
         resumeRef,
         initialSections,
         removeSection,
+        setInitialSections,
       }}
     >
       {children}
