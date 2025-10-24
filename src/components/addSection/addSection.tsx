@@ -12,7 +12,7 @@ const defaultSections = [
   { id: "achievement", title: "Achievements", component: "achievement" },
   { id: "languages", title: "Languages", component: "languages" },
 ];
-const AddSection = ({ sections, setShowAddSection }) => {
+const AddSection = ({ setShowAddSection }) => {
   const { initialSections, setInitialSections } = useMobile();
 
   const addToResumeEdit = (findSection) => {
@@ -38,14 +38,14 @@ const AddSection = ({ sections, setShowAddSection }) => {
           onClick={() => setShowAddSection(false)}
           className="absolute w-6 h-6 hover:rotate-90 transition-all duration-300 flex justify-center items-center text-2xl cursor-pointer top-3 right-3 text-[#60696C]"
         ><IoMdClose /></div>
-        <div className="w-full flex flex-col justify-center items-center gap-y-2">
+        <div className="w-full select-none flex flex-col justify-center items-center gap-y-2">
           <h1 className="text-2xl font-semibold">Add a new section</h1>
           <h3 className="text-base font-normal">
             Click on a section to add it to your resume
           </h3>
         </div>
 
-        <div className="w-full h-full grid grid-cols-2 lg:grid-cols-3 gap-4 mt-6 py-6 overflow-y-scroll">
+        <div className="w-full h-full select-none grid grid-cols-2 lg:grid-cols-3 gap-4 mt-6 py-6 overflow-y-scroll">
           {/* Box */}
           <div
             onClick={() => addToResumeEdit(defaultSections[0])}

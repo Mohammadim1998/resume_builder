@@ -15,6 +15,7 @@ import { PiArrowArcLeftBold, PiArrowArcRightBold } from "react-icons/pi";
 import { FiEdit } from "react-icons/fi";
 import { useMobile } from "../../context/mobileContext";
 import AddSection from "../addSection/addSection";
+import AddSectionMobile from "../addSection/addSectionMobile";
 
 const sectionComponents = {
   summary: Summary,
@@ -38,15 +39,16 @@ const ResumeEditor = () => {
   const [sections, setSections] = useState(initialSections);
   const [showRearrange, setShowRearrange] = useState(false);
   const [showAddSection, setShowAddSection] = useState(false);
+  const [showAddSectionMobileState, setShowAddSectionMobileState] =
+    useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [showSidebar, setshowSidebar] = useState(false);
-  
 
   const updateOrder = (newOrder) => setSections(newOrder);
   /* End place for reArrange */
 
   useEffect(() => {
-    if (showPreview) {
+    if (showPreview || setShowAddSectionMobileState) {
       document.body.style.overflow = "hidden";
     }
 
@@ -177,9 +179,15 @@ const ResumeEditor = () => {
           }}
         />
       )}
-      {showAddSection && (
-        <AddSection sections={sections} setShowAddSection={setShowAddSection} />
+      {/* Add Section in tablet and wide screen */}
+      {showAddSection && <AddSection setShowAddSection={setShowAddSection} />}
+      {/* End Add Section in tablet and wide screen */}
+
+      {/* Add Section in mobile screen */}
+      {showAddSectionMobileState && (
+        <AddSectionMobile setShowAddSectionMobileState={setShowAddSectionMobileState} setShowRearrange={setShowRearrange} setShowPreview={setShowPreview} />
       )}
+      {/* End Add Section in mobile screen */}
 
       {showPreview && (
         <ResumePreview
@@ -191,7 +199,7 @@ const ResumeEditor = () => {
       )}
 
       {/* This is menu in mobile state */}
-      <div className="z-40 fixed left-0 right-0 bottom-0 w-full flex justify-between md:hidden h-16 bg-white px-4 py-2 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]">
+      <div className="z-30 fixed left-0 right-0 bottom-0 w-full flex justify-between md:hidden h-16 bg-white px-4 py-2 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]">
         <div className="flex items-center justify-evenly gap-x-2">
           <div className="flex flex-col items-center text-[#AFB4B5]">
             <div className="w-7 h-7 text-xl flex justify-center items-center rounded-full cursor-not-allowed">
@@ -209,7 +217,7 @@ const ResumeEditor = () => {
 
         <div className="w-[1px] h-full bg-[#AFB4B5]"></div>
 
-        <div className="flex flex-col items-center text-[#AFB4B5]">
+        <div onClick={() => setShowAddSectionMobileState(true)} className="flex flex-col items-center cursor-pointer text-[#AFB4B5]">
           <div className="group-hover:bg-purple-50 text-[#384347] text-2xl flex justify-center items-center rounded-full">
             <FiEdit />
           </div>

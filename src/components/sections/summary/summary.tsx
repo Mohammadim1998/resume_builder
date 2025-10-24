@@ -40,7 +40,7 @@ const Summary = ({ value, onChange, removeSection }) => {
         <>
           <div className="w-full bg-white mt-4 rounded-2xl p-4">
             <div className="flex justify-between items-center mb-6">
-              <span className="font-semibold select-none">Header</span>
+              <span className="font-semibold select-none">Summary</span>
 
               <div className="text-xl cursor-pointer">
                 <GoPencil />

@@ -4,9 +4,6 @@ import { FaPhone } from "react-icons/fa6";
 import { MdFolderShared } from "react-icons/md";
 import { IoLocationSharp } from "react-icons/io5";
 import { MdKeyboardArrowLeft } from "react-icons/md";
-import { useRef } from "react";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 import { useMobile } from "../../context/mobileContext";
 
 const ResumePreview = ({ setShowPreview, formData, sections,resumeRef }) => {
@@ -166,10 +163,10 @@ const ResumePreview = ({ setShowPreview, formData, sections,resumeRef }) => {
   return (
     <div
       onClick={() => setShowPreview(false)}
-      className="z-50 fixed w-full h-full pt-[400px] md:pt-96 flex justify-center items-center top-0 right-0 bg-opacity-70 bg-[#59566A] overflow-y-scroll"
+      className="z-50 fixed w-full h-full flex justify-center items-center top-0 right-0 bg-opacity-90 bg-[#59566A] overflow-y-scroll"
     >
       {/* header for mobile state for print pdf */}
-      <div className="fixed left-0 right-0 top-0 flex md:hidden items-center justify-evenly px-4 py-2 w-full h-[67px] bg-[#2D3639]">
+      <div className="z-30 fixed left-0 right-0 top-0 flex md:hidden items-center justify-evenly px-4 py-2 w-full h-[67px] bg-[#2D3639]">
         <div
           onClick={() => setShowPreview(false)}
           className="w-10 h-10 bg-[#424A4D] rounded-full cursor-pointer shrink-0 text-white text-3xl flex justify-center items-center"
@@ -193,7 +190,7 @@ const ResumePreview = ({ setShowPreview, formData, sections,resumeRef }) => {
       <div
         ref={resumeRef}
         onClick={(event) => event.stopPropagation()}
-        className="relative w-[95%] md:w-[70%] min-h-full bg-white p-4 md:p-16"
+        className="absolute top-20 md:top-8 w-[90%] md:w-[90%] lg:w-[80%] bg-white p-4 md:p-16 mx-auto max-md:rounded"
       >
         <div className="w-full flex items-center justify-between mb-6">
           {/* Body */}

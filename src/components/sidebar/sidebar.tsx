@@ -19,11 +19,11 @@ const Sidebar = ({
   return (
     <div className="w-full h-full flex flex-col justify-evenly">
       <div className="flex items-center justify-evenly gap-x-2">
-        <div className="w-7 h-7 hover:bg-purple-50 text-xl flex justify-center items-center rounded-full cursor-pointer">
+        <div className="w-7 h-7 text-[#676F72] hover:bg-purple-50 text-xl flex justify-center items-center rounded-full cursor-pointer">
           <PiArrowArcLeftBold />
         </div>
         <div className="w-[1px] h-6 bg-[#E4E4E4]"></div>
-        <div className="w-7 h-7 hover:bg-purple-50 text-xl flex justify-center items-center rounded-full cursor-pointer">
+        <div className="w-7 h-7 text-[#676F72] hover:bg-purple-50 text-xl flex justify-center items-center rounded-full cursor-pointer">
           <PiArrowArcRightBold />
         </div>
       </div>
