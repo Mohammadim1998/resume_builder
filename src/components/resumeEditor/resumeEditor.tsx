@@ -48,14 +48,16 @@ const ResumeEditor = () => {
   /* End place for reArrange */
 
   useEffect(() => {
-    if (showPreview || setShowAddSectionMobileState) {
+    const originalOverflow = document.body.style.overflow;
+
+    if (showPreview || showAddSectionMobileState) {
       document.body.style.overflow = "hidden";
     }
 
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = originalOverflow;
     };
-  }, [showPreview]);
+  }, [showPreview, showAddSectionMobileState]);
 
   const handleAddressChange = (field, value) => {
     setFormData((prev) => ({
@@ -185,7 +187,11 @@ const ResumeEditor = () => {
 
       {/* Add Section in mobile screen */}
       {showAddSectionMobileState && (
-        <AddSectionMobile setShowAddSectionMobileState={setShowAddSectionMobileState} setShowRearrange={setShowRearrange} setShowPreview={setShowPreview} />
+        <AddSectionMobile
+          setShowAddSectionMobileState={setShowAddSectionMobileState}
+          setShowRearrange={setShowRearrange}
+          setShowPreview={setShowPreview}
+        />
       )}
       {/* End Add Section in mobile screen */}
 
@@ -217,7 +223,10 @@ const ResumeEditor = () => {
 
         <div className="w-[1px] h-full bg-[#AFB4B5]"></div>
 
-        <div onClick={() => setShowAddSectionMobileState(true)} className="flex flex-col items-center cursor-pointer text-[#AFB4B5]">
+        <div
+          onClick={() => setShowAddSectionMobileState(true)}
+          className="flex flex-col items-center cursor-pointer text-[#AFB4B5]"
+        >
           <div className="group-hover:bg-purple-50 text-[#384347] text-2xl flex justify-center items-center rounded-full">
             <FiEdit />
           </div>
