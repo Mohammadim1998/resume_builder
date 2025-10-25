@@ -13,6 +13,7 @@ const defaultSections = [
   { id: "experience", title: "Experience", component: "experience" },
   { id: "achievement", title: "Achievements", component: "achievement" },
   { id: "strengths", title: "Strengths", component: "strengths" },
+  { id: "socialMedia", title: "SocialMedia", component: "socialMedia" },
 ];
 const AddSection = ({ setShowAddSection }) => {
   const { initialSections, setInitialSections } = useMobile();
@@ -152,7 +153,7 @@ const AddSection = ({ setShowAddSection }) => {
             <span>Languages</span>
           </div>
           {/* End Box */}
-           {/* Box */}
+          {/* Box */}
           <div
             onClick={() => addToResumeEdit(defaultSections[3])}
             className="h-48 flex flex-col justify-center items-center gap-y-1"
@@ -325,7 +326,7 @@ const AddSection = ({ setShowAddSection }) => {
           {/* End Box */}
           {/* Box */}
           <div
-            onClick={() => addToResumeEdit(defaultSections[0])}
+            onClick={() => addToResumeEdit(defaultSections[8])}
             className="h-48 flex flex-col justify-center items-center gap-y-1"
           >
             <div className="relative group w-full h-full cursor-pointer">
@@ -333,7 +334,7 @@ const AddSection = ({ setShowAddSection }) => {
               <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
                 <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
                   {initialSections.find(
-                    (section) => section.id === "findmeonline"
+                    (section) => section.id === "socialMedia"
                   )
                     ? "Remove section"
                     : "Add to resume"}

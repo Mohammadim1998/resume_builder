@@ -25,6 +25,7 @@ import { TiArrowSortedDown } from "react-icons/ti";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Footer from "../footer/footer";
 import Strengths from "../sections/strengths/strengths";
+import SocialMedia from "../sections/socialmedia/socialmedia";
 
 const sectionComponents = {
   summary: Summary,
@@ -35,6 +36,7 @@ const sectionComponents = {
   languages: Languages,
   skills: Skills,
   strengths: Strengths,
+  socialMedia: SocialMedia,
 };
 
 const ResumeEditor = () => {
@@ -125,6 +127,12 @@ const ResumeEditor = () => {
       strengths: { ...prev.strengths, [field]: value },
     }));
   };
+  const handleSocialMediaChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      socialMedia: { ...prev.socialMedia, [field]: value },
+    }));
+  };
 
   const renderSections = (section) => {
     const Component = sectionComponents[section.component];
@@ -139,6 +147,7 @@ const ResumeEditor = () => {
       languages: handleLanguagesChange,
       skills: handleSkillsChange,
       strengths: handleStrengthsChange,
+      socialMedia: handleSocialMediaChange,
     };
 
     return (

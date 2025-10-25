@@ -183,6 +183,20 @@ const ResumePreview = ({ setShowPreview, formData, sections,resumeRef }) => {
             </div>
           </div>
         );
+      case "socialMedia":
+        return (
+          <div key={section.id} className="mb-6">
+            <h2 className="text-xl font-bold text-gray-800 mb-2 border-b-4 border-black pb-1">
+              {sectionData.title || "SocialMedia"}
+            </h2>
+            <div className="space-y-1">
+              <p className="text-gray-600">
+                {sectionData.social || "SocialMedia"} -{" "}
+                {sectionData.identify || "identify"}
+              </p>
+            </div>
+          </div>
+        );
 
       default:
         return null;

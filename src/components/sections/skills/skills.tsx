@@ -35,14 +35,14 @@ const Skills = ({ value, onChange, removeSection }) => {
               onChange={(event) => onChange("skill1", event.target.value)}
               type="text"
               className="w-16 text-md h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-              placeholder="Skill1"
+              placeholder="Skill-1"
             />
             <input
               value={value.skill2}
               onChange={(event) => onChange("skill2", event.target.value)}
               type="text"
               className="w-16 text-md h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-              placeholder="skill2"
+              placeholder="Skill-2"
             />
           </div>
           <div
