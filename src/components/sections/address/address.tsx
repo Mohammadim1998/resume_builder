@@ -44,14 +44,14 @@ const Address = ({ value, onChange }) => {
                   <div className="w-3 h-3 flex justify-center items-center text-[#1E90FF]">
                     <FaPhone />
                   </div>
-                  <div className="">
+                  <div className={`${value.phone ? 'w-auto' : 'w-[60px]'}`}>
                     <input
                       value={value.phone}
                       onChange={(event) =>
                         onChange("phone", event.target.value)
                       }
                       type="text"
-                      className="w-full h-full border-none outline-none bg-transparent placeholder:text-[#7F7F7F] text-sm font-medium"
+                      className=" h-full border-none outline-none bg-transparent placeholder:text-[#7F7F7F] text-sm font-medium"
                       placeholder="Phone"
                     />
                   </div>
@@ -60,7 +60,7 @@ const Address = ({ value, onChange }) => {
                   <div className="w-3 h-3 flex justify-center items-center text-[#1E90FF]">
                     @
                   </div>
-                  <div className="">
+                  <div className={`${value.email ? 'w-auto' : 'w-[60px]'}`}>
                     <input
                       value={value.email}
                       onChange={(event) =>
@@ -76,7 +76,7 @@ const Address = ({ value, onChange }) => {
                   <div className="w-3 h-3 flex justify-center items-center text-[#1E90FF]">
                     <MdFolderShared />
                   </div>
-                  <div className="">
+                  <div className={`${value.linkedin ? 'w-auto' : 'w-[130px]'}`}>
                     <input
                       value={value.linkedin}
                       onChange={(event) =>
@@ -92,7 +92,7 @@ const Address = ({ value, onChange }) => {
                   <div className="w-3 h-3 flex justify-center items-center text-[#1E90FF]">
                     <IoLocationSharp />
                   </div>
-                  <div className="">
+                  <div className={`${value.location ? 'w-auto' : 'w-[60px]'}`}>
                     <input
                       value={value.location}
                       onChange={(event) =>
