@@ -127,9 +127,12 @@ const ResumeEditor = () => {
   };
 
   return (
-    <section className="w-full flex justify-center gap-x-10 p-2 md:p-4 pb-24">
+    <section className="relative w-full flex justify-center gap-x-10 px-2 md:px-4 pt-16 pb-24">
+      {/* header */}
+      <div className="absolute top-0 left-0 right-0 w-full h-12 bg-white shadow-[0px_0px_5px_1px_rgba(0,0,0,0.23)]"></div>
+      {/* End header */}
       <aside
-        className={`z-30 lg:w-[12%] w-[17%] shrink-0 fixed max-lg:top-16 lg:top-4 max-lg:left-16 lg:left-4 h-[90%] bg-white rounded max-md:hidden ${
+        className={`z-30 lg:w-[12%] w-[17%] shrink-0 fixed max-lg:top-16 lg:top-16 max-lg:left-16 lg:left-4 h-[85%] bg-white rounded max-md:hidden ${
           showSidebar ? "flex" : "hidden"
         } lg:flex`}
       >
@@ -143,14 +146,14 @@ const ResumeEditor = () => {
       {!showSidebar ? (
         <div
           onClick={() => setshowSidebar(true)}
-          className={`w-8 h-8 fixed top-12 left-6 max-md:hidden lg:hidden rounded bg-white text-gray-800 flex justify-center items-center cursor-pointer`}
+          className={`w-8 h-8 fixed top-16 left-6 max-md:hidden lg:hidden rounded bg-white text-gray-800 flex justify-center items-center cursor-pointer`}
         >
           ...
         </div>
       ) : (
         <div
           onClick={() => setshowSidebar(false)}
-          className={`w-8 h-8 fixed top-12 left-6 max-md:hidden lg:hidden rounded bg-white text-gray-800 flex justify-center items-center cursor-pointer`}
+          className={`w-8 h-8 fixed top-16 left-6 max-md:hidden lg:hidden rounded bg-white text-gray-800 flex justify-center items-center cursor-pointer`}
         >
           <IoMdClose />
         </div>
@@ -160,7 +163,7 @@ const ResumeEditor = () => {
         {/* THIS BOX IS FOR WHEM WE CLICK ON THIS BOX THEN RESUME-PREVEIW will OPEN */}
         <div
           onClick={() => setShowPreview(true)}
-          className="fixed max-lg:top-24 lg:top-6 max-lg:left-6 lg:right-32 text-2xl w-8 h-8 bg-white cursor-pointer max-md:hidden hidden md:flex justify-center items-center rounded"
+          className="fixed max-lg:top-28 lg:top-16 max-lg:left-6 lg:right-32 text-2xl w-8 h-8 bg-white cursor-pointer max-md:hidden hidden md:flex justify-center items-center rounded"
         >
           <IoEyeOutline />
         </div>
