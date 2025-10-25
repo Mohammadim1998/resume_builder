@@ -22,7 +22,7 @@ const [openMobileEdit, setopenMobileEdit] = useState(false);
   return (
     <>
       {!isMobile ? (
-        <div className="relative group w-full h-fit">
+        <div className="relative group w-full h-fit select-none">
           <input
             value={value.title}
             onChange={(event) => onChange("title", event.target.value)}
@@ -100,7 +100,7 @@ const [openMobileEdit, setopenMobileEdit] = useState(false);
         </div>
       ) : (
         <>
-          <div className="w-full bg-white mt-4 rounded-2xl p-4">
+          <div className="w-full bg-white mt-4 rounded-2xl p-4 select-none">
             <div className="flex justify-between items-center mb-6">
               <span className="font-semibold select-none">Experience</span>
 
@@ -133,7 +133,7 @@ const [openMobileEdit, setopenMobileEdit] = useState(false);
           </div>
  {/* open modal edit in mobile state */}
           {openMobileEdit && (
-            <div className="w-full h-full fixed top-0 left-0 right-0 bottom-0 px-8 bg-opacity-90 bg-[#59566A] z-40">
+            <div className="w-full h-full fixed select-none top-0 left-0 right-0 bottom-0 px-8 bg-opacity-90 bg-[#59566A] z-40">
               <div className="pb-2 bg-white rounded-md absolute bottom-10 left-8 right-8">
                 <div className="w-full">
                   <div onClick={() => {

@@ -6,11 +6,12 @@ import { IoMdClose } from "react-icons/io";
 
 const defaultSections = [
   { id: "summary", title: "Summary", component: "summary" },
-  { id: "experience", title: "Experience", component: "experience" },
-  { id: "education", title: "Education", component: "education" },
   { id: "projects", title: "Projects", component: "projects" },
-  { id: "achievement", title: "Achievements", component: "achievement" },
   { id: "languages", title: "Languages", component: "languages" },
+  { id: "skill", title: "Skill", component: "Skill" },
+  { id: "education", title: "Education", component: "education" },
+  { id: "experience", title: "Experience", component: "experience" },
+  { id: "achievement", title: "Achievements", component: "achievement" },
 ];
 const AddSection = ({ setShowAddSection }) => {
   const { initialSections, setInitialSections } = useMobile();
@@ -32,12 +33,20 @@ const AddSection = ({ setShowAddSection }) => {
   };
 
   return (
-    <div onClick={() => setShowAddSection(false)} className="fixed inset-0 bg-black/70 flex justify-center z-50 pt-16">
-      <div onClick={(event) => event.stopPropagation()} className="relative bg-white w-[90%] max-w-5xl rounded-xl  p-6 pb-32">
+    <div
+      onClick={() => setShowAddSection(false)}
+      className="fixed inset-0 bg-black/70 flex justify-center z-50 pt-16"
+    >
+      <div
+        onClick={(event) => event.stopPropagation()}
+        className="relative bg-white w-[90%] max-w-5xl rounded-xl  p-6 pb-32"
+      >
         <div
           onClick={() => setShowAddSection(false)}
           className="absolute w-6 h-6 hover:rotate-90 transition-all duration-300 flex justify-center items-center text-2xl cursor-pointer top-3 right-3 text-[#60696C]"
-        ><IoMdClose /></div>
+        >
+          <IoMdClose />
+        </div>
         <div className="w-full select-none flex flex-col justify-center items-center gap-y-2">
           <h1 className="text-2xl font-semibold">Add a new section</h1>
           <h3 className="text-base font-normal">
@@ -77,7 +86,7 @@ const AddSection = ({ setShowAddSection }) => {
           {/* End Box */}
           {/* Box */}
           <div
-            onClick={() => addToResumeEdit(defaultSections[3])}
+            onClick={() => addToResumeEdit(defaultSections[1])}
             className="h-48 flex flex-col justify-center items-center gap-y-1"
           >
             <div className="relative group w-full h-full cursor-pointer">
@@ -111,7 +120,7 @@ const AddSection = ({ setShowAddSection }) => {
           {/* End Box */}
           {/* Box */}
           <div
-            onClick={() => addToResumeEdit(defaultSections[5])}
+            onClick={() => addToResumeEdit(defaultSections[2])}
             className="h-48 flex flex-col justify-center items-center gap-y-1"
           >
             <div className="relative group w-full h-full cursor-pointer">
@@ -144,55 +153,7 @@ const AddSection = ({ setShowAddSection }) => {
           {/* End Box */}
           {/* Box */}
           <div
-            onClick={() => addToResumeEdit(defaultSections[3])}
-            className="h-48 flex flex-col justify-center items-center gap-y-1"
-          >
-            <div className="relative group w-full h-full cursor-pointer">
-              <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
-              <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
-                <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
-                  {initialSections.find((section) => section.id === "skill")
-                    ? "Remove section"
-                    : "Add to resume"}
-                </button>
-              </div>
-              <div className="absolute top-0 left-0 right-0 bottom-0 p-4 bg-white flex flex-col w-full h-full">
-                <h1 className="text-xs font-semibold">SKILLS</h1>
-                <div className="w-full h-[2px] bg-black mb-1"></div>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 justify-between items-center gap-2 border-b-[1px] border-b-gray-40 border-dotted pb-2">
-                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
-                    ReactJs
-                  </span>
-                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
-                    MongoDB
-                  </span>
-                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
-                    Redis
-                  </span>
-                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
-                    Angular
-                  </span>
-                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
-                    TypeScript
-                  </span>
-                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
-                    Github
-                  </span>
-                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
-                    Webpack
-                  </span>
-                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
-                    NodeJs
-                  </span>
-                </div>
-              </div>
-            </div>
-            <span>Skills</span>
-          </div>
-          {/* End Box */}
-          {/* Box */}
-          <div
-            onClick={() => addToResumeEdit(defaultSections[2])}
+            onClick={() => addToResumeEdit(defaultSections[4])}
             className="h-48 flex flex-col justify-center items-center gap-y-1"
           >
             <div className="relative group w-full h-full cursor-pointer">
@@ -206,7 +167,7 @@ const AddSection = ({ setShowAddSection }) => {
               </div>
 
               <div className="absolute top-0 left-0 right-0 bottom-0 p-4 bg-white flex flex-col w-full h-full">
-                <h1 className="text-xs font-semibold">SKILLS</h1>
+                <h1 className="text-xs font-semibold">EDUCATION</h1>
                 <div className="w-full h-[2px] bg-black mb-1"></div>
                 <span className="text-[10px] font-semibold block">
                   Master of Business Administration
@@ -235,6 +196,44 @@ const AddSection = ({ setShowAddSection }) => {
           {/* Box */}
           <div
             onClick={() => addToResumeEdit(defaultSections[5])}
+            className="h-48 flex flex-col justify-center items-center gap-y-1"
+          >
+            <div className="relative group w-full h-full cursor-pointer">
+              <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
+              <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
+                <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
+                  {initialSections.find((section) => section.id === "exprience")
+                    ? "Remove section"
+                    : "Add to resume"}
+                </button>
+              </div>
+
+              <div className="absolute top-0 left-0 right-0 bottom-0 p-4 bg-white flex flex-col w-full h-full">
+                <h1 className="text-xs font-semibold">EXPERIENCE</h1>
+                <div className="w-full h-[2px] bg-black mb-1"></div>
+                <span className="text-xs font-bold block">
+                  Deputy Finance Director
+                </span>
+                <span className="text-[8px] text-[#1E90FF] font-bold block">
+                  City of New York
+                </span>
+                <span className="text-[8px]">📖 11/2015 - 04/2016</span>
+                <span className="text-[8px]">
+                  • Collaboration between Radio Flyer and Tesla to design &
+                  create a big friendly Model S car
+                </span>
+                <span className="text-[8px] border-b-[1px] border-b-gray-40 border-dotted pb-2">
+                  • Shot the demo video and photography for the website •
+                  Designed the packaging
+                </span>
+              </div>
+            </div>
+            <span>Exprience</span>
+          </div>
+          {/* End Box */}
+          {/* Box */}
+          <div
+            onClick={() => addToResumeEdit(defaultSections[0])}
             className="h-48 flex flex-col justify-center items-center gap-y-1"
           >
             <div className="relative group w-full h-full cursor-pointer">
@@ -335,6 +334,54 @@ const AddSection = ({ setShowAddSection }) => {
               <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
               <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
                 <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
+                  {initialSections.find((section) => section.id === "skill")
+                    ? "Remove section"
+                    : "Add to resume"}
+                </button>
+              </div>
+              <div className="absolute top-0 left-0 right-0 bottom-0 p-4 bg-white flex flex-col w-full h-full">
+                <h1 className="text-xs font-semibold">SKILLS</h1>
+                <div className="w-full h-[2px] bg-black mb-1"></div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 justify-between items-center gap-2 border-b-[1px] border-b-gray-40 border-dotted pb-2">
+                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
+                    ReactJs
+                  </span>
+                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
+                    MongoDB
+                  </span>
+                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
+                    Redis
+                  </span>
+                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
+                    Angular
+                  </span>
+                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
+                    TypeScript
+                  </span>
+                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
+                    Github
+                  </span>
+                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
+                    Webpack
+                  </span>
+                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
+                    NodeJs
+                  </span>
+                </div>
+              </div>
+            </div>
+            <span>Skills</span>
+          </div>
+          {/* End Box */}
+          {/* Box */}
+          <div
+            onClick={() => addToResumeEdit(defaultSections[0])}
+            className="h-48 flex flex-col justify-center items-center gap-y-1"
+          >
+            <div className="relative group w-full h-full cursor-pointer">
+              <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
+              <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
+                <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
                   {initialSections.find((section) => section.id === "strengths")
                     ? "Remove section"
                     : "Add to resume"}
@@ -376,44 +423,6 @@ const AddSection = ({ setShowAddSection }) => {
               </div>
             </div>
             <span>Strengths</span>
-          </div>
-          {/* End Box */}
-          {/* Box */}
-          <div
-            onClick={() => addToResumeEdit(defaultSections[1])}
-            className="h-48 flex flex-col justify-center items-center gap-y-1"
-          >
-            <div className="relative group w-full h-full cursor-pointer">
-              <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
-              <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
-                <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
-                  {initialSections.find((section) => section.id === "exprience")
-                    ? "Remove section"
-                    : "Add to resume"}
-                </button>
-              </div>
-
-              <div className="absolute top-0 left-0 right-0 bottom-0 p-4 bg-white flex flex-col w-full h-full">
-                <h1 className="text-xs font-semibold">EXPERIENCE</h1>
-                <div className="w-full h-[2px] bg-black mb-1"></div>
-                <span className="text-xs font-bold block">
-                  Deputy Finance Director
-                </span>
-                <span className="text-[8px] text-[#1E90FF] font-bold block">
-                  City of New York
-                </span>
-                <span className="text-[8px]">📖 11/2015 - 04/2016</span>
-                <span className="text-[8px]">
-                  • Collaboration between Radio Flyer and Tesla to design &
-                  create a big friendly Model S car
-                </span>
-                <span className="text-[8px] border-b-[1px] border-b-gray-40 border-dotted pb-2">
-                  • Shot the demo video and photography for the website •
-                  Designed the packaging
-                </span>
-              </div>
-            </div>
-            <span>Exprience</span>
           </div>
           {/* End Box */}
         </div>

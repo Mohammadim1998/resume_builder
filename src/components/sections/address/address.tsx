@@ -17,7 +17,7 @@ const Address = ({ value, onChange }) => {
   return (
     <>
       {!isMobile ? (
-        <div className="w-full flex justify-between items-center">
+        <div className="w-full flex justify-between items-center select-none">
           <div className="">
             <form>
               <div className="w-full h-10">
@@ -126,7 +126,7 @@ const Address = ({ value, onChange }) => {
         </div>
       ) : (
         <div
-          className={`w-full ${
+          className={`w-full select-none ${
             closeHeaderInMobileState ? "h-44 overflow-y-hidden" : "min-h-screen"
           } bg-white rounded-2xl p-4`}
         >
@@ -152,7 +152,7 @@ const Address = ({ value, onChange }) => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-x-4 mt-4">
+              <div className="flex items-center gap-x-4 mt-4 select-none">
                 <div className="w-16 h-16 bg-[#EAEAEA] cursor-pointer text-[#8C8C8C] flex justify-center items-end text-5xl rounded-full">
                   <GoPerson />
                 </div>
@@ -165,7 +165,7 @@ const Address = ({ value, onChange }) => {
               </div>
               {/* End portfolio */}
 
-              <form className="mt-4 flex flex-col gap-y-2">
+              <form className="mt-4 flex flex-col gap-y-2 select-none">
                 <div className="flex flex-col gap-y-2">
                   <span className="">Job Title</span>
                   <div className="w-full h-10 border-[1px] border-[#AFB4B5] rounded">

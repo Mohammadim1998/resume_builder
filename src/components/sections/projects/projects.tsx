@@ -22,7 +22,7 @@ const [openMobileEdit, setopenMobileEdit] = useState(false);
   return (
     <>
       {!isMobile ? (
-        <div className="relative group w-full h-fit">
+        <div className="relative group w-full h-fit select-none">
           <input
             value={value.title}
             onChange={(event) => onChange("title", event.target.value)}
@@ -126,7 +126,7 @@ const [openMobileEdit, setopenMobileEdit] = useState(false);
           </div>
  {/* open modal edit in mobile state */}
           {openMobileEdit && (
-            <div className="w-full h-full fixed top-0 left-0 right-0 bottom-0 px-8 bg-opacity-90 bg-[#59566A] z-40">
+            <div className="w-full h-full fixed select-none top-0 left-0 right-0 bottom-0 px-8 bg-opacity-90 bg-[#59566A] z-40">
               <div className="pb-2 bg-white rounded-md absolute bottom-10 left-8 right-8">
                 <div className="w-full">
                   <div onClick={() => {
@@ -157,7 +157,7 @@ const [openMobileEdit, setopenMobileEdit] = useState(false);
           {/* End open modal edit in mobile state */}
           {/* The blow code is for open the edit page */}
           <div
-            className={`w-full h-full fixed top-0 bottom-0 z-50 overflow-y-scroll ${
+            className={`w-full h-full fixed top-0 bottom-0 z-50 select-none overflow-y-scroll ${
               openEdit ? "right-0" : "right-[-100%]"
             } bg-white transition-all duration-300`}
           >

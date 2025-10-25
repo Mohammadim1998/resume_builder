@@ -17,7 +17,7 @@ const Sidebar = ({
   handleDownloadPDF,
 }) => {
   return (
-    <div className="w-full h-full flex flex-col justify-evenly">
+    <div className="w-full h-full select-none flex flex-col justify-evenly">
       <div className="flex items-center justify-evenly gap-x-2">
         <div className="w-7 h-7 text-[#676F72] hover:bg-purple-50 text-xl flex justify-center items-center rounded-full cursor-pointer">
           <PiArrowArcLeftBold />

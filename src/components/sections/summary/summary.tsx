@@ -16,7 +16,7 @@ const Summary = ({ value, onChange, removeSection }) => {
   return (
     <>
       {!isMobile ? (
-        <div className="relative group w-full h-fit">
+        <div className="relative group w-full h-fit select-none">
           <input
             value={value.title}
             onChange={(event) => onChange("title", event.target.value)}
@@ -40,7 +40,7 @@ const Summary = ({ value, onChange, removeSection }) => {
         </div>
       ) : (
         <>
-          <div className="w-full bg-white mt-4 rounded-2xl p-4">
+          <div className="w-full bg-white mt-4 rounded-2xl p-4 select-none">
             <div className="flex justify-between items-center mb-6">
               <span className="font-semibold select-none">Summary</span>
 
@@ -77,7 +77,7 @@ const Summary = ({ value, onChange, removeSection }) => {
 
           {/* open modal edit in mobile state */}
           {openMobileEdit && (
-            <div className="w-full h-full fixed top-0 left-0 right-0 bottom-0 px-8 bg-opacity-90 bg-[#59566A] z-40">
+            <div className="w-full h-full fixed top-0 left-0 right-0 bottom-0 select-none px-8 bg-opacity-90 bg-[#59566A] z-40">
               <div className="pb-2 bg-white rounded-md absolute bottom-10 left-8 right-8">
                 <div className="w-full">
                   <div onClick={() => {
@@ -109,7 +109,7 @@ const Summary = ({ value, onChange, removeSection }) => {
 
           {/* The blow code is for open the edit page */}
           <div
-            className={`w-full h-full fixed top-0 bottom-0 z-50 overflow-y-scroll ${
+            className={`w-full h-full select-none fixed top-0 bottom-0 z-50 overflow-y-scroll ${
               openEdit ? "right-0" : "right-[-100%]"
             } bg-white transition-all duration-300`}
           >
