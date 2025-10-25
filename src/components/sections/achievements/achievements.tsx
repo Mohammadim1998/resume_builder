@@ -9,13 +9,15 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaCalendarAlt, FaRegTrashAlt } from "react-icons/fa";
 import { IoDiamondOutline } from "react-icons/io5";
+import { FiEdit3 } from "react-icons/fi";
 
-const Achievement = ({ value, onChange,removeSection }) => {
+const Achievement = ({ value, onChange, removeSection }) => {
   const { isMobile } = useMobile();
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [startDateTime, setStartDateTime] = useState(null);
   const [endDateTime, setEndDateTime] = useState(null);
+  const [openMobileEdit, setopenMobileEdit] = useState(false);
 
   return (
     <>
@@ -48,7 +50,12 @@ const Achievement = ({ value, onChange,removeSection }) => {
             className="w-full text-xs h-5 bg-transparent outline-none ml-4 px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
             placeholder="Describe what you did and the impact it had."
           />
-           <div className="absolute -top-4 right-0 w-8 h-8 cursor-pointer hidden group-hover:flex justify-center items-center rounded bg-white border-[1px] border-gray-600 border-opacity-40" onClick={() => removeSection("achievement")}><FaRegTrashAlt /></div>
+          <div
+            className="absolute -top-4 right-0 w-8 h-8 cursor-pointer hidden group-hover:flex justify-center items-center rounded bg-white border-[1px] border-gray-600 border-opacity-40"
+            onClick={() => removeSection("achievement")}
+          >
+            <FaRegTrashAlt />
+          </div>
         </div>
       ) : (
         <>
@@ -71,7 +78,13 @@ const Achievement = ({ value, onChange,removeSection }) => {
                 <span className="font-bold">Your Achievements</span>
                 <span>Describe what you did and the impact it had.</span>
               </div>
-              <div className="absolute right-6 cursor-pointer top-[50%] translate-y-[-50%] flex flex-col gap-y-[2px]">
+              <div
+                onClick={(event) => {
+                  setopenMobileEdit(true);
+                  event.stopPropagation();
+                }}
+                className="absolute right-6 cursor-pointer top-[50%] translate-y-[-50%] flex flex-col gap-y-[2px]"
+              >
                 <div className="w-[3px] h-[3px] bg-[#7D8588] rounded-full"></div>
                 <div className="w-[3px] h-[3px] bg-[#7D8588] rounded-full"></div>
                 <div className="w-[3px] h-[3px] bg-[#7D8588] rounded-full"></div>
@@ -83,6 +96,43 @@ const Achievement = ({ value, onChange,removeSection }) => {
             </div>
           </div>
 
+          {/* open modal edit in mobile state */}
+          {openMobileEdit && (
+            <div className="w-full h-full fixed top-0 left-0 right-0 bottom-0 px-8 bg-opacity-90 bg-[#59566A] z-40">
+              <div className="pb-2 bg-white rounded-md absolute bottom-10 left-8 right-8">
+                <div className="w-full">
+                  <div
+                    onClick={() => {
+                      setopenMobileEdit(false);
+                      setOpenEdit(true);
+                    }}
+                    className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
+                  >
+                    <div className="text-2xl">
+                      <FiEdit3 />
+                    </div>
+                    <span className="text-xl font-semibold">Edit</span>
+                  </div>
+                </div>
+
+                <div className="w-full">
+                  <div
+                    onClick={() => removeSection("achievement")}
+                    className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
+                  >
+                    <div className="text-2xl">
+                      <FaRegTrashAlt />
+                    </div>
+                    <span className="text-xl font-semibold">Delete</span>
+                  </div>
+                </div>
+                <div className="text-[#505A5D] text-xl font-semibold text-end p-2">
+                  cancel
+                </div>
+              </div>
+            </div>
+          )}
+          {/* End open modal edit in mobile state */}
           {/* The blow code is for open the edit page */}
           <div
             className={`w-full h-full fixed top-0 bottom-0 z-50 overflow-y-scroll ${

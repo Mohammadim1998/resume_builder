@@ -208,13 +208,13 @@ const ResumeEditor = () => {
       <div className="z-30 fixed left-0 right-0 bottom-0 w-full flex justify-between md:hidden h-16 bg-white px-4 py-2 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]">
         <div className="flex items-center justify-evenly gap-x-2">
           <div className="flex flex-col items-center text-[#AFB4B5]">
-            <div className="w-7 h-7 text-xl flex justify-center items-center rounded-full cursor-not-allowed">
+            <div className="w-6 h-6 text-xl flex justify-center items-center rounded-full cursor-not-allowed">
               <PiArrowArcLeftBold />
             </div>
             <span className="text-sm font-semibold">Undo</span>
           </div>
           <div className="flex flex-col items-center text-[#AFB4B5]">
-            <div className="w-7 h-7 text-xl flex justify-center items-center rounded-full cursor-not-allowed">
+            <div className="w-6 h-6 text-xl flex justify-center items-center rounded-full cursor-not-allowed">
               <PiArrowArcRightBold />
             </div>
             <span className="text-sm font-semibold">Redo</span>
@@ -225,7 +225,7 @@ const ResumeEditor = () => {
 
         <div
           onClick={() => setShowAddSectionMobileState(true)}
-          className="flex flex-col items-center cursor-pointer text-[#AFB4B5]"
+          className="flex flex-col items-center justify-center cursor-pointer text-[#AFB4B5]"
         >
           <div className="group-hover:bg-purple-50 text-[#384347] text-2xl flex justify-center items-center rounded-full">
             <FiEdit />
@@ -236,7 +236,7 @@ const ResumeEditor = () => {
         <div className="w-[1px] h-full bg-[#AFB4B5]"></div>
         <button
           onClick={() => setShowPreview(true)}
-          className="bg-[#5F4DC7] hover:bg-[#9283e9] px-24 cursor-pointer rounded-md text-white font-bold transition-all duration-300"
+          className="bg-[#5F4DC7] hover:bg-[#9283e9] px-[50px] cursor-pointer rounded-md text-white font-bold transition-all duration-300"
         >
           Preview
         </button>
