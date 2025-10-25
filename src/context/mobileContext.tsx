@@ -14,6 +14,7 @@ const defaultSections = [
   { id: "summary", title: "Summary", component: "summary" },
   { id: "experience", title: "Experience", component: "experience" },
   { id: "education", title: "Education", component: "education" },
+  { id: "skill", title: "Skills", component: "Skills" },
   { id: "projects", title: "Projects", component: "projects" },
   { id: "achievement", title: "Achievements", component: "achievement" },
   { id: "languages", title: "Languages", component: "languages" },
@@ -88,6 +89,7 @@ export const MobileProvider = ({ children }) => {
       shortDescription: "",
       longDescription: "",
     },
+    skills: { title: "", skill1: "", skill2: "" },
     languages: { title: "", lang: "", level: "" },
   });
 

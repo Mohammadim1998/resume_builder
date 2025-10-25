@@ -8,7 +8,7 @@ const defaultSections = [
   { id: "summary", title: "Summary", component: "summary" },
   { id: "projects", title: "Projects", component: "projects" },
   { id: "languages", title: "Languages", component: "languages" },
-  { id: "skill", title: "Skill", component: "Skill" },
+  { id: "skill", title: "Skills", component: "skills" },
   { id: "education", title: "Education", component: "education" },
   { id: "experience", title: "Experience", component: "experience" },
   { id: "achievement", title: "Achievements", component: "achievement" },
@@ -149,6 +149,54 @@ const AddSection = ({ setShowAddSection }) => {
               </div>
             </div>
             <span>Languages</span>
+          </div>
+          {/* End Box */}
+           {/* Box */}
+          <div
+            onClick={() => addToResumeEdit(defaultSections[3])}
+            className="h-48 flex flex-col justify-center items-center gap-y-1"
+          >
+            <div className="relative group w-full h-full cursor-pointer">
+              <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
+              <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
+                <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
+                  {initialSections.find((section) => section.id === "skill")
+                    ? "Remove section"
+                    : "Add to resume"}
+                </button>
+              </div>
+              <div className="absolute top-0 left-0 right-0 bottom-0 p-4 bg-white flex flex-col w-full h-full">
+                <h1 className="text-xs font-semibold">SKILLS</h1>
+                <div className="w-full h-[2px] bg-black mb-1"></div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 justify-between items-center gap-2 border-b-[1px] border-b-gray-40 border-dotted pb-2">
+                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
+                    ReactJs
+                  </span>
+                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
+                    MongoDB
+                  </span>
+                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
+                    Redis
+                  </span>
+                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
+                    Angular
+                  </span>
+                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
+                    TypeScript
+                  </span>
+                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
+                    Github
+                  </span>
+                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
+                    Webpack
+                  </span>
+                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
+                    NodeJs
+                  </span>
+                </div>
+              </div>
+            </div>
+            <span>Skills</span>
           </div>
           {/* End Box */}
           {/* Box */}
@@ -323,54 +371,6 @@ const AddSection = ({ setShowAddSection }) => {
               </div>
             </div>
             <span>Find me online</span>
-          </div>
-          {/* End Box */}
-          {/* Box */}
-          <div
-            onClick={() => addToResumeEdit(defaultSections[0])}
-            className="h-48 flex flex-col justify-center items-center gap-y-1"
-          >
-            <div className="relative group w-full h-full cursor-pointer">
-              <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
-              <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
-                <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
-                  {initialSections.find((section) => section.id === "skill")
-                    ? "Remove section"
-                    : "Add to resume"}
-                </button>
-              </div>
-              <div className="absolute top-0 left-0 right-0 bottom-0 p-4 bg-white flex flex-col w-full h-full">
-                <h1 className="text-xs font-semibold">SKILLS</h1>
-                <div className="w-full h-[2px] bg-black mb-1"></div>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 justify-between items-center gap-2 border-b-[1px] border-b-gray-40 border-dotted pb-2">
-                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
-                    ReactJs
-                  </span>
-                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
-                    MongoDB
-                  </span>
-                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
-                    Redis
-                  </span>
-                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
-                    Angular
-                  </span>
-                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
-                    TypeScript
-                  </span>
-                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
-                    Github
-                  </span>
-                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
-                    Webpack
-                  </span>
-                  <span className="text-xs font-semibold block border-b-[2px] border-b-gray-400 pb-1">
-                    NodeJs
-                  </span>
-                </div>
-              </div>
-            </div>
-            <span>Skills</span>
           </div>
           {/* End Box */}
           {/* Box */}

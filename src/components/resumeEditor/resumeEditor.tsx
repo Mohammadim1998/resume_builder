@@ -3,6 +3,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import Sidebar from "../sidebar/sidebar";
 import Address from "../sections/address/address";
 import Summary from "../sections/summary/summary";
+import Skills from "../sections/skills/skills";
 import Education from "../sections/education/education";
 import Achievement from "../sections/achievements/achievements";
 import Projects from "../sections/projects/projects";
@@ -31,6 +32,7 @@ const sectionComponents = {
   achievement: Achievement,
   experience: Experience,
   languages: Languages,
+  skills: Skills,
 };
 
 const ResumeEditor = () => {
@@ -109,6 +111,12 @@ const ResumeEditor = () => {
       languages: { ...prev.languages, [field]: value },
     }));
   };
+  const handleSkillsChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      skills: { ...prev.skills, [field]: value },
+    }));
+  };
 
   const renderSections = (section) => {
     const Component = sectionComponents[section.component];
@@ -121,6 +129,7 @@ const ResumeEditor = () => {
       achievement: handleAchievementChange,
       experience: handleExperienceChange,
       languages: handleLanguagesChange,
+      skills: handleSkillsChange,
     };
 
     return (
