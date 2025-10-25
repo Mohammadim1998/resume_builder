@@ -16,6 +16,12 @@ import { FiEdit } from "react-icons/fi";
 import { useMobile } from "../../context/mobileContext";
 import AddSection from "../addSection/addSection";
 import AddSectionMobile from "../addSection/addSectionMobile";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { TfiArrowTopRight } from "react-icons/tfi";
+import { TbArrowUpRight } from "react-icons/tb";
+import { LuFileSpreadsheet } from "react-icons/lu";
+import { TiArrowSortedDown } from "react-icons/ti";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const sectionComponents = {
   summary: Summary,
@@ -129,8 +135,67 @@ const ResumeEditor = () => {
   return (
     <section className="relative w-full flex justify-center gap-x-10 px-2 md:px-4 pt-16 pb-24">
       {/* header */}
-      <div className="absolute top-0 left-0 right-0 w-full h-12 bg-white shadow-[0px_0px_5px_1px_rgba(0,0,0,0.23)]"></div>
+      <div className="absolute top-0 left-0 right-0 w-full hidden md:flex justify-between items-center px-4 h-12 bg-white shadow-[0px_0px_5px_1px_rgba(0,0,0,0.23)]">
+        <div className="flex gap-x-8">
+          <div>
+            <img src="/src/assets/logo.svg" alt="" className="" />
+          </div>
+          <ul className="flex items-center gap-x-4 text-[#444E52] text-sm font-semibold">
+            <li className="items-center hidden lg:flex">
+              Create New
+              <div className="text-2xl">
+                <MdKeyboardArrowDown />
+              </div>
+            </li>
+            <li>Documents</li>
+            <li className="items-center hidden lg:flex">
+              JobApplication Tracker
+            </li>
+            <li className="items-center hidden lg:flex">Interview Help</li>
+            <li className="items-center hidden lg:flex">
+              Resume Examples
+              <div className="text-sm">
+                <TbArrowUpRight />
+              </div>
+            </li>
+            <li className="flex gap-x-2">
+              <div className="w-6 h-6 rounded-full flex justify-center items-center bg-[#D5F2E8] text-[#2DC08D] text-md">
+                <LuFileSpreadsheet />
+              </div>
+              New Resume (1){" "}
+              <span className="text-[#CCCFCF] hidden lg:flex">(Saved)</span>
+            </li>
+          </ul>
+        </div>
+
+        <div className="flex items-center gap-x-2">
+          <button className="bg-[#00C091] text-white font-semibold px-4 py-1 rounded-md cursor-pointer select-none">
+            Upgrade
+          </button>
+          <div className="w-9 h-9 bg-[#65696D] rounded-full lg:flex hidden justify-center items-center text-white select-none text-sm font-semibold">
+            MP
+          </div>
+          <div className="text-[#384347] text-2xl cursor-pointer lg:flex hidden">
+            <TiArrowSortedDown />
+          </div>
+          <div className="text-[#384347] text-2xl cursor-pointer lg:hidden flex">
+            <GiHamburgerMenu />
+          </div>
+        </div>
+      </div>
+
       {/* End header */}
+      {/* header mobile state */}
+      <div className="absolute top-0 left-0 right-0 w-full flex md:hidden justify-between items-center px-4 h-12 bg-white shadow-[0px_0px_5px_1px_rgba(0,0,0,0.23)]">
+        <div className="flex gap-x-2">
+           <div className="text-2xl rotate-90">
+                <MdKeyboardArrowDown />
+              </div>
+          <span className="font-semibold">Documents</span>
+        </div>
+      </div>
+      {/* End header mobile state*/}
+
       <aside
         className={`z-30 lg:w-[12%] w-[17%] shrink-0 fixed max-lg:top-16 lg:top-16 max-lg:left-16 lg:left-4 h-[85%] bg-white rounded max-md:hidden ${
           showSidebar ? "flex" : "hidden"
