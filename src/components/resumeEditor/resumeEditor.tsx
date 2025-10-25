@@ -24,6 +24,7 @@ import { LuFileSpreadsheet } from "react-icons/lu";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Footer from "../footer/footer";
+import Strengths from "../sections/strengths/strengths";
 
 const sectionComponents = {
   summary: Summary,
@@ -33,6 +34,7 @@ const sectionComponents = {
   experience: Experience,
   languages: Languages,
   skills: Skills,
+  strengths: Strengths,
 };
 
 const ResumeEditor = () => {
@@ -117,6 +119,12 @@ const ResumeEditor = () => {
       skills: { ...prev.skills, [field]: value },
     }));
   };
+  const handleStrengthsChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      strengths: { ...prev.strengths, [field]: value },
+    }));
+  };
 
   const renderSections = (section) => {
     const Component = sectionComponents[section.component];
@@ -130,6 +138,7 @@ const ResumeEditor = () => {
       experience: handleExperienceChange,
       languages: handleLanguagesChange,
       skills: handleSkillsChange,
+      strengths: handleStrengthsChange,
     };
 
     return (

@@ -136,6 +136,24 @@ const ResumePreview = ({ setShowPreview, formData, sections,resumeRef }) => {
             </div>
           </div>
         );
+      case "strengths":
+        return (
+          <div key={section.id} className="mb-6">
+            <h2 className="text-xl font-bold text-gray-800 mb-2 border-b-4 border-black pb-1">
+              {sectionData.title || "Strength"}
+            </h2>
+            <div className="space-y-2">
+              <div>
+                <h3 className="font-semibold text-gray-700">
+                  {sectionData.strength || "Strength"}
+                </h3>
+                <p className="text-gray-600">
+                  {sectionData.explain || "Explain..."}
+                </p>
+              </div>
+            </div>
+          </div>
+        );
 
       case "languages":
         return (
@@ -159,8 +177,8 @@ const ResumePreview = ({ setShowPreview, formData, sections,resumeRef }) => {
             </h2>
             <div className="space-y-1">
               <p className="text-gray-600">
-                {sectionData.Skill1 || "Skill1"} -{" "}
-                {sectionData.Skill2 || "Skill2"}
+                {sectionData.skill1 || "Skill1"} -{" "}
+                {sectionData.skill2 || "Skill2"}
               </p>
             </div>
           </div>

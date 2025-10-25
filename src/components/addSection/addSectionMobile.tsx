@@ -11,6 +11,8 @@ const defaultSections = [
   { id: "projects", title: "Projects", component: "projects" },
   { id: "achievement", title: "Achievements", component: "achievement" },
   { id: "languages", title: "Languages", component: "languages" },
+  { id: "skills", title: "Skills", component: "skills" },
+  { id: "strengths", title: "Strengths", component: "strengths" },
 ];
 const AddSectionMobile = ({
   setShowAddSectionMobileState,
@@ -279,7 +281,7 @@ const AddSectionMobile = ({
               {/* End Box */}
               {/* Box */}
               <div
-                onClick={() => addToResumeEdit(defaultSections[0])}
+                onClick={() => addToResumeEdit(defaultSections[7])}
                 className=""
               >
                 {initialSections.find(
@@ -297,6 +299,28 @@ const AddSectionMobile = ({
                       <HiOutlineDocumentPlus />
                     </div>
                     <span className="text-base font-semibold">Strengths</span>
+                  </div>
+                )}
+              </div>
+              {/* End Box */}
+              {/* Box */}
+              <div
+                onClick={() => addToResumeEdit(defaultSections[6])}
+                className=""
+              >
+                {initialSections.find((section) => section.id === "skill") ? (
+                  <div className="flex items-center gap-3 text-[#B7B4B5]">
+                    <div className="w-6 h-6 text-2xl flex justify-center items-center">
+                      <LuCircleCheckBig />
+                    </div>
+                    <span className="text-base font-semibold">Skill</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-3 text-[#384347]">
+                    <div className="w-6 h-6 text-2xl flex justify-center items-center">
+                      <HiOutlineDocumentPlus />
+                    </div>
+                    <span className="text-base font-semibold">Skill</span>
                   </div>
                 )}
               </div>

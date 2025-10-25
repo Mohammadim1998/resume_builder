@@ -91,6 +91,7 @@ export const MobileProvider = ({ children }) => {
     },
     skills: { title: "", skill1: "", skill2: "" },
     languages: { title: "", lang: "", level: "" },
+    strengths: { title: "", strength: "", explain: "" },
   });
 
   /* Download PDF */

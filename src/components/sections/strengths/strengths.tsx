@@ -7,14 +7,16 @@ import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FaCalendarAlt } from "react-icons/fa";
+import { FaCalendarAlt, FaRegTrashAlt } from "react-icons/fa";
 import { IoDiamondOutline } from "react-icons/io5";
-import { FaRegTrashAlt } from "react-icons/fa";
 import { FiEdit3 } from "react-icons/fi";
 
-const Skills = ({ value, onChange, removeSection }) => {
+const Strengths = ({ value, onChange, removeSection }) => {
   const { isMobile } = useMobile();
   const [openEdit, setOpenEdit] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [startDateTime, setStartDateTime] = useState(null);
+  const [endDateTime, setEndDateTime] = useState(null);
   const [openMobileEdit, setopenMobileEdit] = useState(false);
 
   return (
@@ -25,29 +27,32 @@ const Skills = ({ value, onChange, removeSection }) => {
             value={value.title}
             onChange={(event) => onChange("title", event.target.value)}
             className="placeholder:text-black border-none outline-none font-medium bg-transparent"
-            placeholder="SKILLS"
+            placeholder="STRENGHTS"
           />
           <div className="w-full h-1 bg-black"></div>
+          <div className="flex items-center">
+            <div className="text-[#2393FF]">
+              <IoDiamondOutline />
+            </div>
 
-          <div className="flex items-center justify-start gap-x-4">
             <input
-              value={value.skill1}
-              onChange={(event) => onChange("skill1", event.target.value)}
+              value={value.strength}
+              onChange={(event) => onChange("strength", event.target.value)}
               type="text"
-              className="w-16 text-md h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-              placeholder="Skill1"
-            />
-            <input
-              value={value.skill2}
-              onChange={(event) => onChange("skill2", event.target.value)}
-              type="text"
-              className="w-16 text-md h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-              placeholder="skill2"
+              className="w-full text-md h-5 bg-transparent outline-none px-2 font-bold focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+              placeholder="strengths"
             />
           </div>
+          <input
+            value={value.explain}
+            onChange={(event) => onChange("explain", event.target.value)}
+            type="text"
+            className="w-full text-xs h-5 bg-transparent outline-none ml-4 px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+            placeholder="Explain how it benefits your work."
+          />
           <div
             className="absolute -top-4 right-0 w-8 h-8 cursor-pointer hidden group-hover:flex justify-center items-center rounded bg-white border-[1px] border-gray-600 border-opacity-40"
-            onClick={() => removeSection("skills")}
+            onClick={() => removeSection("strengths")}
           >
             <FaRegTrashAlt />
           </div>
@@ -56,7 +61,9 @@ const Skills = ({ value, onChange, removeSection }) => {
         <>
           <div className="w-full bg-white mt-4 rounded-2xl p-4 select-none">
             <div className="flex justify-between items-center mb-6">
-              <span className="font-semibold select-none">Skills</span>
+              <span className="font-semibold select-none">
+               Strengths
+              </span>
 
               <div className="text-xl cursor-pointer">
                 <GoPencil />
@@ -68,7 +75,8 @@ const Skills = ({ value, onChange, removeSection }) => {
               className="w-full relative bg-[#FAFBFD]"
             >
               <div className="w-full flex flex-col select-none text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] transition-all duration-300 rounded">
-                <span className="font-bold">Skills</span>
+                <span className="font-bold">Your Strengths</span>
+                <span>Explain how it benefits your work.</span>
               </div>
               <div
                 onClick={(event) => {
@@ -87,9 +95,10 @@ const Skills = ({ value, onChange, removeSection }) => {
               <LuPlus />
             </div>
           </div>
+
           {/* open modal edit in mobile state */}
           {openMobileEdit && (
-            <div className="w-full h-full fixed top-0 left-0 right-0 bottom-0 px-8 select-none bg-opacity-90 bg-[#59566A] z-40">
+            <div className="w-full h-full select-none fixed top-0 left-0 right-0 bottom-0 px-8 bg-opacity-90 bg-[#59566A] z-40">
               <div className="pb-2 bg-white rounded-md absolute bottom-10 left-8 right-8">
                 <div className="w-full">
                   <div
@@ -108,7 +117,7 @@ const Skills = ({ value, onChange, removeSection }) => {
 
                 <div className="w-full">
                   <div
-                    onClick={() => removeSection("skill")}
+                    onClick={() => removeSection("strengths")}
                     className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
                   >
                     <div className="text-2xl">
@@ -146,28 +155,30 @@ const Skills = ({ value, onChange, removeSection }) => {
 
             <form className="w-full px-6 bg-[#FAFBFD]">
               <span className="mb-3 block text-[#75696C] font-medium">
-                Skills
+                Strengths
               </span>
               <div className="w-full">
                 <span className="text-[#75696C] font-medium mb-2 block">
-                  Skill
+                  Your Strengths
                 </span>
                 <input
-                  value={value.skill1}
-                  onChange={(event) => onChange("skill1", event.target.value)}
+                  value={value.title}
+                  onChange={(event) => onChange("title", event.target.value)}
                   className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
-                  placeholder="Skill"
+                  placeholder="Your Achievement"
                 />
               </div>
               <div className="w-full mt-2">
                 <span className="text-[#75696C] font-medium mb-2 block">
-                  Skill
+                  Description
                 </span>
                 <input
-                  value={value.skill2}
-                  onChange={(event) => onChange("skill2", event.target.value)}
+                  value={value.explain}
+                  onChange={(event) =>
+                    onChange("explain", event.target.value)
+                  }
                   className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
-                  placeholder="Skill"
+                  placeholder="Explain how it benefits your work."
                 />
               </div>
 
@@ -196,4 +207,4 @@ const Skills = ({ value, onChange, removeSection }) => {
   );
 };
 
-export default Skills;
+export default Strengths;

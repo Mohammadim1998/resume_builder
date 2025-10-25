@@ -8,10 +8,11 @@ const defaultSections = [
   { id: "summary", title: "Summary", component: "summary" },
   { id: "projects", title: "Projects", component: "projects" },
   { id: "languages", title: "Languages", component: "languages" },
-  { id: "skill", title: "Skills", component: "skills" },
+  { id: "skills", title: "Skills", component: "skills" },
   { id: "education", title: "Education", component: "education" },
   { id: "experience", title: "Experience", component: "experience" },
   { id: "achievement", title: "Achievements", component: "achievement" },
+  { id: "strengths", title: "Strengths", component: "strengths" },
 ];
 const AddSection = ({ setShowAddSection }) => {
   const { initialSections, setInitialSections } = useMobile();
@@ -375,7 +376,7 @@ const AddSection = ({ setShowAddSection }) => {
           {/* End Box */}
           {/* Box */}
           <div
-            onClick={() => addToResumeEdit(defaultSections[0])}
+            onClick={() => addToResumeEdit(defaultSections[7])}
             className="h-48 flex flex-col justify-center items-center gap-y-1"
           >
             <div className="relative group w-full h-full cursor-pointer">
