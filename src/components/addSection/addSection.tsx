@@ -14,6 +14,7 @@ const defaultSections = [
   { id: "achievement", title: "Achievements", component: "achievement" },
   { id: "strengths", title: "Strengths", component: "strengths" },
   { id: "socialMedia", title: "SocialMedia", component: "socialMedia" },
+  { id: "training", title: "Training", component: "training" },
 ];
 const AddSection = ({ setShowAddSection }) => {
   const { initialSections, setInitialSections } = useMobile();
@@ -162,7 +163,7 @@ const AddSection = ({ setShowAddSection }) => {
               <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
               <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
                 <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
-                  {initialSections.find((section) => section.id === "skill")
+                  {initialSections.find((section) => section.id === "skills")
                     ? "Remove section"
                     : "Add to resume"}
                 </button>
@@ -283,7 +284,7 @@ const AddSection = ({ setShowAddSection }) => {
           {/* End Box */}
           {/* Box */}
           <div
-            onClick={() => addToResumeEdit(defaultSections[0])}
+            onClick={() => addToResumeEdit(defaultSections[9])}
             className="h-48 flex flex-col justify-center items-center gap-y-1"
           >
             <div className="relative group w-full h-full cursor-pointer">
@@ -425,6 +426,64 @@ const AddSection = ({ setShowAddSection }) => {
               </div>
             </div>
             <span>Strengths</span>
+          </div>
+          {/* End Box */}
+          {/* Box */}
+          <div
+            onClick={() => addToResumeEdit(defaultSections[6])}
+            className="h-48 flex flex-col justify-center items-center gap-y-1"
+          >
+            <div className="relative group w-full h-full cursor-pointer">
+              <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
+              <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
+                <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
+                  {initialSections.find(
+                    (section) => section.id === "achievement"
+                  )
+                    ? "Remove section"
+                    : "Add to resume"}
+                </button>
+              </div>
+
+              <div className="absolute top-0 left-0 right-0 bottom-0 p-4 bg-white flex flex-col w-full h-full">
+                <h1 className="text-xs font-semibold">ACHIEVEMENT</h1>
+                <div className="w-full h-[2px] bg-black mb-1"></div>
+                <div className="flex flex-col gap-y-1 items-center">
+                  <div className="flex border-b-[1px] border-b-gray-40 border-dotted pb-2">
+                    <div className="text-xs mr-1 text-[#1E90FF]">
+                      <MdOutlineArrowUpward />
+                    </div>
+
+                    <div className="flex flex-col">
+                      <span className="text-xs font-bold block">
+                        Inspired & Challenged
+                      </span>
+                      <span className="text-[8px] font-normal block">
+                        20+ recognitions have taught me that with persistence,
+                        one can achieve anything
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex border-b-[1px] border-b-gray-40 border-dotted pb-2">
+                    <div className="text-xs mr-1 text-[#1E90FF]">
+                      <MdOutlineArrowUpward />
+                    </div>
+
+                    <div className="flex flex-col">
+                      <span className="text-xs font-bold block">
+                        Developed Strong Brand
+                      </span>
+                      <span className="text-[8px] font-normal block">
+                        20+ recognitions have taught me that with persistence,
+                        one can achieve anything
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span>Achievement</span>
           </div>
           {/* End Box */}
         </div>

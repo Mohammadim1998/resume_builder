@@ -5,9 +5,8 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { IoIosCheckmark } from "react-icons/io";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FaCalendarAlt, FaRegTrashAlt } from "react-icons/fa";
+import { FaRegTrashAlt } from "react-icons/fa";
 import { IoDiamondOutline } from "react-icons/io5";
 import { FiEdit3 } from "react-icons/fi";
 
@@ -61,9 +60,7 @@ const SocialMedia = ({ value, onChange, removeSection }) => {
         <>
           <div className="w-full bg-white mt-4 rounded-2xl p-4 select-none">
             <div className="flex justify-between items-center mb-6">
-              <span className="font-semibold select-none">
-               SocialMedia
-              </span>
+              <span className="font-semibold select-none">SocialMedia</span>
 
               <div className="text-xl cursor-pointer">
                 <GoPencil />
@@ -83,7 +80,7 @@ const SocialMedia = ({ value, onChange, removeSection }) => {
                   setopenMobileEdit(true);
                   event.stopPropagation();
                 }}
-                className="absolute right-6 cursor-pointer top-[50%] translate-y-[-50%] flex flex-col gap-y-[2px]"
+                className="absolute right-2 w-10 h-10 rounded-full hover:bg-[#7d858838] cursor-pointer top-[50%] translate-y-[-50%] flex flex-col items-center justify-center gap-y-[2px]"
               >
                 <div className="w-[3px] h-[3px] bg-[#7D8588] rounded-full"></div>
                 <div className="w-[3px] h-[3px] bg-[#7D8588] rounded-full"></div>
@@ -98,8 +95,14 @@ const SocialMedia = ({ value, onChange, removeSection }) => {
 
           {/* open modal edit in mobile state */}
           {openMobileEdit && (
-            <div className="w-full h-full select-none fixed top-0 left-0 right-0 bottom-0 px-8 bg-opacity-90 bg-[#59566A] z-40">
-              <div className="pb-2 bg-white rounded-md absolute bottom-10 left-8 right-8">
+            <div
+              onClick={() => setopenMobileEdit(false)}
+              className="w-full h-full select-none fixed top-0 left-0 right-0 bottom-0 px-8 bg-opacity-90 bg-[#59566A] z-40"
+            >
+              <div
+                onClick={(event) => event.stopPropagation()}
+                className="pb-2 bg-white rounded-md absolute bottom-10 left-8 right-8"
+              >
                 <div className="w-full">
                   <div
                     onClick={() => {
@@ -126,7 +129,10 @@ const SocialMedia = ({ value, onChange, removeSection }) => {
                     <span className="text-xl font-semibold">Delete</span>
                   </div>
                 </div>
-                <div className="text-[#505A5D] text-xl font-semibold text-end p-2">
+                <div
+                  onClick={() => setopenMobileEdit(false)}
+                  className="text-[#505A5D] text-xl font-semibold text-end p-2"
+                >
                   cancel
                 </div>
               </div>
@@ -174,9 +180,7 @@ const SocialMedia = ({ value, onChange, removeSection }) => {
                 </span>
                 <input
                   value={value.identify}
-                  onChange={(event) =>
-                    onChange("identify", event.target.value)
-                  }
+                  onChange={(event) => onChange("identify", event.target.value)}
                   className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
                   placeholder="username"
                 />
@@ -196,9 +200,12 @@ const SocialMedia = ({ value, onChange, removeSection }) => {
                   <IoIosCheckmark />
                 </div>
               </div>
-              <button className="w-full h-12 bg-[#5e41f0] cursor-pointer rounded mt-9 text-white text-base">
+              <div
+                onClick={() => setOpenEdit(false)}
+                className="w-full h-12 flex justify-center items-center bg-[#5e41f0] cursor-pointer rounded mt-9 text-white text-base"
+              >
                 Done
-              </button>
+              </div>
             </form>
           </div>
         </>

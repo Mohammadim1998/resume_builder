@@ -5,10 +5,11 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { IoIosCheckmark } from "react-icons/io";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import React, { useState } from "react";
+import "react-datepicker/dist/react-datepicker.css";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FiEdit3 } from "react-icons/fi";
 
-const Summary = ({ value, onChange, removeSection }) => {
+const Training = ({ value, onChange, removeSection }) => {
   const { isMobile } = useMobile();
   const [openEdit, setOpenEdit] = useState(false);
   const [openMobileEdit, setopenMobileEdit] = useState(false);
@@ -21,19 +22,27 @@ const Summary = ({ value, onChange, removeSection }) => {
             value={value.title}
             onChange={(event) => onChange("title", event.target.value)}
             className="placeholder:text-black border-none outline-none font-medium bg-transparent"
-            placeholder="SUMMARY"
+            placeholder="TRAINING / COURSES"
           />
           <div className="w-full h-1 bg-black"></div>
-          <textarea
-            value={value.description}
-            onChange={(event) => onChange("description", event.target.value)}
-            className="w-full text-sm mt-1 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-            placeholder="Briefly explain why you're a great fit for the role - use the AI assistant to tailor this summary for each job posting."
-          ></textarea>
 
+          <input
+            value={value.course1}
+            onChange={(event) => onChange("course1", event.target.value)}
+            type="text"
+            className="w-full text-md h-5 border-b-[1px] border-dashed border-gray-400 pb-2 pt-1 bg-transparent outline-none px-2 font-bold focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+            placeholder="Course Title"
+          />
+          <input
+            value={value.course2}
+            onChange={(event) => onChange("course2", event.target.value)}
+            type="text"
+            className="w-full text-md h-5 bg-transparent outline-none px-2 font-bold focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+            placeholder="Course Title"
+          />
           <div
             className="absolute -top-4 right-0 w-8 h-8 cursor-pointer hidden group-hover:flex justify-center items-center rounded bg-white border-[1px] border-gray-600 border-opacity-40"
-            onClick={() => removeSection("summary")}
+            onClick={() => removeSection("training")}
           >
             <FaRegTrashAlt />
           </div>
@@ -42,7 +51,9 @@ const Summary = ({ value, onChange, removeSection }) => {
         <>
           <div className="w-full bg-white mt-4 rounded-2xl p-4 select-none">
             <div className="flex justify-between items-center mb-6">
-              <span className="font-semibold select-none">Summary</span>
+              <span className="font-semibold select-none">
+                Training / Courses
+              </span>
 
               <div className="text-xl cursor-pointer">
                 <GoPencil />
@@ -53,9 +64,9 @@ const Summary = ({ value, onChange, removeSection }) => {
               onClick={() => setOpenEdit(true)}
               className="w-full relative bg-[#FAFBFD]"
             >
-              <div className="w-full select-none text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] transition-all duration-300 rounded">
-                Briefly explain why you're a great fit for the role - use the AI
-                assistant to tailor this summary for each job posting.
+              <div className="w-full flex flex-col select-none text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] transition-all duration-300 rounded">
+                <span className="font-bold">Training</span>
+                <span>Course</span>
               </div>
               <div
                 onClick={(event) => {
@@ -74,48 +85,55 @@ const Summary = ({ value, onChange, removeSection }) => {
               <LuPlus />
             </div>
           </div>
-
           {/* open modal edit in mobile state */}
           {openMobileEdit && (
-              <div onClick={() => setopenMobileEdit(false)} className="w-full h-full select-none fixed top-0 left-0 right-0 bottom-0 px-8 bg-opacity-90 bg-[#59566A] z-40">
-                          <div onClick={(event) => event.stopPropagation()} className="pb-2 bg-white rounded-md absolute bottom-10 left-8 right-8">
-                            <div className="w-full">
-                              <div
-                                onClick={() => {
-                                  setopenMobileEdit(false);
-                                  setOpenEdit(true);
-                                }}
-                                className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
-                              >
-                                <div className="text-2xl">
-                                  <FiEdit3 />
-                                </div>
-                                <span className="text-xl font-semibold">Edit</span>
-                              </div>
-                            </div>
-            
-                            <div className="w-full">
-                              <div
-                                onClick={() => removeSection("summary")}
-                                className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
-                              >
-                                <div className="text-2xl">
-                                  <FaRegTrashAlt />
-                                </div>
-                                <span className="text-xl font-semibold">Delete</span>
-                              </div>
-                            </div>
-                            <div onClick={() => setopenMobileEdit(false)} className="text-[#505A5D] text-xl font-semibold text-end p-2">
-                              cancel
-                            </div>
-                          </div>
-                        </div>
+            <div
+              onClick={() => setopenMobileEdit(false)}
+              className="w-full h-full select-none fixed top-0 left-0 right-0 bottom-0 px-8 bg-opacity-90 bg-[#59566A] z-40"
+            >
+              <div
+                onClick={(event) => event.stopPropagation()}
+                className="pb-2 bg-white rounded-md absolute bottom-10 left-8 right-8"
+              >
+                <div className="w-full">
+                  <div
+                    onClick={() => {
+                      setopenMobileEdit(false);
+                      setOpenEdit(true);
+                    }}
+                    className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
+                  >
+                    <div className="text-2xl">
+                      <FiEdit3 />
+                    </div>
+                    <span className="text-xl font-semibold">Edit</span>
+                  </div>
+                </div>
+
+                <div className="w-full">
+                  <div
+                    onClick={() => removeSection("training")}
+                    className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
+                  >
+                    <div className="text-2xl">
+                      <FaRegTrashAlt />
+                    </div>
+                    <span className="text-xl font-semibold">Delete</span>
+                  </div>
+                </div>
+                <div
+                  onClick={() => setopenMobileEdit(false)}
+                  className="text-[#505A5D] text-xl font-semibold text-end p-2"
+                >
+                  cancel
+                </div>
+              </div>
+            </div>
           )}
           {/* End open modal edit in mobile state */}
-
           {/* The blow code is for open the edit page */}
           <div
-            className={`w-full h-full select-none fixed top-0 bottom-0 z-50 overflow-y-scroll ${
+            className={`w-full h-full fixed top-0 bottom-0 z-50 overflow-y-scroll ${
               openEdit ? "right-0" : "right-[-100%]"
             } bg-white transition-all duration-300`}
           >
@@ -135,18 +153,29 @@ const Summary = ({ value, onChange, removeSection }) => {
 
             <form className="w-full px-6 bg-[#FAFBFD]">
               <span className="mb-3 block text-[#75696C] font-medium">
-                SUMMARY
+                Training / Courses
               </span>
               <div className="w-full">
                 <span className="text-[#75696C] font-medium mb-2 block">
-                  Summary
+                  Course Title
                 </span>
-                <textarea
-                  value={value.title}
-                  onChange={(event) => onChange("title", event.target.value)}
-                  className="w-full select-none text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
-                  placeholder="Briefly explain why you're a great fit for the role - use the AI assistant to tailor this summary for each job posting."
-                ></textarea>
+                <input
+                  value={value.course1}
+                  onChange={(event) => onChange("course1", event.target.value)}
+                  className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
+                  placeholder="Course Title"
+                />
+              </div>
+              <div className="w-full mt-2">
+                <span className="text-[#75696C] font-medium mb-2 block">
+                  Course Title
+                </span>
+                <input
+                  value={value.course2}
+                  onChange={(event) => onChange("course2", event.target.value)}
+                  className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
+                  placeholder="Course Title"
+                />
               </div>
 
               <div className="w-full h-10 flex justify-between items-center px-4 border-[1px] border-[#dde7e9] mt-2 rounded">
@@ -163,7 +192,10 @@ const Summary = ({ value, onChange, removeSection }) => {
                   <IoIosCheckmark />
                 </div>
               </div>
-             <div onClick={() => setOpenEdit(false)} className="w-full h-12 flex justify-center items-center bg-[#5e41f0] cursor-pointer rounded mt-9 text-white text-base">
+              <div
+                onClick={() => setOpenEdit(false)}
+                className="w-full h-12 flex justify-center items-center bg-[#5e41f0] cursor-pointer rounded mt-9 text-white text-base"
+              >
                 Done
               </div>
             </form>
@@ -174,4 +206,4 @@ const Summary = ({ value, onChange, removeSection }) => {
   );
 };
 
-export default Summary;
+export default Training;

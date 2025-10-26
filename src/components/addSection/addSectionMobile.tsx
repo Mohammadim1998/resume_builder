@@ -14,6 +14,7 @@ const defaultSections = [
   { id: "skills", title: "Skills", component: "skills" },
   { id: "strengths", title: "Strengths", component: "strengths" },
   { id: "socialMedia", title: "SocialMedia", component: "socialMedia" },
+  { id: "training", title: "Training", component: "training" },
 ];
 const AddSectionMobile = ({
   setShowAddSectionMobileState,
@@ -230,7 +231,7 @@ const AddSectionMobile = ({
               {/* End Box */}
               {/* Box */}
               <div
-                onClick={() => addToResumeEdit(defaultSections[0])}
+                onClick={() => addToResumeEdit(defaultSections[9])}
                 className=""
               >
                 {initialSections.find(
@@ -309,7 +310,7 @@ const AddSectionMobile = ({
                 onClick={() => addToResumeEdit(defaultSections[6])}
                 className=""
               >
-                {initialSections.find((section) => section.id === "skill") ? (
+                {initialSections.find((section) => section.id === "skills") ? (
                   <div className="flex items-center gap-3 text-[#B7B4B5]">
                     <div className="w-6 h-6 text-2xl flex justify-center items-center">
                       <LuCircleCheckBig />

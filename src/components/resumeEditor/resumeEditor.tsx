@@ -26,6 +26,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import Footer from "../footer/footer";
 import Strengths from "../sections/strengths/strengths";
 import SocialMedia from "../sections/socialmedia/socialmedia";
+import Training from "../sections/training/training";
 
 const sectionComponents = {
   summary: Summary,
@@ -37,6 +38,7 @@ const sectionComponents = {
   skills: Skills,
   strengths: Strengths,
   socialMedia: SocialMedia,
+  training: Training,
 };
 
 const ResumeEditor = () => {
@@ -133,6 +135,12 @@ const ResumeEditor = () => {
       socialMedia: { ...prev.socialMedia, [field]: value },
     }));
   };
+  const handleTrainingChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      training: { ...prev.training, [field]: value },
+    }));
+  };
 
   const renderSections = (section) => {
     const Component = sectionComponents[section.component];
@@ -148,6 +156,7 @@ const ResumeEditor = () => {
       skills: handleSkillsChange,
       strengths: handleStrengthsChange,
       socialMedia: handleSocialMediaChange,
+      training: handleTrainingChange,
     };
 
     return (

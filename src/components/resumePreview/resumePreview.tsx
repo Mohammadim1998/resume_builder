@@ -6,7 +6,7 @@ import { IoLocationSharp } from "react-icons/io5";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useMobile } from "../../context/mobileContext";
 
-const ResumePreview = ({ setShowPreview, formData, sections,resumeRef }) => {
+const ResumePreview = ({ setShowPreview, formData, sections, resumeRef }) => {
   /* conver everything to string*/
   const formatValue = (value) => {
     if (value === null || value === undefined) return "";
@@ -169,6 +169,22 @@ const ResumePreview = ({ setShowPreview, formData, sections,resumeRef }) => {
             </div>
           </div>
         );
+      case "training":
+        return (
+          <div key={section.id} className="mb-6">
+            <h2 className="text-xl font-bold text-gray-800 mb-2 border-b-4 border-black pb-1">
+              {sectionData.title || "Training / Courses"}
+            </h2>
+            <div className="space-y-1">
+              <p className="text-gray-600">
+                {sectionData.course1 || "Course Title"}
+              </p>
+              <p className="text-gray-600">
+                {sectionData.course2 || "Course Title"}
+              </p>
+            </div>
+          </div>
+        );
       case "skills":
         return (
           <div key={section.id} className="mb-6">
@@ -203,13 +219,13 @@ const ResumePreview = ({ setShowPreview, formData, sections,resumeRef }) => {
     }
   };
 
- const {handleDownloadPDF} = useMobile();
+  const { handleDownloadPDF } = useMobile();
 
   /* End Download PDF */
   return (
     <div
       onClick={() => setShowPreview(false)}
-      className="z-50 fixed w-full h-full flex justify-center items-center top-0 right-0 bg-opacity-90 bg-[#59566A] overflow-y-scroll"
+      className="z-50 fixed select-none w-full h-full flex justify-center items-center top-0 right-0 bg-opacity-90 bg-[#59566A] overflow-y-scroll"
     >
       {/* header for mobile state for print pdf */}
       <div className="z-30 fixed left-0 right-0 top-0 flex md:hidden items-center justify-evenly px-4 py-2 w-full h-[67px] bg-[#2D3639]">

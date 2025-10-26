@@ -93,6 +93,7 @@ export const MobileProvider = ({ children }) => {
     languages: { title: "", lang: "", level: "" },
     strengths: { title: "", strength: "", explain: "" },
     socialMedia: { title: "", social: "", identify: "" },
+    training: { title: "", course1: "", course2: "" },
   });
 
   /* Download PDF */

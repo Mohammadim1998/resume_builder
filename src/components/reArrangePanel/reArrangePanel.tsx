@@ -70,7 +70,7 @@ export default function RearrangePanel({ sections, onClose, onSave }) {
           </div>
         </DragDropContext>
 
-        <div className="flex justify-end gap-3 mt-6">
+        <div className="flex justify-end select-none gap-3 mt-6">
           <button
             onClick={onClose}
             className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"

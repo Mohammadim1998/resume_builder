@@ -5,10 +5,7 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { IoIosCheckmark } from "react-icons/io";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FaCalendarAlt } from "react-icons/fa";
-import { IoDiamondOutline } from "react-icons/io5";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FiEdit3 } from "react-icons/fi";
 
@@ -75,7 +72,7 @@ const Skills = ({ value, onChange, removeSection }) => {
                   setopenMobileEdit(true);
                   event.stopPropagation();
                 }}
-                className="absolute right-6 cursor-pointer top-[50%] translate-y-[-50%] flex flex-col gap-y-[2px]"
+                className="absolute right-2 w-10 h-10 rounded-full hover:bg-[#7d858838] cursor-pointer top-[50%] translate-y-[-50%] flex flex-col items-center justify-center gap-y-[2px]"
               >
                 <div className="w-[3px] h-[3px] bg-[#7D8588] rounded-full"></div>
                 <div className="w-[3px] h-[3px] bg-[#7D8588] rounded-full"></div>
@@ -89,39 +86,39 @@ const Skills = ({ value, onChange, removeSection }) => {
           </div>
           {/* open modal edit in mobile state */}
           {openMobileEdit && (
-            <div className="w-full h-full fixed top-0 left-0 right-0 bottom-0 px-8 select-none bg-opacity-90 bg-[#59566A] z-40">
-              <div className="pb-2 bg-white rounded-md absolute bottom-10 left-8 right-8">
-                <div className="w-full">
-                  <div
-                    onClick={() => {
-                      setopenMobileEdit(false);
-                      setOpenEdit(true);
-                    }}
-                    className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
-                  >
-                    <div className="text-2xl">
-                      <FiEdit3 />
-                    </div>
-                    <span className="text-xl font-semibold">Edit</span>
-                  </div>
-                </div>
-
-                <div className="w-full">
-                  <div
-                    onClick={() => removeSection("skill")}
-                    className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
-                  >
-                    <div className="text-2xl">
-                      <FaRegTrashAlt />
-                    </div>
-                    <span className="text-xl font-semibold">Delete</span>
-                  </div>
-                </div>
-                <div className="text-[#505A5D] text-xl font-semibold text-end p-2">
-                  cancel
-                </div>
-              </div>
-            </div>
+              <div onClick={() => setopenMobileEdit(false)} className="w-full h-full select-none fixed top-0 left-0 right-0 bottom-0 px-8 bg-opacity-90 bg-[#59566A] z-40">
+                          <div onClick={(event) => event.stopPropagation()} className="pb-2 bg-white rounded-md absolute bottom-10 left-8 right-8">
+                            <div className="w-full">
+                              <div
+                                onClick={() => {
+                                  setopenMobileEdit(false);
+                                  setOpenEdit(true);
+                                }}
+                                className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
+                              >
+                                <div className="text-2xl">
+                                  <FiEdit3 />
+                                </div>
+                                <span className="text-xl font-semibold">Edit</span>
+                              </div>
+                            </div>
+            
+                            <div className="w-full">
+                              <div
+                                onClick={() => removeSection("skill")}
+                                className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
+                              >
+                                <div className="text-2xl">
+                                  <FaRegTrashAlt />
+                                </div>
+                                <span className="text-xl font-semibold">Delete</span>
+                              </div>
+                            </div>
+                            <div onClick={() => setopenMobileEdit(false)} className="text-[#505A5D] text-xl font-semibold text-end p-2">
+                              cancel
+                            </div>
+                          </div>
+                        </div>
           )}
           {/* End open modal edit in mobile state */}
           {/* The blow code is for open the edit page */}
@@ -185,9 +182,9 @@ const Skills = ({ value, onChange, removeSection }) => {
                   <IoIosCheckmark />
                 </div>
               </div>
-              <button className="w-full h-12 bg-[#5e41f0] cursor-pointer rounded mt-9 text-white text-base">
+             <div onClick={() => setOpenEdit(false)} className="w-full h-12 flex justify-center items-center bg-[#5e41f0] cursor-pointer rounded mt-9 text-white text-base">
                 Done
-              </button>
+              </div>
             </form>
           </div>
         </>

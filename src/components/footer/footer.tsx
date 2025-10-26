@@ -2,7 +2,7 @@ import { MdOutlineLanguage } from "react-icons/md";
 
 const Footer = () => {
     return(
-        <div className="w-[90%] flex flex-col justify-center items-center">
+        <div className="w-[90%] select-none flex flex-col justify-center items-center">
             <div className="w-full h-[1px] bg-gray-600 flex justify-center items-center mb-14">
                 <div className="bg-[#F3F4F6] text-[#60696C] px-2 text-sm">Resumes recruiters love</div>
             </div>
