@@ -214,8 +214,7 @@ export const MobileProvider = ({ children }) => {
       items: [
         {
           id: Date.now(),
-          skill1: "",
-          skill2: "",
+          skill: "",
         },
       ],
     },
@@ -254,8 +253,7 @@ export const MobileProvider = ({ children }) => {
       items: [
         {
           id: Date.now(),
-          course1: "",
-          course2: "",
+          course: "",
         },
       ],
     },

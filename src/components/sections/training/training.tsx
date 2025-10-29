@@ -1,75 +1,211 @@
 import { useMobile } from "../../../context/mobileContext";
 import { GoPencil } from "react-icons/go";
-import { LuPlus } from "react-icons/lu";
+import { LuArrowUpDown, LuPencilLine, LuPlus } from "react-icons/lu";
 import { MdKeyboardArrowLeft } from "react-icons/md";
-import { IoIosCheckmark } from "react-icons/io";
+import { IoIosCheckmark, IoMdClose } from "react-icons/io";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import React, { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FiEdit3 } from "react-icons/fi";
 
-const Training = ({ value, onChange, removeSection }) => {
-  const { isMobile } = useMobile();
+const Training = ({ value, onChange }) => {
   const [openEdit, setOpenEdit] = useState(false);
   const [openMobileEdit, setopenMobileEdit] = useState(false);
+  const [editingItemId, setEditingItemId] = useState(null);
+  const [openEditMenu, setOpenEditMenu] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openRename, setOpenRename] = useState(false);
+  const {
+    isMobile,
+    formData,
+    addSectionItem,
+    removeSectionItem,
+    removeSection,
+    handleSectionChange,
+  } = useMobile();
 
   return (
     <>
       {!isMobile ? (
         <div className="relative group w-full h-fit select-none">
           <input
-            value={value.title}
-            onChange={(event) => onChange("title", event.target.value)}
+            value={formData.education.title}
+            onChange={(event) =>
+              handleSectionChange("training", "title", event.target.value)
+            }
             className="placeholder:text-black border-none outline-none font-medium bg-transparent"
             placeholder="TRAINING / COURSES"
           />
           <div className="w-full h-1 bg-black"></div>
-
-          <input
-            value={value.course1}
-            onChange={(event) => onChange("course1", event.target.value)}
-            type="text"
-            className="w-full text-md h-5 border-b-[1px] border-dashed border-gray-400 pb-2 pt-1 bg-transparent outline-none px-2 font-bold focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-            placeholder="Course Title"
-          />
-          <input
-            value={value.course2}
-            onChange={(event) => onChange("course2", event.target.value)}
-            type="text"
-            className="w-full text-md h-5 bg-transparent outline-none px-2 font-bold focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-            placeholder="Course Title"
-          />
-          <div
-            className="absolute -top-4 right-0 w-8 h-8 cursor-pointer hidden group-hover:flex justify-center items-center rounded bg-white border-[1px] border-gray-600 border-opacity-40"
-            onClick={() => removeSection("training")}
-          >
-            <FaRegTrashAlt />
+          <div className="w-full grid grid-cols-3 gap-x-12">
+          {formData.training.items.map((item) => (
+            <div key={item.id}>
+              <input
+                value={item.course}
+                onChange={(event) =>
+                  handleSectionChange(
+                    "training",
+                    "course",
+                    event.target.value,
+                    item.id
+                  )
+                }
+                type="text"
+                className="w-full text-md h-5 border-b-[1px] border-dashed border-gray-400 pb-2 pt-1 bg-transparent outline-none px-2 font-bold focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+                placeholder="Course Title"
+              />
+              {formData.training.items.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => removeSectionItem("training", item.id)}
+                  className="remove-btn"
+                >
+                  حذف
+                </button>
+              )}
+            </div>
+          ))}
           </div>
+          <button
+            type="button"
+            onClick={() => addSectionItem("training")}
+            className="add-btn"
+          >
+            + افزودن training جدید
+          </button>
         </div>
       ) : (
-        <>
-          <div className="w-full bg-white mt-4 rounded-2xl p-4 select-none">
-            <div className="flex justify-between items-center mb-6">
-              <span className="font-semibold select-none">
-                Training / Courses
+        <div className="w-full bg-white mt-4 rounded-2xl p-4 select-none">
+          {/* Header title*/}
+          <div className="relative flex justify-between items-center mb-8">
+            {!openRename && !openEditMenu && (
+              <span
+                onClick={() => setOpenRename(true)}
+                className="font-semibold select-none"
+              >
+                {formData.training.title || "Training / Courses"}
               </span>
+            )}
 
-              <div className="text-xl cursor-pointer">
-                <GoPencil />
+            {/* Edit Title */}
+            {openRename ? (
+              <div className="w-full flex flex-col gap-y-2">
+                <input
+                  value={formData.training.title}
+                  onChange={(event) =>
+                    handleSectionChange(
+                      "training",
+                      "title",
+                      event.target.value
+                    )
+                  }
+                  className="w-full pl-2 h-10 placeholder:text-black border-[1px] border-green-600 rounded-md outline-none font-medium bg-transparent"
+                  placeholder="TRAINING/COURSE"
+                />
+                <div
+                  onClick={() => {
+                    setOpenRename(false);
+                    setOpenEditMenu(false);
+                  }}
+                  className="shrink-0 pl-6 text-xl cursor-pointer"
+                >
+                  <GoPencil />
+                </div>
               </div>
-            </div>
+            ) : (
+              <div
+                className={`w-[95%] absolute -top-2 ${
+                  openEditMenu ? "right-6" : "right-[-120%]"
+                } transition-all duration-300 flex items-center gap-x-6 bg-inherit pl-4`}
+              >
+                <div
+                  onClick={() => setOpenDeleteModal(true)}
+                  className="text-xl text-rose-500 hover:bg-gray-200 cursor-pointer p-3 rounded-full"
+                >
+                  <FaRegTrashAlt />
+                </div>
+                <div className="text-xl">
+                  <LuArrowUpDown />
+                </div>
+                <div
+                  onClick={() => setOpenRename(true)}
+                  className="text-xl flex items-center gap-x-2"
+                >
+                  <LuPencilLine />
+                  <span className="text-sm">rename</span>
+                </div>
+              </div>
+            )}
 
+            {/* Delete Modal */}
+            {openDeleteModal && (
+              <div className="z-40 w-full h-full bg-opacity-90 flex justify-center items-center px-12 fixed top-0 left-0 right-0 bottom-0 bg-[#59566A]">
+                <div className="w-full h-[290px] bg-white rounded-lg flex flex-col gap-y-8 p-8">
+                  <div className="flex flex-col gap-y-8">
+                    <span className="text-black font-semibold">
+                      {formData?.training?.title || "training"}
+                    </span>
+                    <span className="text-black text-sm">
+                      Are you sure you want to delete this section?
+                    </span>
+                  </div>
+
+                  <div className="w-full flex flex-col gap-y-6">
+                    <button
+                      onClick={() => removeSection("training")}
+                      className="text-white w-full h-12 font-semibold cursor-pointer bg-[#FF576F] rounded-md"
+                    >
+                      Delete
+                    </button>
+                    <button
+                      onClick={() => setOpenDeleteModal(false)}
+                      className="text-black w-full h-12 font-semibold cursor-pointer border-[2px] border-black rounded-md"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+            {/* End Delete Modal */}
+            {/* End Edit Title */}
+            {openEditMenu
+              ? !openRename && (
+                  <div
+                    onClick={() => setOpenEditMenu(false)}
+                    className="shrink-0 flex ml-auto text-xl cursor-pointer"
+                  >
+                    <IoMdClose />
+                  </div>
+                )
+              : !openRename && (
+                  <div
+                    onClick={() => setOpenEditMenu(true)}
+                    className="shrink-0 ml-6 text-xl cursor-pointer"
+                  >
+                    <GoPencil />
+                  </div>
+                )}
+          </div>
+          {/* End Header title*/}
+          {formData.training.items.map((item) => (
             <div
-              onClick={() => setOpenEdit(true)}
+              key={item.id}
+              onClick={() => {
+                setEditingItemId(item.id);
+                setOpenEdit(true);
+              }}
               className="w-full relative bg-[#FAFBFD]"
             >
-              <div className="w-full flex flex-col select-none text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] transition-all duration-300 rounded">
-                <span className="font-bold">Training</span>
-                <span>Course</span>
+              <div className="w-full flex select-none text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] transition-all duration-300 rounded">
+                <span className="font-semibold">
+                  {item.course || "Course Title"}
+                </span>
               </div>
               <div
                 onClick={(event) => {
+                  setEditingItemId(item.id);
                   setopenMobileEdit(true);
                   event.stopPropagation();
                 }}
@@ -80,128 +216,146 @@ const Training = ({ value, onChange, removeSection }) => {
                 <div className="w-[3px] h-[3px] bg-[#7D8588] rounded-full"></div>
               </div>
             </div>
+          ))}
 
-            <div className="w-11 h-11 bg-[#E3E9F5] text-[#384347] cursor-pointer flex justify-center items-center text-xl mt-3 font-bold rounded-full">
-              <LuPlus />
-            </div>
+          <div
+            onClick={() => addSectionItem("training")}
+            className="w-11 h-11 bg-[#E3E9F5] text-[#384347] cursor-pointer flex justify-center items-center text-xl mt-3 font-bold rounded-full"
+          >
+            <LuPlus />
           </div>
-          {/* open modal edit in mobile state */}
-          {openMobileEdit && (
+        </div>
+      )}
+
+      {/* open modal edit in mobile state */}
+      {openMobileEdit && (
+        <div
+          onClick={() => setopenMobileEdit(false)}
+          className="w-full h-full select-none fixed top-0 left-0 right-0 bottom-0 px-8 bg-opacity-90 bg-[#59566A] z-40"
+        >
+          <div
+            onClick={(event) => event.stopPropagation()}
+            className="pb-2 bg-white rounded-md absolute bottom-10 left-8 right-8"
+          >
+            <div className="w-full">
+              <div
+                onClick={() => {
+                  setopenMobileEdit(false);
+                  setOpenEdit(true);
+                }}
+                className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
+              >
+                <div className="text-2xl">
+                  <FiEdit3 />
+                </div>
+                <span className="text-xl font-semibold">Edit</span>
+              </div>
+            </div>
+
+            <div className="w-full">
+              <div
+                onClick={() => {
+                  if (editingItemId) {
+                    removeSectionItem("training", editingItemId);
+                  }
+                  setopenMobileEdit(false);
+                }}
+                className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
+              >
+                <div className="text-2xl">
+                  <FaRegTrashAlt />
+                </div>
+                <span className="text-xl font-semibold">Delete</span>
+              </div>
+            </div>
             <div
               onClick={() => setopenMobileEdit(false)}
-              className="w-full h-full select-none fixed top-0 left-0 right-0 bottom-0 px-8 bg-opacity-90 bg-[#59566A] z-40"
+              className="text-[#505A5D] text-xl font-semibold text-end p-2"
             >
-              <div
-                onClick={(event) => event.stopPropagation()}
-                className="pb-2 bg-white rounded-md absolute bottom-10 left-8 right-8"
-              >
-                <div className="w-full">
-                  <div
-                    onClick={() => {
-                      setopenMobileEdit(false);
-                      setOpenEdit(true);
-                    }}
-                    className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
-                  >
-                    <div className="text-2xl">
-                      <FiEdit3 />
-                    </div>
-                    <span className="text-xl font-semibold">Edit</span>
-                  </div>
-                </div>
-
-                <div className="w-full">
-                  <div
-                    onClick={() => removeSection("training")}
-                    className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
-                  >
-                    <div className="text-2xl">
-                      <FaRegTrashAlt />
-                    </div>
-                    <span className="text-xl font-semibold">Delete</span>
-                  </div>
-                </div>
-                <div
-                  onClick={() => setopenMobileEdit(false)}
-                  className="text-[#505A5D] text-xl font-semibold text-end p-2"
-                >
-                  cancel
-                </div>
-              </div>
+              cancel
             </div>
-          )}
-          {/* End open modal edit in mobile state */}
-          {/* The blow code is for open the edit page */}
-          <div
-            className={`w-full h-full fixed top-0 bottom-0 z-50 overflow-y-scroll ${
-              openEdit ? "right-0" : "right-[-100%]"
-            } bg-white transition-all duration-300`}
-          >
-            <div className="w-full h-14 mb-6 flex justify-start items-center px-4 bg-white shadow-[0px_1px_4px_0px_#000000]">
-              <div className="flex items-center justify-start gap-x-2">
-                <div
-                  onClick={() => setOpenEdit(false)}
-                  className="w-10 h-10 bg-[#F3F2FB] rounded-full cursor-pointer flex justify-center items-center text-3xl text-[#5F6CD4]"
-                >
-                  <MdKeyboardArrowLeft />
-                </div>
-                <span className="text-[#525858] font-semibold">
-                  Back to Resume
-                </span>
-              </div>
-            </div>
-
-            <form className="w-full px-6 bg-[#FAFBFD]">
-              <span className="mb-3 block text-[#75696C] font-medium">
-                Training / Courses
-              </span>
-              <div className="w-full">
-                <span className="text-[#75696C] font-medium mb-2 block">
-                  Course Title
-                </span>
-                <input
-                  value={value.course1}
-                  onChange={(event) => onChange("course1", event.target.value)}
-                  className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
-                  placeholder="Course Title"
-                />
-              </div>
-              <div className="w-full mt-2">
-                <span className="text-[#75696C] font-medium mb-2 block">
-                  Course Title
-                </span>
-                <input
-                  value={value.course2}
-                  onChange={(event) => onChange("course2", event.target.value)}
-                  className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
-                  placeholder="Course Title"
-                />
-              </div>
-
-              <div className="w-full h-10 flex justify-between items-center px-4 border-[1px] border-[#dde7e9] mt-2 rounded">
-                <div className="flex items-center gap-x-1">
-                  <div className="w-6 h-6 flex justify-center items-center text-xl text-[#4e4f50] rounded-full">
-                    <IoMdCheckmarkCircleOutline />
-                  </div>
-                  <span className="text-[#53555e] text-sm block">
-                    Content Issues
-                  </span>
-                </div>
-
-                <div className="w-6 h-6 bg-green-600 flex justify-center items-center text-white cursor-pointer text-2xl rounded">
-                  <IoIosCheckmark />
-                </div>
-              </div>
-              <div
-                onClick={() => setOpenEdit(false)}
-                className="w-full h-12 flex justify-center items-center bg-[#5e41f0] cursor-pointer rounded mt-9 text-white text-base"
-              >
-                Done
-              </div>
-            </form>
           </div>
-        </>
+        </div>
       )}
+      {/* End open modal edit in mobile state */}
+
+      {/* The blow code is for open the edit page */}
+      <div
+        className={`w-full h-full fixed top-0 bottom-0 z-50 overflow-y-scroll ${
+          openEdit ? "right-0" : "right-[-100%]"
+        } bg-white transition-all duration-300`}
+      >
+        <div className="w-full h-14 mb-6 flex justify-start items-center px-4 bg-white shadow-[0px_1px_4px_0px_#000000]">
+          <div className="flex items-center justify-start gap-x-2">
+            <div
+              onClick={() => setOpenEdit(false)}
+              className="w-10 h-10 bg-[#F3F2FB] rounded-full cursor-pointer flex justify-center items-center text-3xl text-[#5F6CD4]"
+            >
+              <MdKeyboardArrowLeft />
+            </div>
+            <span className="text-[#525858] font-semibold">Back to Resume</span>
+          </div>
+        </div>
+
+        <form className="w-full px-6 bg-[#FAFBFD]">
+          <span className="mb-3 block text-[#75696C] font-medium">
+            Training / Courses
+          </span>
+          <div className="w-full">
+            <span className="text-[#75696C] font-medium mb-2 block">
+              Course Title
+            </span>
+            <input
+              value={
+                editingItemId
+                  ? formData.training.items.find(
+                      (item) => item.id === editingItemId
+                    )?.course || ""
+                  : formData.training.course
+              }
+              onChange={(event) => {
+                if (editingItemId) {
+                  handleSectionChange(
+                    "training",
+                    "course",
+                    event.target.value,
+                    editingItemId
+                  );
+                } else {
+                  handleSectionChange(
+                    "training",
+                    "course",
+                    event.target.value
+                  );
+                }
+              }} className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
+              placeholder="Course Title"
+            />
+          </div>
+
+
+          <div className="w-full h-10 flex justify-between items-center px-4 border-[1px] border-[#dde7e9] mt-2 rounded">
+            <div className="flex items-center gap-x-1">
+              <div className="w-6 h-6 flex justify-center items-center text-xl text-[#4e4f50] rounded-full">
+                <IoMdCheckmarkCircleOutline />
+              </div>
+              <span className="text-[#53555e] text-sm block">
+                Content Issues
+              </span>
+            </div>
+
+            <div className="w-6 h-6 bg-green-600 flex justify-center items-center text-white cursor-pointer text-2xl rounded">
+              <IoIosCheckmark />
+            </div>
+          </div>
+          <div
+            onClick={() => setOpenEdit(false)}
+            className="w-full h-12 flex justify-center items-center bg-[#5e41f0] cursor-pointer rounded mt-9 text-white text-base"
+          >
+            Done
+          </div>
+        </form>
+      </div>
     </>
   );
 };

@@ -296,7 +296,7 @@ const Summary = ({ value, onChange }) => {
                   ? formData.summary.items.find(
                       (item) => item.id === editingItemId
                     )?.description || ""
-                  : value.title
+                  : formData.experience.title
               }
               onChange={(event) => {
                 if (editingItemId) {
@@ -307,7 +307,7 @@ const Summary = ({ value, onChange }) => {
                     editingItemId
                   );
                 } else {
-                  onChange("title", event.target.value);
+                 handleSectionChange("summary", "title", event.target.value);
                 }
               }}
               className="w-full select-none text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
