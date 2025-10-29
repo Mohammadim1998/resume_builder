@@ -10,7 +10,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { IoDiamondOutline } from "react-icons/io5";
 import { FiEdit3 } from "react-icons/fi";
 
-const SocialMedia = ({ value, onChange }) => {
+const SocialMedia = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [startDateTime, setStartDateTime] = useState(null);
@@ -28,6 +28,7 @@ const SocialMedia = ({ value, onChange }) => {
     removeSection,
     handleSectionChange,
   } = useMobile();
+  
   return (
     <>
       {!isMobile ? (

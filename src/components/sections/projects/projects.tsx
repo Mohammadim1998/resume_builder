@@ -11,7 +11,7 @@ import { FaCalendarAlt, FaRegTrashAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { FiEdit3 } from "react-icons/fi";
 
-const Projects = ({ value, onChange }) => {
+const Projects = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [startDateTime, setStartDateTime] = useState(null);

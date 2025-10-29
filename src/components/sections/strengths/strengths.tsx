@@ -10,7 +10,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { IoDiamondOutline } from "react-icons/io5";
 import { FiEdit3 } from "react-icons/fi";
 
-const Strengths = ({ value, onChange }) => {
+const Strengths = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [startDateTime, setStartDateTime] = useState(null);
@@ -28,6 +28,7 @@ const Strengths = ({ value, onChange }) => {
     removeSection,
     handleSectionChange,
   } = useMobile();
+  
   return (
     <>
       {!isMobile ? (

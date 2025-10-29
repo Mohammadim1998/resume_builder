@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FaCalendarAlt, FaRegTrashAlt } from "react-icons/fa";
 import { FiEdit3 } from "react-icons/fi";
 
-const Education = ({ value, onChange }) => {
+const Education = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [startDateTime, setStartDateTime] = useState(null);

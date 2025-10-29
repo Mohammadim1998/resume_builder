@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FiEdit3 } from "react-icons/fi";
 
-const Skills = ({ value, onChange }) => {
+const Skills = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [openMobileEdit, setopenMobileEdit] = useState(false);
   const [editingItemId, setEditingItemId] = useState(null);

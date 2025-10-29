@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FiEdit3 } from "react-icons/fi";
 
-const Training = ({ value, onChange }) => {
+const Training = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [openMobileEdit, setopenMobileEdit] = useState(false);
   const [editingItemId, setEditingItemId] = useState(null);
@@ -30,7 +30,7 @@ const Training = ({ value, onChange }) => {
       {!isMobile ? (
         <div className="relative group w-full h-fit select-none">
           <input
-            value={formData.education.title}
+            value={formData.training.title}
             onChange={(event) =>
               handleSectionChange("training", "title", event.target.value)
             }

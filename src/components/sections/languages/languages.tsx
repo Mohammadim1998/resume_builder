@@ -12,7 +12,7 @@ import { IoDiamondOutline } from "react-icons/io5";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FiEdit3 } from "react-icons/fi";
 
-const Languages = ({ value, onChange }) => {
+const Languages = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [openMobileEdit, setopenMobileEdit] = useState(false);
   const [editingItemId, setEditingItemId] = useState(null);
@@ -27,6 +27,7 @@ const Languages = ({ value, onChange }) => {
     removeSection,
     handleSectionChange,
   } = useMobile();
+  
   return (
     <>
       {!isMobile ? (

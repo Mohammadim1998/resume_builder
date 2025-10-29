@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FiEdit3 } from "react-icons/fi";
 
-const Summary = ({ value, onChange }) => {
+const Summary = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [openMobileEdit, setopenMobileEdit] = useState(false);
   const [editingItemId, setEditingItemId] = useState(null);
