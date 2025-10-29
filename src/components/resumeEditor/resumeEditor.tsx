@@ -80,13 +80,32 @@ const ResumeEditor = () => {
       address: { ...prev.address, [field]: value },
     }));
   };
-  const handleSummaryChange = (field, value) => {
-    setFormData((prev) => ({
-      ...prev,
-      summary: { ...prev.summary, [field]: value },
-    }));
-  };
-
+  
+  // const handleSummaryChange = (field, value, itemId = null) => {
+  //   setFormData((prev) => {
+  //     if (itemId) {
+  //       // اگر itemId وجود دارد، یعنی در حال تغییر یک آیتم هستیم
+  //       return {
+  //         ...prev,
+  //         summary: {
+  //           ...prev.summary,
+  //           items: prev.summary.items.map((item) =>
+  //             item.id === itemId ? { ...item, [field]: value } : item
+  //           ),
+  //         },
+  //       };
+  //     } else {
+  //       // اگر itemId وجود ندارد، یعنی در حال تغییر title اصلی هستیم
+  //       return {
+  //         ...prev,
+  //         summary: {
+  //           ...prev.summary,
+  //           [field]: value,
+  //         },
+  //       };
+  //     }
+  //   });
+  // };
   const handleEducationChange = (field, value) => {
     setFormData((prev) => ({
       ...prev,
@@ -105,12 +124,32 @@ const ResumeEditor = () => {
       achievement: { ...prev.achievement, [field]: value },
     }));
   };
-  const handleExperienceChange = (field, value) => {
-    setFormData((prev) => ({
-      ...prev,
-      experience: { ...prev.experience, [field]: value },
-    }));
-  };
+ 
+  //  const handleExperienceChange = (field, value, itemId = null) => {
+  //   setFormData((prev) => {
+  //     if (itemId) {
+  //       // اگر itemId وجود دارد، یعنی در حال تغییر یک آیتم هستیم
+  //       return {
+  //         ...prev,
+  //         experience: {
+  //           ...prev.experience,
+  //           items: prev.experience.items.map((item) =>
+  //             item.id === itemId ? { ...item, [field]: value } : item
+  //           ),
+  //         },
+  //       };
+  //     } else {
+  //       // اگر itemId وجود ندارد، یعنی در حال تغییر title اصلی هستیم
+  //       return {
+  //         ...prev,
+  //         experience: {
+  //           ...prev.experience,
+  //           [field]: value,
+  //         },
+  //       };
+  //     }
+  //   });
+  // };
   const handleLanguagesChange = (field, value) => {
     setFormData((prev) => ({
       ...prev,
@@ -147,11 +186,11 @@ const ResumeEditor = () => {
     if (!Component) return null;
 
     const handlers = {
-      summary: handleSummaryChange,
+      // summary: handleSummaryChange,
       education: handleEducationChange,
       projects: handleProjectsChange,
       achievement: handleAchievementChange,
-      experience: handleExperienceChange,
+      // experience: handleExperienceChange,
       languages: handleLanguagesChange,
       skills: handleSkillsChange,
       strengths: handleStrengthsChange,

@@ -23,18 +23,23 @@ const ResumePreview = ({ setShowPreview, formData, sections, resumeRef }) => {
   const renderSection = (section) => {
     const sectionData = formData[section.component];
     if (!sectionData) return null;
+    console.log("sectionData: ", sectionData);
 
     switch (section.component) {
       case "summary":
         return (
-          <div key={section.id} className="mb-6">
+          <div className="">
             <h2 className="text-xl font-bold text-gray-800 mb-2 border-b-4 border-black pb-1">
               {sectionData.title || "Summary"}
             </h2>
-            <p className="text-gray-600 text-xs">
-              {sectionData.description ||
-                "Briefly explain why you're a great fit for the role - use the AI assistant to"}
-            </p>
+            {sectionData.items.map((item) => (
+              <div key={item.id} className="mb-6">
+                <p className="text-gray-600 text-xs">
+                  {item.description ||
+                    "Briefly explain why you're a great fit for the role - use the AI assistant to"}
+                </p>
+              </div>
+            ))}
           </div>
         );
 

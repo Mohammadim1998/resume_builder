@@ -9,7 +9,6 @@ import { IoMdShare } from "react-icons/io";
 import { FaCrown } from "react-icons/fa";
 import { PiArrowArcRightBold } from "react-icons/pi";
 import { PiArrowArcLeftBold } from "react-icons/pi";
-import { useMobile } from "../../context/mobileContext";
 
 const Sidebar = ({
   setShowRearrange,

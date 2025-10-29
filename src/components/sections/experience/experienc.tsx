@@ -11,91 +11,164 @@ import { FaCalendarAlt, FaRegTrashAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { FiEdit3 } from "react-icons/fi";
 
-const Experience = ({ value, onChange,removeSection }) => {
-  const { isMobile } = useMobile();
+const Experience = ({ value, onChange }) => {
+  const {
+    isMobile,
+    formData,
+    addSectionItem,
+    removeSectionItem,
+    removeSection,
+    handleSectionChange,
+  } = useMobile();
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [startDateTime, setStartDateTime] = useState(null);
   const [endDateTime, setEndDateTime] = useState(null);
-const [openMobileEdit, setopenMobileEdit] = useState(false);
+  const [openMobileEdit, setopenMobileEdit] = useState(false);
 
   return (
     <>
       {!isMobile ? (
         <div className="relative group w-full h-fit select-none">
           <input
-            value={value.title}
-            onChange={(event) => onChange("title", event.target.value)}
+            value={formData.experience.title}
+            onChange={(event) => handleSectionChange("experience","title", event.target.value)}
             className="placeholder:text-black border-none outline-none font-medium bg-transparent"
             placeholder="EXPERIENCE"
           />
           <div className="w-full h-1 bg-black"></div>
-          <input
-            value={value.subTitle}
-            onChange={(event) => onChange("subTitle", event.target.value)}
-            type="text"
-            className="w-full text-md h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-            placeholder="Title"
-          />
-          <input
-            value={value.company}
-            onChange={(event) => onChange("company", event.target.value)}
-            type="text"
-            className="w-full text-md h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-            placeholder="Company Name"
-          />
+          <div className="experience-items">
+            {formData.experience.items.map((item) => (
+              <div key={item.id}>
+                <input
+                  value={item.subTitle}
+                  // onChange={(event) => onChange("subTitle", event.target.value)}
+                  onChange={(event) =>
+                    handleSectionChange(
+                      "experience",
+                      "subTitle",
+                      event.target.value,
+                      item.id
+                    )
+                  }
+                  type="text"
+                  className="w-full text-md h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+                  placeholder="Title"
+                />
+                <input
+                  value={item.company}
+                  // onChange={(event) => onChange("company", event.target.value)}
+                  onChange={(event) =>
+                    handleSectionChange(
+                      "experience",
+                      "company",
+                      event.target.value,
+                      item.id
+                    )
+                  }
+                  type="text"
+                  className="w-full text-md h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+                  placeholder="Company Name"
+                />
 
-          <div className="flex items-center justify-start">
-            <div className="flex items-center gap-x-1 ml-2">
-              <div className="text-[#65696D] text-sm">
-                <FaCalendarAlt />
+                <div className="flex items-center justify-start">
+                  <div className="flex items-center gap-x-1 ml-2">
+                    <div className="text-[#65696D] text-sm">
+                      <FaCalendarAlt />
+                    </div>
+                    <DatePicker
+                      selected={item.date}
+                      value={item.date}
+                      // onChange={(date) => onChange("date", date)}
+                      onChange={(date) =>
+                        handleSectionChange("experience", "date", date, item.id)
+                      }
+                      dateFormat="yyyy/MM/dd"
+                      placeholderText="Date period"
+                      isClearable
+                      className="custom-datepicker w-24 bg-inherit outline-none text-[#A9A9A9] text-sm"
+                      calendarClassName="custom-calendar"
+                    />
+                  </div>
+                  <div className="flex items-center">
+                    <div className="text-[#65696D] text-sm">
+                      <FaLocationDot />
+                    </div>
+                    <input
+                      type="text"
+                      value={item.location}
+                      onChange={(event) =>
+                        handleSectionChange(
+                          "experience",
+                          "location",
+                          event.target.value,
+                          item.id
+                        )
+                      }
+                      className="w-full text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+                      placeholder="Location"
+                    />
+                  </div>
+                </div>
+
+                <input
+                  value={item.shortDescription}
+                  // onChange={(event) =>
+                  //   onChange("shortDescription", event.target.value)
+                  // }
+                  onChange={(event) =>
+                    handleSectionChange(
+                      "experience",
+                      "shortDescription",
+                      event.target.value,
+                      item.id
+                    )
+                  }
+                  type="text"
+                  className="w-full text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+                  placeholder="Company Description"
+                />
+
+                <div className="flex items-center mt-2">
+                  <div className="w-1 h-1 rounded-full bg-[#3E3E3E]"></div>
+                  <input
+                    value={item.longDescription}
+                    // onChange={(event) =>
+                    //   onChange("longDescription", event.target.value)
+                    // }
+                    onChange={(event) =>
+                      handleSectionChange(
+                        "experience",
+                        "longDescription",
+                        event.target.value,
+                        item.id
+                      )
+                    }
+                    type="text"
+                    className="w-full text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+                    placeholder="Highlight your accomplishments,using numbers if possible."
+                  />
+                </div>
+                {formData.experience.items.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => removeSectionItem("experience", item.id)}
+                    className="remove-btn"
+                  >
+                    حذف
+                  </button>
+                )}
               </div>
-              <DatePicker
-                selected={value.date}
-                value={value.date}
-                onChange={(date) => onChange("date", date)}
-                dateFormat="yyyy/MM/dd"
-                placeholderText="Date period"
-                isClearable
-                className="custom-datepicker w-24 bg-inherit outline-none text-[#A9A9A9] text-sm"
-                calendarClassName="custom-calendar"
-              />
-            </div>
-            <div className="flex items-center">
-              <div className="text-[#65696D] text-sm">
-                <FaLocationDot />
-              </div>
-              <input
-                type="text"
-                className="w-full text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-                placeholder="Location"
-              />
-            </div>
+            ))}
           </div>
 
-          <input
-            value={value.shortDescription}
-            onChange={(event) =>
-              onChange("shortDescription", event.target.value)
-            }
-            type="text"
-            className="w-full text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-            placeholder="Company Description"
-          />
-
-          <div className="flex items-center mt-2">
-            <div className="w-1 h-1 rounded-full bg-[#3E3E3E]"></div>
-            <input
-              value={value.longDescription}
-              onChange={(event) =>
-                onChange("longDescription", event.target.value)
-              }
-              type="text"
-              className="w-full text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-              placeholder="Highlight your accomplishments,using numbers if possible."
-            />
-          </div>
-           <div className="absolute -top-4 right-0 w-8 h-8 cursor-pointer hidden group-hover:flex justify-center items-center rounded bg-white border-[1px] border-gray-600 border-opacity-40" onClick={() => removeSection("experience")}><FaRegTrashAlt /></div>
+          <button
+            type="button"
+            onClick={() => addSectionItem("experience")}
+            className="add-btn"
+          >
+            + افزودن experience جدید
+          </button>
         </div>
       ) : (
         <>
@@ -116,10 +189,13 @@ const [openMobileEdit, setopenMobileEdit] = useState(false);
                 <span className="font-bold">Title</span>
                 <span>Company Name</span>
               </div>
-              <div onClick={(event) => {
+              <div
+                onClick={(event) => {
                   setopenMobileEdit(true);
                   event.stopPropagation();
-                }} className="absolute right-2 w-10 h-10 rounded-full hover:bg-[#7d858838] cursor-pointer top-[50%] translate-y-[-50%] flex flex-col items-center justify-center gap-y-[2px]">
+                }}
+                className="absolute right-2 w-10 h-10 rounded-full hover:bg-[#7d858838] cursor-pointer top-[50%] translate-y-[-50%] flex flex-col items-center justify-center gap-y-[2px]"
+              >
                 <div className="w-[3px] h-[3px] bg-[#7D8588] rounded-full"></div>
                 <div className="w-[3px] h-[3px] bg-[#7D8588] rounded-full"></div>
                 <div className="w-[3px] h-[3px] bg-[#7D8588] rounded-full"></div>
@@ -130,41 +206,50 @@ const [openMobileEdit, setopenMobileEdit] = useState(false);
               <LuPlus />
             </div>
           </div>
- {/* open modal edit in mobile state */}
+          {/* open modal edit in mobile state */}
           {openMobileEdit && (
-             <div onClick={() => setopenMobileEdit(false)} className="w-full h-full select-none fixed top-0 left-0 right-0 bottom-0 px-8 bg-opacity-90 bg-[#59566A] z-40">
-                         <div onClick={(event) => event.stopPropagation()} className="pb-2 bg-white rounded-md absolute bottom-10 left-8 right-8">
-                           <div className="w-full">
-                             <div
-                               onClick={() => {
-                                 setopenMobileEdit(false);
-                                 setOpenEdit(true);
-                               }}
-                               className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
-                             >
-                               <div className="text-2xl">
-                                 <FiEdit3 />
-                               </div>
-                               <span className="text-xl font-semibold">Edit</span>
-                             </div>
-                           </div>
-           
-                           <div className="w-full">
-                             <div
-                               onClick={() => removeSection("experience")}
-                               className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
-                             >
-                               <div className="text-2xl">
-                                 <FaRegTrashAlt />
-                               </div>
-                               <span className="text-xl font-semibold">Delete</span>
-                             </div>
-                           </div>
-                           <div onClick={() => setopenMobileEdit(false)} className="text-[#505A5D] text-xl font-semibold text-end p-2">
-                             cancel
-                           </div>
-                         </div>
-                       </div>
+            <div
+              onClick={() => setopenMobileEdit(false)}
+              className="w-full h-full select-none fixed top-0 left-0 right-0 bottom-0 px-8 bg-opacity-90 bg-[#59566A] z-40"
+            >
+              <div
+                onClick={(event) => event.stopPropagation()}
+                className="pb-2 bg-white rounded-md absolute bottom-10 left-8 right-8"
+              >
+                <div className="w-full">
+                  <div
+                    onClick={() => {
+                      setopenMobileEdit(false);
+                      setOpenEdit(true);
+                    }}
+                    className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
+                  >
+                    <div className="text-2xl">
+                      <FiEdit3 />
+                    </div>
+                    <span className="text-xl font-semibold">Edit</span>
+                  </div>
+                </div>
+
+                <div className="w-full">
+                  <div
+                    onClick={() => removeSection("experience")}
+                    className="w-full p-6 text-[#505A5D] flex items-center gap-2 border-b-[1px] border-b-[#E4E4E4] pb-4"
+                  >
+                    <div className="text-2xl">
+                      <FaRegTrashAlt />
+                    </div>
+                    <span className="text-xl font-semibold">Delete</span>
+                  </div>
+                </div>
+                <div
+                  onClick={() => setopenMobileEdit(false)}
+                  className="text-[#505A5D] text-xl font-semibold text-end p-2"
+                >
+                  cancel
+                </div>
+              </div>
+            </div>
           )}
           {/* End open modal edit in mobile state */}
           {/* The blow code is for open the edit page */}
@@ -303,7 +388,10 @@ const [openMobileEdit, setopenMobileEdit] = useState(false);
                   <IoIosCheckmark />
                 </div>
               </div>
-              <div onClick={() => setOpenEdit(false)} className="w-full h-12 flex justify-center items-center bg-[#5e41f0] cursor-pointer rounded mt-9 text-white text-base">
+              <div
+                onClick={() => setOpenEdit(false)}
+                className="w-full h-12 flex justify-center items-center bg-[#5e41f0] cursor-pointer rounded mt-9 text-white text-base"
+              >
                 Done
               </div>
             </form>

@@ -41,10 +41,93 @@ export const MobileProvider = ({ children }) => {
     }
   }, [initialSections]);
 
+  const addSectionItem = (sectionName) => {
+    setFormData((prev) => {
+      const section = prev[sectionName];
+      const newItem = createDefaultItem(sectionName);
+
+      return {
+        ...prev,
+        [sectionName]: {
+          ...section,
+          items: [...section.items, newItem],
+        },
+      };
+    });
+  };
+
   const removeSection = (id) => {
     setInitialSections(initialSections.filter((section) => section.id !== id));
     location.reload();
     console.log(initialSections);
+  };
+  const removeSectionItem = (sectionName, id) => {
+    setFormData((prev) => ({
+      ...prev,
+      [sectionName]: {
+        ...prev[sectionName],
+        items: prev[sectionName].items.filter((item) => item.id !== id),
+      },
+    }));
+  };
+  const handleSectionChange = (sectionName, field, value, itemId = null) => {
+    setFormData((prev) => {
+      const section = prev[sectionName];
+
+      if (itemId) {
+        // تغییر در آیتم خاص
+        return {
+          ...prev,
+          [sectionName]: {
+            ...section,
+            items: section.items.map((item) =>
+              item.id === itemId ? { ...item, [field]: value } : item
+            ),
+          },
+        };
+      } else {
+        // تغییر در title اصلی section
+        return {
+          ...prev,
+          [sectionName]: {
+            ...section,
+            [field]: value,
+          },
+        };
+      }
+    });
+  };
+
+  const createDefaultItem = (sectionName) => {
+    const defaultItems = {
+      summary: { id: Date.now(), description: "" },
+      education: { id: Date.now(), degree: "", school: "", date: null },
+      projects: {
+        id: Date.now(),
+        name: "",
+        date: null,
+        location: "",
+        shortDescription: "",
+        outcome: "",
+      },
+      achievement: { id: Date.now(), name: "", description: "" },
+      experience: {
+        id: Date.now(),
+        subTitle: "",
+        company: "",
+        date: null,
+        location: "",
+        shortDescription: "",
+        longDescription: "",
+      },
+      skills: { id: Date.now(), skill1: "", skill2: "" },
+      languages: { id: Date.now(), lang: "", level: "" },
+      strengths: { id: Date.now(), strength: "", explain: "" },
+      socialMedia: { id: Date.now(), social: "", identify: "" },
+      training: { id: Date.now(), course1: "", course2: "" },
+    };
+
+    return defaultItems[sectionName] || { id: Date.now() };
   };
 
   useEffect(() => {
@@ -69,31 +152,113 @@ export const MobileProvider = ({ children }) => {
       linkedin: "",
       location: "",
     },
-    summary: { title: "", description: "" },
-    education: { title: "", degree: "", school: "", date: null },
+    summary: {
+      title: "",
+      items: [
+        {
+          id: Date.now(),
+          description: "",
+        },
+      ],
+    },
+    education: {
+      title: "",
+      items: [
+        {
+          id: Date.now(),
+          degree: "",
+          school: "",
+          date: null,
+        },
+      ],
+    },
     projects: {
       title: "",
-      name: "",
-      date: null,
-      location: "",
-      shortDescription: "",
-      outcome: "",
+      items: [
+        {
+          id: Date.now(),
+          name: "",
+          date: null,
+          location: "",
+          shortDescription: "",
+          outcome: "",
+        },
+      ],
     },
-    achievement: { title: "", name: "", description: "" },
+    achievement: {
+      title: "",
+      items: [
+        {
+          id: Date.now(),
+          name: "",
+          description: "",
+        },
+      ],
+    },
     experience: {
       title: "",
-      subTitle: "",
-      company: "",
-      date: null,
-      location: "",
-      shortDescription: "",
-      longDescription: "",
+      items: [
+        {
+          id: Date.now(),
+          subTitle: "",
+          company: "",
+          date: null,
+          location: "",
+          shortDescription: "",
+          longDescription: "",
+        },
+      ],
     },
-    skills: { title: "", skill1: "", skill2: "" },
-    languages: { title: "", lang: "", level: "" },
-    strengths: { title: "", strength: "", explain: "" },
-    socialMedia: { title: "", social: "", identify: "" },
-    training: { title: "", course1: "", course2: "" },
+    skills: {
+      title: "",
+      items: [
+        {
+          id: Date.now(),
+          skill1: "",
+          skill2: "",
+        },
+      ],
+    },
+    languages: {
+      title: "",
+      items: [
+        {
+          id: Date.now(),
+          lang: "",
+          level: "",
+        },
+      ],
+    },
+    strengths: {
+      title: "",
+      items: [
+        {
+          id: Date.now(),
+          strength: "",
+          explain: "",
+        },
+      ],
+    },
+    socialMedia: {
+      title: "",
+      items: [
+        {
+          id: Date.now(),
+          social: "",
+          identify: "",
+        },
+      ],
+    },
+    training: {
+      title: "",
+      items: [
+        {
+          id: Date.now(),
+          course1: "",
+          course2: "",
+        },
+      ],
+    },
   });
 
   /* Download PDF */
@@ -159,6 +324,9 @@ export const MobileProvider = ({ children }) => {
         initialSections,
         removeSection,
         setInitialSections,
+        addSectionItem,
+        removeSectionItem,
+        handleSectionChange,
       }}
     >
       {children}
