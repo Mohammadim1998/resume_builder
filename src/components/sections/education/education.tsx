@@ -9,6 +9,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaCalendarAlt, FaRegTrashAlt } from "react-icons/fa";
 import { FiEdit3 } from "react-icons/fi";
+import Toolbar from "../toolbar/toolbar";
+import ToolbarTitle from "../toolbarTitle/toolbarTitle";
+import { useRef, useEffect } from "react";
 
 const Education = () => {
   const [openEdit, setOpenEdit] = useState(false);
@@ -20,6 +23,8 @@ const Education = () => {
   const [openEditMenu, setOpenEditMenu] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openRename, setOpenRename] = useState(false);
+  const [openItemToolbar, setOpenItemToolbar] = useState(false);
+  const [openItemToolbarTitle, setOpenItemToolbarTitle] = useState(false);
   const {
     isMobile,
     formData,
@@ -28,90 +33,126 @@ const Education = () => {
     removeSection,
     handleSectionChange,
   } = useMobile();
-  
+
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target)
+      ) {
+        setOpenItemToolbar(false);
+        setOpenItemToolbarTitle(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setOpenItemToolbar, setOpenItemToolbarTitle]);
+
   return (
     <>
       {!isMobile ? (
-        <div className="relative group w-full h-fit select-none">
+        <div
+          ref={containerRef}
+          className="relative group w-full h-fit select-none"
+        >
+          {/* Toolbar Title */}
+          {openItemToolbarTitle && (
+            <div className="absolute -top-5 right-8 bg-white h-8 flex items-center rounded-3xl">
+              <ToolbarTitle name="education" />
+            </div>
+          )}
+          {/* End Toolbar Title */}
           <input
             value={formData.education.title}
             onChange={(event) =>
               handleSectionChange("education", "title", event.target.value)
             }
+            onClick={() => {
+              setOpenItemToolbar(false);
+              setOpenItemToolbarTitle(true);
+            }}
             className="placeholder:text-black border-none outline-none font-medium bg-transparent"
             placeholder="EDUCATION"
           />
           <div className="w-full h-1 bg-black"></div>
           <div className="w-full flex flex-col gap-y-2">
-          {formData.education.items.map((item) => (
-            <div key={item.id} className="border-b-[1px] border-b-[#CCCCCC] border-dashed only:border-b-0">
-              <input
-                type="text"
-                value={item.degree}
-                onChange={(event) =>
-                  handleSectionChange(
-                    "education",
-                    "degree",
-                    event.target.value,
-                    item.id
-                  )
-                }
-                className="w-full text-md h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-                placeholder="Degree and Field of Study"
-              />
-              <input
-                type="text"
-                value={item.school}
-                onChange={(event) =>
-                  handleSectionChange(
-                    "education",
-                    "school",
-                    event.target.value,
-                    item.id
-                  )
-                }
-                className="w-full placeholder:text-[#8FC8FF] text-[#1E90FF] font-bold text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-                placeholder="School or University"
-              />
-
-              <div className="flex items-center gap-x-1 ml-2">
-                <div className="text-[#65696D] text-sm">
-                  <FaCalendarAlt />
-                </div>
-                <DatePicker
-                  selected={item.date}
-                  value={item.date}
-                  onChange={(date) =>
-                    handleSectionChange("education", "date", date, item.id)
+            {formData.education.items.map((item) => (
+              <div
+                key={item.id}
+                className="border-b-[1px] border-b-[#CCCCCC] border-dashed only:border-b-0"
+                onClick={() => {
+                  setEditingItemId(item.id);
+                  setOpenItemToolbar(true);
+                  setOpenItemToolbarTitle(false);
+                }}
+              >
+                <input
+                  type="text"
+                  value={item.degree}
+                  onChange={(event) =>
+                    handleSectionChange(
+                      "education",
+                      "degree",
+                      event.target.value,
+                      item.id
+                    )
                   }
-                  // onChange={(date) => onChange("date", date)}
-                  dateFormat="yyyy/MM/dd"
-                  placeholderText="Date period"
-                  isClearable
-                  className="custom-datepicker outline-none text-[#A9A9A9] text-sm bg-transparent"
-                  calendarClassName="custom-calendar"
+                  className="w-full text-md h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+                  placeholder="Degree and Field of Study"
                 />
-              </div>
+                <input
+                  type="text"
+                  value={item.school}
+                  onChange={(event) =>
+                    handleSectionChange(
+                      "education",
+                      "school",
+                      event.target.value,
+                      item.id
+                    )
+                  }
+                  className="w-full placeholder:text-[#8FC8FF] text-[#1E90FF] font-bold text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+                  placeholder="School or University"
+                />
 
-              {formData.education.items.length > 1 && (
-                <button
-                  type="button"
-                  onClick={() => removeSectionItem("education", item.id)}
-                  className="remove-btn"
-                >
-                  حذف
-                </button>
-              )}
-            </div>
-          ))}
+                <div className="flex items-center gap-x-1 ml-2">
+                  <div className="text-[#65696D] text-sm">
+                    <FaCalendarAlt />
+                  </div>
+                  <DatePicker
+                    selected={item.date}
+                    value={item.date}
+                    onChange={(date) =>
+                      handleSectionChange("education", "date", date, item.id)
+                    }
+                    // onChange={(date) => onChange("date", date)}
+                    dateFormat="yyyy/MM/dd"
+                    placeholderText="Date period"
+                    isClearable
+                    className="custom-datepicker outline-none text-[#A9A9A9] text-sm bg-transparent"
+                    calendarClassName="custom-calendar"
+                  />
+                </div>
+
+                {/* Toolbar */}
+                {openItemToolbar && (
+                  <div className="absolute -top-5 right-8 h-10 flex items-center rounded-3xl">
+                    <Toolbar
+                      name="education"
+                      itemId={editingItemId}
+                      setOpenItemToolbar={setOpenItemToolbar}
+                    />
+                  </div>
+                )}
+                {/* End Toolbar */}
+              </div>
+            ))}
           </div>
-          <button
-            type="button"
-            onClick={() => addSectionItem("education")}
-            className="add-btn"
-          >
-            + افزودن education جدید
-          </button>
         </div>
       ) : (
         <div className="w-full bg-white mt-4 rounded-2xl p-4 select-none">
@@ -345,7 +386,7 @@ const Education = () => {
               Education
             </span>
             <input
-               value={
+              value={
                 editingItemId
                   ? formData.education.items.find(
                       (item) => item.id === editingItemId
@@ -368,7 +409,7 @@ const Education = () => {
                   );
                 }
               }}
-               className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
+              className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
               placeholder="Degree and Field of Study"
             />
           </div>
@@ -400,7 +441,7 @@ const Education = () => {
                   );
                 }
               }}
-                className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
+              className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
               placeholder="School or University"
             />
           </div>
@@ -445,12 +486,13 @@ const Education = () => {
                 selected={formData.education.date}
                 // value={value.date}
                 // onChange={(date) => onChange("date", date)}
-                 value={
+                value={
                   editingItemId
                     ? formData.education.items.find(
                         (item) => item.id === editingItemId
                       )?.date || ""
-                    : formData.education.date                }
+                    : formData.education.date
+                }
                 onChange={(date) => {
                   if (editingItemId) {
                     handleSectionChange(

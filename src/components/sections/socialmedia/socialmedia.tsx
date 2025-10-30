@@ -9,6 +9,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { IoDiamondOutline } from "react-icons/io5";
 import { FiEdit3 } from "react-icons/fi";
+import Toolbar from "../toolbar/toolbar";
+import ToolbarTitle from "../toolbarTitle/toolbarTitle";
+import { useRef, useEffect } from "react";
 
 const SocialMedia = () => {
   const [openEdit, setOpenEdit] = useState(false);
@@ -20,7 +23,9 @@ const SocialMedia = () => {
   const [openEditMenu, setOpenEditMenu] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openRename, setOpenRename] = useState(false);
-  const {
+  const [openItemToolbar, setOpenItemToolbar] = useState(false);
+   const [openItemToolbarTitle, setOpenItemToolbarTitle] = useState(false);
+    const {
     isMobile,
     formData,
     addSectionItem,
@@ -28,16 +33,44 @@ const SocialMedia = () => {
     removeSection,
     handleSectionChange,
   } = useMobile();
+const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        setOpenItemToolbar(false);
+        setOpenItemToolbarTitle(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setOpenItemToolbar, setOpenItemToolbarTitle]);
 
   return (
     <>
       {!isMobile ? (
-        <div className="relative group w-full h-fit select-none">
+        <div ref={containerRef} className="relative group w-full h-fit select-none">
+            {/* Toolbar Title */}
+          {openItemToolbarTitle && (
+            <div className="absolute -top-5 right-8 bg-white h-8 flex items-center rounded-3xl">
+              <ToolbarTitle
+                name="socialMedia"
+              />
+            </div>
+          )}
+          {/* End Toolbar Title */}
           <input
             value={formData.socialMedia.title}
             onChange={(event) =>
               handleSectionChange("socialMedia", "title", event.target.value)
             }
+            onClick={() => {
+              setOpenItemToolbar(false);
+              setOpenItemToolbarTitle(true);
+            }}
             className="placeholder:text-black border-none outline-none font-medium bg-transparent"
             placeholder="SocialMedia"
           />
@@ -47,6 +80,11 @@ const SocialMedia = () => {
               <div
                 key={item.id}
                 className="border-b-[1px] border-b-[#CCCCCC] border-dashed only:border-b-0"
+               onClick={() => {
+                  setEditingItemId(item.id);
+                  setOpenItemToolbar(true);
+                  setOpenItemToolbarTitle(false);
+                }}
               >
                 <div className="flex items-center">
                   <div className="text-[#2393FF]">
@@ -82,25 +120,20 @@ const SocialMedia = () => {
                   placeholder="identify"
                 />
 
-                {formData.socialMedia.items.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={() => removeSectionItem("socialMedia", item.id)}
-                    className="remove-btn"
-                  >
-                    حذف
-                  </button>
+                 {/* Toolbar */}
+                {openItemToolbar && (
+                  <div className="absolute -top-5 right-8 h-10 flex items-center rounded-3xl">
+                    <Toolbar
+                      name="socialMedia"
+                      itemId={editingItemId}
+                      setOpenItemToolbar={setOpenItemToolbar}
+                    />
+                  </div>
                 )}
+                {/* End Toolbar */}
               </div>
             ))}
           </div>
-          <button
-            type="button"
-            onClick={() => addSectionItem("socialMedia")}
-            className="add-btn"
-          >
-            + افزودن socialMedia جدید
-          </button>
         </div>
       ) : (
         <div className="w-full bg-white mt-4 rounded-2xl p-4 select-none">

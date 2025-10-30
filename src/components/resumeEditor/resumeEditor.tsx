@@ -18,7 +18,6 @@ import { useMobile } from "../../context/mobileContext";
 import AddSection from "../addSection/addSection";
 import AddSectionMobile from "../addSection/addSectionMobile";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { TfiArrowTopRight } from "react-icons/tfi";
 import { TbArrowUpRight } from "react-icons/tb";
 import { LuFileSpreadsheet } from "react-icons/lu";
 import { TiArrowSortedDown } from "react-icons/ti";

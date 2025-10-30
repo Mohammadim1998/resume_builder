@@ -1,14 +1,18 @@
 import { useMobile } from "../../../context/mobileContext";
 import { GoPencil } from "react-icons/go";
 import { LuArrowUpDown, LuPencilLine, LuPlus } from "react-icons/lu";
-import { MdKeyboardArrowLeft } from "react-icons/md";
+import { MdKeyboardArrowDown, MdKeyboardArrowLeft } from "react-icons/md";
 import { IoIosCheckmark, IoMdClose } from "react-icons/io";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import React, { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { IoDiamondOutline } from "react-icons/io5";
-import { FiEdit3 } from "react-icons/fi";
+import { FiEdit3, FiSettings } from "react-icons/fi";
+import { RxText } from "react-icons/rx";
+import Toolbar from "../toolbar/toolbar";
+import ToolbarTitle from "../toolbarTitle/toolbarTitle";
+import { useRef, useEffect } from "react";
 
 const Achievement = () => {
   const [openEdit, setOpenEdit] = useState(false);
@@ -20,6 +24,8 @@ const Achievement = () => {
   const [openEditMenu, setOpenEditMenu] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openRename, setOpenRename] = useState(false);
+  const [openItemToolbar, setOpenItemToolbar] = useState(false);
+  const [openItemToolbarTitle, setOpenItemToolbarTitle] = useState(false);
   const {
     isMobile,
     formData,
@@ -28,76 +34,109 @@ const Achievement = () => {
     removeSection,
     handleSectionChange,
   } = useMobile();
-  
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        setOpenItemToolbar(false);
+        setOpenItemToolbarTitle(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setOpenItemToolbar, setOpenItemToolbarTitle]);
+
   return (
     <>
       {!isMobile ? (
-        <div className="relative group w-full h-fit select-none">
+        <div ref={containerRef} className="relative group w-full h-fit select-none">
+          {/* Toolbar Title */}
+          {openItemToolbarTitle && (
+            <div className="absolute -top-5 right-8 bg-white h-8 flex items-center rounded-3xl">
+              <ToolbarTitle
+                name="achievement"
+              />
+            </div>
+          )}
+          {/* End Toolbar Title */}
+
           <input
             value={formData.achievement.title}
             onChange={(event) =>
               handleSectionChange("achievement", "title", event.target.value)
             }
+            onClick={() => {
+              setOpenItemToolbar(false);
+              setOpenItemToolbarTitle(true);
+            }}
             className="placeholder:text-black border-none outline-none font-medium bg-transparent"
             placeholder="KEY ACHIEVENENT"
           />
           <div className="w-full h-1 bg-black"></div>
           <div className="w-full flex flex-col gap-y-2">
-          {formData.achievement.items.map((item) => (
-            <div key={item.id} className="border-b-[1px] border-b-[#CCCCCC] border-dashed only:border-b-0">
-              <div className="flex items-center">
-                <div className="text-[#2393FF]">
-                  <IoDiamondOutline />
-                </div>
+            {formData.achievement.items.map((item) => (
+              <div
+                key={item.id}
+                className="border-b-[1px] border-b-[#CCCCCC] border-dashed only:border-b-0"
+                onClick={() => {
+                  setEditingItemId(item.id);
+                  setOpenItemToolbar(true);
+                  setOpenItemToolbarTitle(false);
+                }}
+              >
+                <div className="flex items-center">
+                  <div className="text-[#2393FF]">
+                    <IoDiamondOutline />
+                  </div>
 
+                  <input
+                    value={item.name}
+                    onChange={(event) =>
+                      handleSectionChange(
+                        "achievement",
+                        "name",
+                        event.target.value,
+                        item.id
+                      )
+                    }
+                    type="text"
+                    className="w-full text-md h-5 bg-transparent outline-none px-2 font-bold focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+                    placeholder="Your Achievement"
+                  />
+                </div>
                 <input
-                  value={item.name}
+                  value={item.description}
                   onChange={(event) =>
                     handleSectionChange(
                       "achievement",
-                      "name",
+                      "description",
                       event.target.value,
                       item.id
                     )
                   }
                   type="text"
-                  className="w-full text-md h-5 bg-transparent outline-none px-2 font-bold focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-                  placeholder="Your Achievement"
+                  className="w-full text-xs h-5 bg-transparent outline-none ml-4 px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+                  placeholder="Describe what you did and the impact it had."
                 />
+
+                {/* Toolbar */}
+                {openItemToolbar && (
+                  <div className="absolute -top-5 right-8 h-10 flex items-center rounded-3xl">
+                    <Toolbar
+                      name="achievement"
+                      itemId={editingItemId}
+                      setOpenItemToolbar={setOpenItemToolbar}
+                    />
+                  </div>
+                )}
+                {/* End Toolbar */}
               </div>
-              <input
-                value={item.description}
-                onChange={(event) =>
-                  handleSectionChange(
-                    "achievement",
-                    "description",
-                    event.target.value,
-                    item.id
-                  )
-                }
-                type="text"
-                className="w-full text-xs h-5 bg-transparent outline-none ml-4 px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-                placeholder="Describe what you did and the impact it had."
-              />
-              {formData.achievement.items.length > 1 && (
-                <button
-                  type="button"
-                  onClick={() => removeSectionItem("achievement", item.id)}
-                  className="remove-btn"
-                >
-                  حذف
-                </button>
-              )}
-            </div>
-          ))}
+            ))}
           </div>
-          <button
-            type="button"
-            onClick={() => addSectionItem("achievement")}
-            className="add-btn"
-          >
-            + افزودن achievement جدید
-          </button>
         </div>
       ) : (
         <div className="w-full bg-white mt-4 rounded-2xl p-4 select-none">
@@ -333,7 +372,7 @@ const Achievement = () => {
               Your Achievement
             </span>
             <input
-             value={
+              value={
                 editingItemId
                   ? formData.achievement.items.find(
                       (item) => item.id === editingItemId
@@ -356,7 +395,7 @@ const Achievement = () => {
                   );
                 }
               }}
-             className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
+              className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
               placeholder="Your Achievement"
             />
           </div>
@@ -387,7 +426,8 @@ const Achievement = () => {
                     event.target.value
                   );
                 }
-              }}className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
+              }}
+              className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
               placeholder="Describe what you did and the impact it had."
             />
           </div>

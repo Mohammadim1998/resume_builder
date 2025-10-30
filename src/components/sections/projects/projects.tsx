@@ -10,6 +10,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FaCalendarAlt, FaRegTrashAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { FiEdit3 } from "react-icons/fi";
+import Toolbar from "../toolbar/toolbar";
+import ToolbarTitle from "../toolbarTitle/toolbarTitle";
+import { useRef, useEffect } from "react";
 
 const Projects = () => {
   const [openEdit, setOpenEdit] = useState(false);
@@ -21,6 +24,8 @@ const Projects = () => {
   const [openEditMenu, setOpenEditMenu] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openRename, setOpenRename] = useState(false);
+  const [openItemToolbar, setOpenItemToolbar] = useState(false);
+  const [openItemToolbarTitle, setOpenItemToolbarTitle] = useState(false);
   const {
     isMobile,
     formData,
@@ -29,131 +34,166 @@ const Projects = () => {
     removeSection,
     handleSectionChange,
   } = useMobile();
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target)
+      ) {
+        setOpenItemToolbar(false);
+        setOpenItemToolbarTitle(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setOpenItemToolbar, setOpenItemToolbarTitle]);
 
   return (
     <>
       {!isMobile ? (
-        <div className="relative group w-full h-fit select-none">
+        <div
+          ref={containerRef}
+          className="relative group w-full h-fit select-none"
+        >
+          {/* Toolbar Title */}
+          {openItemToolbarTitle && (
+            <div className="absolute -top-5 right-8 bg-white h-8 flex items-center rounded-3xl">
+              <ToolbarTitle name="projects" />
+            </div>
+          )}
+          {/* End Toolbar Title */}
           <input
             value={formData.projects.title}
             onChange={(event) =>
               handleSectionChange("projects", "title", event.target.value)
             }
+            onClick={() => {
+              setOpenItemToolbar(false);
+              setOpenItemToolbarTitle(true);
+            }}
             className="placeholder:text-black border-none outline-none font-medium bg-transparent"
             placeholder="PROJECTS"
           />
           <div className="w-full h-1 bg-black"></div>
           <div className="w-full flex flex-col gap-y-2">
-          {formData.projects.items.map((item) => (
-            <div key={item.id} className="border-b-[1px] border-b-[#CCCCCC] border-dashed only:border-b-0">
-              <input
-                value={item.name}
-                onChange={(event) =>
-                  handleSectionChange(
-                    "projects",
-                    "name",
-                    event.target.value,
-                    item.id
-                  )
-                }
-                type="text"
-                className="w-full text-md h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-                placeholder="Project Name"
-              />
-
-              <div className="flex items-center justify-start">
-                <div className="flex items-center gap-x-1 ml-2">
-                  <div className="text-[#65696D] text-sm">
-                    <FaCalendarAlt />
-                  </div>
-                  <DatePicker
-                    // selected={value.date}
-                    // value={value.date}
-                    // onChange={(date) => onChange("date", date)}
-                    selected={item.date}
-                    value={item.date}
-                    onChange={(date) =>
-                      handleSectionChange("projects", "date", date, item.id)
-                    }
-                    dateFormat="yyyy/MM/dd"
-                    placeholderText="Date period"
-                    isClearable
-                    className="custom-datepicker w-24 outline-none text-[#A9A9A9] text-sm bg-transparent"
-                    calendarClassName="custom-calendar"
-                  />
-                </div>
-                <div className="flex items-center">
-                  <div className="text-[#65696D] text-sm">
-                    <FaLocationDot />
-                  </div>
-                  <input
-                    value={item.location}
-                    onChange={(event) =>
-                      handleSectionChange(
-                        "projects",
-                        "location",
-                        event.target.value,
-                        item.id
-                      )
-                    }
-                    type="text"
-                    className="w-full text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-                    placeholder="Location"
-                  />
-                </div>
-              </div>
-
-              <input
-                value={item.shortDescription}
-                onChange={(event) =>
-                  handleSectionChange(
-                    "projects",
-                    "shortDescription",
-                    event.target.value,
-                    item.id
-                  )
-                }
-                type="text"
-                className="w-full text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-                placeholder="Short summary of your work"
-              />
-
-              <div className="flex items-center mt-2">
-                <div className="w-1 h-1 rounded-full bg-[#3E3E3E]"></div>
+            {formData.projects.items.map((item) => (
+              <div
+                key={item.id}
+                className="border-b-[1px] border-b-[#CCCCCC] border-dashed only:border-b-0"
+              >
                 <input
-                  value={item.outcome}
+                  value={item.name}
                   onChange={(event) =>
                     handleSectionChange(
                       "projects",
-                      "outcome",
+                      "name",
+                      event.target.value,
+                      item.id
+                    )
+                  }
+                  onClick={() => {
+                    setEditingItemId(item.id);
+                    setOpenItemToolbar(true);
+                    setOpenItemToolbarTitle(false);
+                  }}
+                  type="text"
+                  className="w-full text-md h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+                  placeholder="Project Name"
+                />
+
+                <div className="flex items-center justify-start">
+                  <div className="flex items-center gap-x-1 ml-2">
+                    <div className="text-[#65696D] text-sm">
+                      <FaCalendarAlt />
+                    </div>
+                    <DatePicker
+                      // selected={value.date}
+                      // value={value.date}
+                      // onChange={(date) => onChange("date", date)}
+                      selected={item.date}
+                      value={item.date}
+                      onChange={(date) =>
+                        handleSectionChange("projects", "date", date, item.id)
+                      }
+                      dateFormat="yyyy/MM/dd"
+                      placeholderText="Date period"
+                      isClearable
+                      className="custom-datepicker w-24 outline-none text-[#A9A9A9] text-sm bg-transparent"
+                      calendarClassName="custom-calendar"
+                    />
+                  </div>
+                  <div className="flex items-center">
+                    <div className="text-[#65696D] text-sm">
+                      <FaLocationDot />
+                    </div>
+                    <input
+                      value={item.location}
+                      onChange={(event) =>
+                        handleSectionChange(
+                          "projects",
+                          "location",
+                          event.target.value,
+                          item.id
+                        )
+                      }
+                      type="text"
+                      className="w-full text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+                      placeholder="Location"
+                    />
+                  </div>
+                </div>
+
+                <input
+                  value={item.shortDescription}
+                  onChange={(event) =>
+                    handleSectionChange(
+                      "projects",
+                      "shortDescription",
                       event.target.value,
                       item.id
                     )
                   }
                   type="text"
                   className="w-full text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-                  placeholder="What was a successful outcome of your work? (e.g. Raises $3,000 for the charity)"
+                  placeholder="Short summary of your work"
                 />
+
+                <div className="flex items-center mt-2">
+                  <div className="w-1 h-1 rounded-full bg-[#3E3E3E]"></div>
+                  <input
+                    value={item.outcome}
+                    onChange={(event) =>
+                      handleSectionChange(
+                        "projects",
+                        "outcome",
+                        event.target.value,
+                        item.id
+                      )
+                    }
+                    type="text"
+                    className="w-full text-sm h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+                    placeholder="What was a successful outcome of your work? (e.g. Raises $3,000 for the charity)"
+                  />
+                </div>
+                {/* Toolbar */}
+                {openItemToolbar && (
+                  <div className="absolute -top-5 right-8 h-10 flex items-center rounded-3xl">
+                    <Toolbar
+                      name="projects"
+                      itemId={editingItemId}
+                      setOpenItemToolbar={setOpenItemToolbar}
+                    />
+                  </div>
+                )}
+                {/* End Toolbar */}
               </div>
-              {formData.projects.items.length > 1 && (
-                <button
-                  type="button"
-                  onClick={() => removeSectionItem("projects", item.id)}
-                  className="remove-btn"
-                >
-                  حذف
-                </button>
-              )}
-            </div>
-          ))}
+            ))}
           </div>
-          <button
-            type="button"
-            onClick={() => addSectionItem("projects")}
-            className="add-btn"
-          >
-            + افزودن projects جدید
-          </button>
         </div>
       ) : (
         <div className="w-full bg-white mt-4 rounded-2xl p-4 select-none">
@@ -502,7 +542,11 @@ const Projects = () => {
                     editingItemId
                   );
                 } else {
-                  handleSectionChange("projects", "location", event.target.value);
+                  handleSectionChange(
+                    "projects",
+                    "location",
+                    event.target.value
+                  );
                 }
               }}
               className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
@@ -531,7 +575,11 @@ const Projects = () => {
                     editingItemId
                   );
                 } else {
-                  handleSectionChange("projects", "shortDescription", event.target.value);
+                  handleSectionChange(
+                    "projects",
+                    "shortDescription",
+                    event.target.value
+                  );
                 }
               }}
               className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
@@ -545,7 +593,7 @@ const Projects = () => {
             </span>
 
             <input
-             value={
+              value={
                 editingItemId
                   ? formData.projects.items.find(
                       (item) => item.id === editingItemId
@@ -561,10 +609,14 @@ const Projects = () => {
                     editingItemId
                   );
                 } else {
-                  handleSectionChange("projects", "outcome", event.target.value);
+                  handleSectionChange(
+                    "projects",
+                    "outcome",
+                    event.target.value
+                  );
                 }
               }}
-             className="w-full text-sm h-16 text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
+              className="w-full text-sm h-16 text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
               placeholder="What was a successful outcome of your work? (e.g. Raises $3,000 for the charity)"
             />
           </div>

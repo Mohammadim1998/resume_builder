@@ -7,6 +7,9 @@ import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import React, { useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FiEdit3 } from "react-icons/fi";
+import Toolbar from "../toolbar/toolbar";
+import ToolbarTitle from "../toolbarTitle/toolbarTitle";
+import { useRef, useEffect } from "react";
 
 const Summary = () => {
   const [openEdit, setOpenEdit] = useState(false);
@@ -15,6 +18,8 @@ const Summary = () => {
   const [openEditMenu, setOpenEditMenu] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openRename, setOpenRename] = useState(false);
+  const [openItemToolbar, setOpenItemToolbar] = useState(false);
+  const [openItemToolbarTitle, setOpenItemToolbarTitle] = useState(false);
   const {
     isMobile,
     formData,
@@ -23,24 +28,63 @@ const Summary = () => {
     removeSection,
     handleSectionChange,
   } = useMobile();
+  const containerRef = useRef(null);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target)
+      ) {
+        setOpenItemToolbar(false);
+        setOpenItemToolbarTitle(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setOpenItemToolbar, setOpenItemToolbarTitle]);
   return (
     <>
       {!isMobile ? (
-        <div className="relative group w-full h-fit select-none">
+        <div
+          ref={containerRef}
+          className="relative group w-full h-fit select-none"
+        >
           <div className="relative group w-full h-fit select-none">
+            {/* Toolbar Title */}
+            {openItemToolbarTitle && (
+              <div className="absolute -top-5 right-8 bg-white h-8 flex items-center rounded-3xl">
+                <ToolbarTitle name="summary" />
+              </div>
+            )}
+            {/* End Toolbar Title */}
             <input
               value={formData.summary.title}
               onChange={(event) =>
                 handleSectionChange("summary", "title", event.target.value)
               }
+              onClick={() => {
+                setOpenItemToolbar(false);
+                setOpenItemToolbarTitle(true);
+              }}
               className="placeholder:text-black border-none outline-none font-medium bg-transparent"
               placeholder="SUMMARY"
             />
             <div className="w-full h-1 bg-black"></div>
             <div className="w-full flex flex-col gap-y-2">
               {formData.summary.items.map((item) => (
-                <div key={item.id} className="border-b-[1px] border-b-[#CCCCCC] border-dashed only:border-b-0">
+                <div
+                  key={item.id}
+                  className="border-b-[1px] border-b-[#CCCCCC] border-dashed only:border-b-0"
+                  onClick={() => {
+                    setEditingItemId(item.id);
+                    setOpenItemToolbar(true);
+                    setOpenItemToolbarTitle(false);
+                  }}
+                >
                   <textarea
                     value={item.description}
                     onChange={(event) =>
@@ -55,26 +99,20 @@ const Summary = () => {
                     placeholder="Briefly explain why you're a great fit for the role - use the AI assistant to tailor this summary for each job posting."
                   ></textarea>
 
-                  {formData.summary.items.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => removeSectionItem("summary", item.id)}
-                      className="remove-btn"
-                    >
-                      حذف
-                    </button>
+                  {/* Toolbar */}
+                  {openItemToolbar && (
+                    <div className="absolute -top-5 right-8 h-10 flex items-center rounded-3xl">
+                      <Toolbar
+                        name="summary"
+                        itemId={editingItemId}
+                        setOpenItemToolbar={setOpenItemToolbar}
+                      />
+                    </div>
                   )}
+                  {/* End Toolbar */}
                 </div>
               ))}
             </div>
-
-            <button
-              type="button"
-              onClick={() => addSectionItem("summary")}
-              className="add-btn"
-            >
-              + افزودن Summary جدید
-            </button>
           </div>
         </div>
       ) : (
@@ -150,8 +188,18 @@ const Summary = () => {
                   </div>
 
                   <div className="w-full flex flex-col gap-y-6">
-                    <button onClick={() => removeSection("summary")} className="text-white w-full h-12 font-semibold cursor-pointer bg-[#FF576F] rounded-md">Delete</button>
-                    <button onClick={() => setOpenDeleteModal(false)} className="text-black w-full h-12 font-semibold cursor-pointer border-[2px] border-black rounded-md">Cancel</button>
+                    <button
+                      onClick={() => removeSection("summary")}
+                      className="text-white w-full h-12 font-semibold cursor-pointer bg-[#FF576F] rounded-md"
+                    >
+                      Delete
+                    </button>
+                    <button
+                      onClick={() => setOpenDeleteModal(false)}
+                      className="text-black w-full h-12 font-semibold cursor-pointer border-[2px] border-black rounded-md"
+                    >
+                      Cancel
+                    </button>
                   </div>
                 </div>
               </div>
@@ -307,7 +355,7 @@ const Summary = () => {
                     editingItemId
                   );
                 } else {
-                 handleSectionChange("summary", "title", event.target.value);
+                  handleSectionChange("summary", "title", event.target.value);
                 }
               }}
               className="w-full select-none text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"

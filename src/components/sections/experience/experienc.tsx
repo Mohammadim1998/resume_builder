@@ -10,6 +10,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FaCalendarAlt, FaRegTrashAlt } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { FiEdit3 } from "react-icons/fi";
+import Toolbar from "../toolbar/toolbar";
+import ToolbarTitle from "../toolbarTitle/toolbarTitle";
+import { useRef, useEffect } from "react";
 
 const Experience = () => {
   const [openEdit, setOpenEdit] = useState(false);
@@ -21,6 +24,8 @@ const Experience = () => {
   const [openEditMenu, setOpenEditMenu] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openRename, setOpenRename] = useState(false);
+  const [openItemToolbar, setOpenItemToolbar] = useState(false);
+    const [openItemToolbarTitle, setOpenItemToolbarTitle] = useState(false);
   const {
     isMobile,
     formData,
@@ -30,22 +35,58 @@ const Experience = () => {
     handleSectionChange,
   } = useMobile();
 
+  const containerRef = useRef(null);
+  
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (
+          containerRef.current &&
+          !containerRef.current.contains(event.target)
+        ) {
+          setOpenItemToolbar(false);
+          setOpenItemToolbarTitle(false);
+        }
+      };
+  
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [setOpenItemToolbar, setOpenItemToolbarTitle]);
+  
   return (
     <>
       {!isMobile ? (
-        <div className="relative group w-full h-fit select-none">
+        <div ref={containerRef} className="relative group w-full h-fit select-none">
+         {/* Toolbar Title */}
+          {openItemToolbarTitle && (
+            <div className="absolute -top-5 right-8 bg-white h-8 flex items-center rounded-3xl">
+              <ToolbarTitle name="experience" />
+            </div>
+          )}
+          {/* End Toolbar Title */}
           <input
             value={formData.experience.title}
             onChange={(event) =>
               handleSectionChange("experience", "title", event.target.value)
             }
+           onClick={() => {
+              setOpenItemToolbar(false);
+              setOpenItemToolbarTitle(true);
+            }}
             className="placeholder:text-black border-none outline-none font-medium bg-transparent"
             placeholder="EXPERIENCE"
           />
           <div className="w-full h-1 bg-black"></div>
           <div className="w-full flex flex-col gap-y-2">
             {formData.experience.items.map((item) => (
-              <div key={item.id} className="border-b-[1px] border-b-[#CCCCCC] border-dashed only:border-b-0">
+              <div key={item.id} className="border-b-[1px] border-b-[#CCCCCC] border-dashed only:border-b-0"
+               onClick={() => {
+                  setEditingItemId(item.id);
+                  setOpenItemToolbar(true);
+                  setOpenItemToolbarTitle(false);
+                }}
+              >
                 <input
                   value={item.subTitle}
                   // onChange={(event) => onChange("subTitle", event.target.value)}
@@ -155,26 +196,20 @@ const Experience = () => {
                     placeholder="Highlight your accomplishments,using numbers if possible."
                   />
                 </div>
-                {formData.experience.items.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={() => removeSectionItem("experience", item.id)}
-                    className="remove-btn"
-                  >
-                    حذف
-                  </button>
+                 {/* Toolbar */}
+                {openItemToolbar && (
+                  <div className="absolute -top-5 right-8 h-10 flex items-center rounded-3xl">
+                    <Toolbar
+                      name="experience"
+                      itemId={editingItemId}
+                      setOpenItemToolbar={setOpenItemToolbar}
+                    />
+                  </div>
                 )}
+                {/* End Toolbar */}
               </div>
             ))}
           </div>
-
-          <button
-            type="button"
-            onClick={() => addSectionItem("experience")}
-            className="add-btn"
-          >
-            + افزودن experience جدید
-          </button>
         </div>
       ) : (
         <div className="w-full bg-white mt-4 rounded-2xl p-4 select-none">

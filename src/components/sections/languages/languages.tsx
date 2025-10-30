@@ -11,6 +11,9 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { IoDiamondOutline } from "react-icons/io5";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FiEdit3 } from "react-icons/fi";
+import Toolbar from "../toolbar/toolbar";
+import ToolbarTitle from "../toolbarTitle/toolbarTitle";
+import { useRef, useEffect } from "react";
 
 const Languages = () => {
   const [openEdit, setOpenEdit] = useState(false);
@@ -19,6 +22,8 @@ const Languages = () => {
   const [openEditMenu, setOpenEditMenu] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openRename, setOpenRename] = useState(false);
+  const [openItemToolbar, setOpenItemToolbar] = useState(false);
+    const [openItemToolbarTitle, setOpenItemToolbarTitle] = useState(false);
   const {
     isMobile,
     formData,
@@ -27,16 +32,44 @@ const Languages = () => {
     removeSection,
     handleSectionChange,
   } = useMobile();
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        setOpenItemToolbar(false);
+        setOpenItemToolbarTitle(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setOpenItemToolbar, setOpenItemToolbarTitle]);
 
   return (
     <>
       {!isMobile ? (
-        <div className="relative group w-full h-fit select-none">
+        <div ref={containerRef} className="relative group w-full h-fit select-none">
+         {/* Toolbar Title */}
+          {openItemToolbarTitle && (
+            <div className="absolute -top-5 right-8 bg-white h-8 flex items-center rounded-3xl">
+              <ToolbarTitle
+                name="languages"
+              />
+            </div>
+          )}
+          {/* End Toolbar Title */}
           <input
             value={formData.languages.title}
             onChange={(event) =>
               handleSectionChange("languages", "title", event.target.value)
             }
+             onClick={() => {
+              setOpenItemToolbar(false);
+              setOpenItemToolbarTitle(true);
+            }}
             className="placeholder:text-black border-none outline-none font-medium bg-transparent"
             placeholder="LANGUAGES"
           />
@@ -46,7 +79,12 @@ const Languages = () => {
               <div
                 key={item.id}
                 className="border-b-[1px] border-b-[#CCCCCC] border-dashed only:border-b-0"
-              >
+              onClick={() => {
+                  setEditingItemId(item.id);
+                  setOpenItemToolbar(true);
+                  setOpenItemToolbarTitle(false);
+                }}
+             >
                 <input
                   value={item.lang}
                   onChange={(event) =>
@@ -76,25 +114,21 @@ const Languages = () => {
                   placeholder="Proficient"
                 />
 
-                {formData.languages.items.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={() => removeSectionItem("languages", item.id)}
-                    className="remove-btn"
-                  >
-                    حذف
-                  </button>
+                {/* Toolbar */}
+                {openItemToolbar && (
+                  <div className="absolute -top-5 right-8 h-10 flex items-center rounded-3xl">
+                    <Toolbar
+                      name="languages"
+                      itemId={editingItemId}
+                      setOpenItemToolbar={setOpenItemToolbar}
+                    />
+                  </div>
                 )}
+                {/* End Toolbar */}
               </div>
             ))}
           </div>
-          <button
-            type="button"
-            onClick={() => addSectionItem("languages")}
-            className="add-btn"
-          >
-            + افزودن languages جدید
-          </button>
+         
         </div>
       ) : (
         <div className="w-full bg-white mt-4 rounded-2xl p-4 select-none">
