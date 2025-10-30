@@ -43,9 +43,9 @@ const Experience = () => {
             placeholder="EXPERIENCE"
           />
           <div className="w-full h-1 bg-black"></div>
-          <div className="experience-items">
+          <div className="w-full flex flex-col gap-y-2">
             {formData.experience.items.map((item) => (
-              <div key={item.id}>
+              <div key={item.id} className="border-b-[1px] border-b-[#CCCCCC] border-dashed only:border-b-0">
                 <input
                   value={item.subTitle}
                   // onChange={(event) => onChange("subTitle", event.target.value)}

@@ -4,5 +4,9 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}"
   ],
   theme: { extend: {} },
-  plugins: [],
+  plugins: [
+    function ({ addVariant }) {
+      addVariant('only', '&:only-child')
+    }
+  ],
 }

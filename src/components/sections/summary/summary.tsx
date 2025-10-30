@@ -38,9 +38,9 @@ const Summary = () => {
               placeholder="SUMMARY"
             />
             <div className="w-full h-1 bg-black"></div>
-            <div className="summary-items">
+            <div className="w-full flex flex-col gap-y-2">
               {formData.summary.items.map((item) => (
-                <div key={item.id} className="summary-item">
+                <div key={item.id} className="border-b-[1px] border-b-[#CCCCCC] border-dashed only:border-b-0">
                   <textarea
                     value={item.description}
                     onChange={(event) =>

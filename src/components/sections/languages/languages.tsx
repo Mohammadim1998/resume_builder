@@ -27,7 +27,7 @@ const Languages = () => {
     removeSection,
     handleSectionChange,
   } = useMobile();
-  
+
   return (
     <>
       {!isMobile ? (
@@ -41,48 +41,53 @@ const Languages = () => {
             placeholder="LANGUAGES"
           />
           <div className="w-full h-1 bg-black"></div>
-          {formData.languages.items.map((item) => (
-            <div key={item.id}>
-              <input
-                value={item.lang}
-                onChange={(event) =>
-                  handleSectionChange(
-                    "languages",
-                    "lang",
-                    event.target.value,
-                    item.id
-                  )
-                }
-                type="text"
-                className="w-full text-md h-5 bg-transparent outline-none px-2 font-bold focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-                placeholder="Language"
-              />
-              <input
-                value={item.level}
-                onChange={(event) =>
-                  handleSectionChange(
-                    "languages",
-                    "level",
-                    event.target.value,
-                    item.id
-                  )
-                }
-                type="text"
-                className="w-full text-xs h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-                placeholder="Proficient"
-              />
+          <div className="w-full flex flex-col gap-y-2">
+            {formData.languages.items.map((item) => (
+              <div
+                key={item.id}
+                className="border-b-[1px] border-b-[#CCCCCC] border-dashed only:border-b-0"
+              >
+                <input
+                  value={item.lang}
+                  onChange={(event) =>
+                    handleSectionChange(
+                      "languages",
+                      "lang",
+                      event.target.value,
+                      item.id
+                    )
+                  }
+                  type="text"
+                  className="w-full text-md h-5 bg-transparent outline-none px-2 font-bold focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+                  placeholder="Language"
+                />
+                <input
+                  value={item.level}
+                  onChange={(event) =>
+                    handleSectionChange(
+                      "languages",
+                      "level",
+                      event.target.value,
+                      item.id
+                    )
+                  }
+                  type="text"
+                  className="w-full text-xs h-5 bg-transparent outline-none px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+                  placeholder="Proficient"
+                />
 
-              {formData.languages.items.length > 1 && (
-                <button
-                  type="button"
-                  onClick={() => removeSectionItem("languages", item.id)}
-                  className="remove-btn"
-                >
-                  حذف
-                </button>
-              )}
-            </div>
-          ))}
+                {formData.languages.items.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => removeSectionItem("languages", item.id)}
+                    className="remove-btn"
+                  >
+                    حذف
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
           <button
             type="button"
             onClick={() => addSectionItem("languages")}
@@ -367,7 +372,8 @@ const Languages = () => {
                 } else {
                   handleSectionChange("languages", "level", event.target.value);
                 }
-              }}className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
+              }}
+              className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
               placeholder="Advanced"
             />
           </div>

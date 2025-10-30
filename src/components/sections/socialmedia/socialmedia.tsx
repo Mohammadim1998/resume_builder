@@ -28,7 +28,7 @@ const SocialMedia = () => {
     removeSection,
     handleSectionChange,
   } = useMobile();
-  
+
   return (
     <>
       {!isMobile ? (
@@ -42,13 +42,16 @@ const SocialMedia = () => {
             placeholder="SocialMedia"
           />
           <div className="w-full h-1 bg-black"></div>
-          <div className="flex items-center">
-            <div className="text-[#2393FF]">
-              <IoDiamondOutline />
-            </div>
-            <div className="flex flex-col">
-              {formData.socialMedia.items.map((item) => (
-                <div key={item.id}>
+          <div className="flex flex-col gap-y-2">
+            {formData.socialMedia.items.map((item) => (
+              <div
+                key={item.id}
+                className="border-b-[1px] border-b-[#CCCCCC] border-dashed only:border-b-0"
+              >
+                <div className="flex items-center">
+                  <div className="text-[#2393FF]">
+                    <IoDiamondOutline />
+                  </div>
                   <input
                     value={item.social}
                     onChange={(event) =>
@@ -63,33 +66,33 @@ const SocialMedia = () => {
                     className="w-full text-md h-5 bg-transparent outline-none px-2 font-bold focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
                     placeholder="social media"
                   />
-                  <input
-                    value={item.identify}
-                    onChange={(event) =>
-                      handleSectionChange(
-                        "socialMedia",
-                        "identify",
-                        event.target.value,
-                        item.id
-                      )
-                    }
-                    type="text"
-                    className="w-full text-xs h-5 bg-transparent outline-none ml-4 px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
-                    placeholder="identify"
-                  />
-
-                  {formData.socialMedia.items.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => removeSectionItem("socialMedia", item.id)}
-                      className="remove-btn"
-                    >
-                      حذف
-                    </button>
-                  )}
                 </div>
-              ))}
-            </div>
+                <input
+                  value={item.identify}
+                  onChange={(event) =>
+                    handleSectionChange(
+                      "socialMedia",
+                      "identify",
+                      event.target.value,
+                      item.id
+                    )
+                  }
+                  type="text"
+                  className="w-full text-xs h-5 bg-transparent outline-none ml-4 px-2 focus:border-[1px] focus:border-green-400 transition-all duration-300 rounded"
+                  placeholder="identify"
+                />
+
+                {formData.socialMedia.items.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => removeSectionItem("socialMedia", item.id)}
+                    className="remove-btn"
+                  >
+                    حذف
+                  </button>
+                )}
+              </div>
+            ))}
           </div>
           <button
             type="button"
@@ -363,7 +366,7 @@ const SocialMedia = () => {
               Username
             </span>
             <input
-             value={
+              value={
                 editingItemId
                   ? formData.socialMedia.items.find(
                       (item) => item.id === editingItemId
@@ -385,7 +388,8 @@ const SocialMedia = () => {
                     event.target.value
                   );
                 }
-              }} className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
+              }}
+              className="w-full text-sm text-[#7D8588] mt-1 bg-transparent outline-none py-3 pl-3 pr-12 border-[1px] border-[#AFB4B5] focus:border-green-400 transition-all duration-300 rounded"
               placeholder="username"
             />
           </div>

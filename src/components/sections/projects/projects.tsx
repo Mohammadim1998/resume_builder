@@ -43,8 +43,9 @@ const Projects = () => {
             placeholder="PROJECTS"
           />
           <div className="w-full h-1 bg-black"></div>
+          <div className="w-full flex flex-col gap-y-2">
           {formData.projects.items.map((item) => (
-            <div key={item.id}>
+            <div key={item.id} className="border-b-[1px] border-b-[#CCCCCC] border-dashed only:border-b-0">
               <input
                 value={item.name}
                 onChange={(event) =>
@@ -145,6 +146,7 @@ const Projects = () => {
               )}
             </div>
           ))}
+          </div>
           <button
             type="button"
             onClick={() => addSectionItem("projects")}
