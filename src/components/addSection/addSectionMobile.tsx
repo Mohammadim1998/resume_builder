@@ -21,22 +21,15 @@ const AddSectionMobile = ({
   setShowRearrange,
   setShowPreview,
 }) => {
-  const { initialSections, setInitialSections } = useMobile();
+  const { toggleSection, initialSections } = useMobile();
 
-  const addToResumeEdit = (findSection) => {
-    const sectionExist = initialSections.some(
-      (section) => section.id === findSection.id
-    );
-    if (!sectionExist) {
-      setInitialSections([...initialSections, findSection]);
-      location.reload();
-    } else {
-      setInitialSections(
-        initialSections.filter((section) => section.id !== findSection.id)
-      );
-      location.reload();
-    }
+  const addToResumeEdit = (section) => {
+    toggleSection(section);
     setShowAddSectionMobileState(false);
+  };
+
+  const isActiveSection = (sectionId) => {
+    return initialSections.some((sec) => sec.id === sectionId);
   };
 
   return (
@@ -92,7 +85,7 @@ const AddSectionMobile = ({
                 onClick={() => addToResumeEdit(defaultSections[0])}
                 className=""
               >
-                {initialSections.find((section) => section.id === "summary") ? (
+                {isActiveSection("summary") ? (
                   <div className="flex items-center gap-3 text-[#B7B4B5]">
                     <div className="w-6 h-6 text-2xl flex justify-center items-center">
                       <LuCircleCheckBig />
@@ -114,9 +107,7 @@ const AddSectionMobile = ({
                 onClick={() => addToResumeEdit(defaultSections[1])}
                 className=""
               >
-                {initialSections.find(
-                  (section) => section.id === "experience"
-                ) ? (
+                {isActiveSection("experience") ? (
                   <div className="flex items-center gap-3 text-[#B7B4B5]">
                     <div className="w-6 h-6 text-2xl flex justify-center items-center">
                       <LuCircleCheckBig />
@@ -138,9 +129,7 @@ const AddSectionMobile = ({
                 onClick={() => addToResumeEdit(defaultSections[2])}
                 className=""
               >
-                {initialSections.find(
-                  (section) => section.id === "education"
-                ) ? (
+                {isActiveSection("education") ? (
                   <div className="flex items-center gap-3 text-[#B7B4B5]">
                     <div className="w-6 h-6 text-2xl flex justify-center items-center">
                       <LuCircleCheckBig />
@@ -162,9 +151,7 @@ const AddSectionMobile = ({
                 onClick={() => addToResumeEdit(defaultSections[3])}
                 className=""
               >
-                {initialSections.find(
-                  (section) => section.id === "projects"
-                ) ? (
+                {isActiveSection("projects") ? (
                   <div className="flex items-center gap-3 text-[#B7B4B5]">
                     <div className="w-6 h-6 text-2xl flex justify-center items-center">
                       <LuCircleCheckBig />
@@ -186,9 +173,7 @@ const AddSectionMobile = ({
                 onClick={() => addToResumeEdit(defaultSections[4])}
                 className=""
               >
-                {initialSections.find(
-                  (section) => section.id === "achievement"
-                ) ? (
+                {isActiveSection("achievement") ? (
                   <div className="flex items-center gap-3 text-[#B7B4B5]">
                     <div className="w-6 h-6 text-2xl flex justify-center items-center">
                       <LuCircleCheckBig />
@@ -210,9 +195,7 @@ const AddSectionMobile = ({
                 onClick={() => addToResumeEdit(defaultSections[5])}
                 className=""
               >
-                {initialSections.find(
-                  (section) => section.id === "languages"
-                ) ? (
+                {isActiveSection("languages") ? (
                   <div className="flex items-center gap-3 text-[#B7B4B5]">
                     <div className="w-6 h-6 text-2xl flex justify-center items-center">
                       <LuCircleCheckBig />
@@ -234,9 +217,7 @@ const AddSectionMobile = ({
                 onClick={() => addToResumeEdit(defaultSections[9])}
                 className=""
               >
-                {initialSections.find(
-                  (section) => section.id === "training"
-                ) ? (
+                {isActiveSection("training") ? (
                   <div className="flex items-center gap-3 text-[#B7B4B5]">
                     <div className="w-6 h-6 text-2xl flex justify-center items-center">
                       <LuCircleCheckBig />
@@ -258,9 +239,7 @@ const AddSectionMobile = ({
                 onClick={() => addToResumeEdit(defaultSections[8])}
                 className=""
               >
-                {initialSections.find(
-                  (section) => section.id === "socialMedia"
-                ) ? (
+                {isActiveSection("socialMedia") ? (
                   <div className="flex items-center gap-3 text-[#B7B4B5]">
                     <div className="w-6 h-6 text-2xl flex justify-center items-center">
                       <LuCircleCheckBig />
@@ -286,9 +265,7 @@ const AddSectionMobile = ({
                 onClick={() => addToResumeEdit(defaultSections[7])}
                 className=""
               >
-                {initialSections.find(
-                  (section) => section.id === "strengths"
-                ) ? (
+                {isActiveSection("strengths") ? (
                   <div className="flex items-center gap-3 text-[#B7B4B5]">
                     <div className="w-6 h-6 text-2xl flex justify-center items-center">
                       <LuCircleCheckBig />
@@ -310,7 +287,7 @@ const AddSectionMobile = ({
                 onClick={() => addToResumeEdit(defaultSections[6])}
                 className=""
               >
-                {initialSections.find((section) => section.id === "skills") ? (
+                {isActiveSection("skills") ? (
                   <div className="flex items-center gap-3 text-[#B7B4B5]">
                     <div className="w-6 h-6 text-2xl flex justify-center items-center">
                       <LuCircleCheckBig />

@@ -12,12 +12,11 @@ const MobileContext = createContext();
 
 const defaultSections = [
   { id: "summary", title: "Summary", component: "summary" },
-  { id: "experience", title: "Experience", component: "experience" },
-  { id: "education", title: "Education", component: "education" },
-  { id: "skill", title: "Skills", component: "Skills" },
   { id: "projects", title: "Projects", component: "projects" },
-  { id: "achievement", title: "Achievements", component: "achievement" },
   { id: "languages", title: "Languages", component: "languages" },
+  { id: "skills", title: "Skills", component: "skills" },
+  { id: "education", title: "Education", component: "education" },
+  { id: "experience", title: "Experience", component: "experience" },
 ];
 export const MobileProvider = ({ children }) => {
   const [isMobile, setIsMobile] = useState(false);
@@ -57,9 +56,19 @@ export const MobileProvider = ({ children }) => {
   };
 
   const removeSection = (id) => {
-    setInitialSections(initialSections.filter((section) => section.id !== id));
-    location.reload();
-    console.log(initialSections);
+    setInitialSections((prev) => prev.filter((section) => section.id !== id));
+    console.log("Removed Section: ",initialSections,id);
+  };
+  const toggleSection = (section) => {
+    setInitialSections((prev) => {
+      const sectionExist = prev.some((item) => item.id === section.id);
+      if (sectionExist) {
+        return prev.filter((item) => item.id !== section.id);
+      } else {
+        return [...prev, section];
+      }
+    });
+    console.log("toggled Section: ",initialSections,section);
   };
   const removeSectionItem = (sectionName, id) => {
     setFormData((prev) => ({
@@ -75,7 +84,6 @@ export const MobileProvider = ({ children }) => {
       const section = prev[sectionName];
 
       if (itemId) {
-        // تغییر در آیتم خاص
         return {
           ...prev,
           [sectionName]: {
@@ -86,7 +94,6 @@ export const MobileProvider = ({ children }) => {
           },
         };
       } else {
-        // تغییر در title اصلی section
         return {
           ...prev,
           [sectionName]: {
@@ -120,16 +127,16 @@ export const MobileProvider = ({ children }) => {
         shortDescription: "",
         longDescription: "",
       },
-      skills: { id: Date.now(), skill1: "", skill2: "" },
+      skills: { id: Date.now(), skill: "" },
       languages: { id: Date.now(), lang: "", level: "" },
       strengths: { id: Date.now(), strength: "", explain: "" },
       socialMedia: { id: Date.now(), social: "", identify: "" },
-      training: { id: Date.now(), course1: "", course2: "" },
+      training: { id: Date.now(), course: "" },
     };
 
     return defaultItems[sectionName] || { id: Date.now() };
   };
-
+  /* isMobile section */
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -142,6 +149,7 @@ export const MobileProvider = ({ children }) => {
       window.removeEventListener("resize", checkMobile);
     };
   }, []);
+  /* End isMobile section */
 
   const [formData, setFormData] = useState({
     address: {
@@ -325,6 +333,7 @@ export const MobileProvider = ({ children }) => {
         addSectionItem,
         removeSectionItem,
         handleSectionChange,
+        toggleSection,
       }}
     >
       {children}

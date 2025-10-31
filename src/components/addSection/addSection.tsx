@@ -3,6 +3,7 @@ import { FaFacebookF } from "react-icons/fa6";
 import { FaLinkedinIn } from "react-icons/fa6";
 import { MdOutlineArrowUpward } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
+import { useEffect } from "react";
 
 const defaultSections = [
   { id: "summary", title: "Summary", component: "summary" },
@@ -17,24 +18,16 @@ const defaultSections = [
   { id: "training", title: "Training", component: "training" },
 ];
 const AddSection = ({ setShowAddSection }) => {
-  const { initialSections, setInitialSections } = useMobile();
+  const { toggleSection, initialSections} = useMobile();
 
-  const addToResumeEdit = (findSection) => {
-    const sectionExist = initialSections.some(
-      (section) => section.id === findSection.id
-    );
-    if (!sectionExist) {
-      setInitialSections([...initialSections, findSection]);
-      location.reload();
-    } else {
-      setInitialSections(
-        initialSections.filter((section) => section.id !== findSection.id)
-      );
-      location.reload();
-    }
+  const addToResumeEdit = (section) => {
+    toggleSection(section);
     setShowAddSection(false);
   };
 
+  const isActiveSection = (sectionId) => {
+    return initialSections.some((sec) => sec.id === sectionId);
+  };
   return (
     <div
       onClick={() => setShowAddSection(false)}
@@ -67,7 +60,7 @@ const AddSection = ({ setShowAddSection }) => {
               <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
               <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
                 <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
-                  {initialSections.find((section) => section.id === "summary")
+                  {isActiveSection("summary")
                     ? "Remove section"
                     : "Add to resume"}
                 </button>
@@ -96,7 +89,7 @@ const AddSection = ({ setShowAddSection }) => {
               <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
               <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
                 <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
-                  {initialSections.find((section) => section.id === "projects")
+                  {isActiveSection("projects")
                     ? "Remove section"
                     : "Add to resume"}
                 </button>
@@ -130,7 +123,7 @@ const AddSection = ({ setShowAddSection }) => {
               <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
               <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
                 <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
-                  {initialSections.find((section) => section.id === "language")
+                  {isActiveSection("languages")
                     ? "Remove section"
                     : "Add to resume"}
                 </button>
@@ -163,7 +156,7 @@ const AddSection = ({ setShowAddSection }) => {
               <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
               <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
                 <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
-                  {initialSections.find((section) => section.id === "skills")
+                  {isActiveSection("skills")
                     ? "Remove section"
                     : "Add to resume"}
                 </button>
@@ -211,7 +204,7 @@ const AddSection = ({ setShowAddSection }) => {
               <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
               <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
                 <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
-                  {initialSections.find((section) => section.id === "education")
+                  {isActiveSection("education")
                     ? "Remove section"
                     : "Add to resume"}
                 </button>
@@ -253,7 +246,7 @@ const AddSection = ({ setShowAddSection }) => {
               <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
               <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
                 <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
-                  {initialSections.find((section) => section.id === "exprience")
+                  {isActiveSection("exprience")
                     ? "Remove section"
                     : "Add to resume"}
                 </button>
@@ -291,7 +284,7 @@ const AddSection = ({ setShowAddSection }) => {
               <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
               <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
                 <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
-                  {initialSections.find((section) => section.id === "training")
+                  {isActiveSection("training")
                     ? "Remove section"
                     : "Add to resume"}
                 </button>
@@ -334,9 +327,7 @@ const AddSection = ({ setShowAddSection }) => {
               <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
               <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
                 <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
-                  {initialSections.find(
-                    (section) => section.id === "socialMedia"
-                  )
+                  {isActiveSection("socialMedia")
                     ? "Remove section"
                     : "Add to resume"}
                 </button>
@@ -385,7 +376,7 @@ const AddSection = ({ setShowAddSection }) => {
               <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
               <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
                 <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
-                  {initialSections.find((section) => section.id === "strengths")
+                  {isActiveSection("strengths")
                     ? "Remove section"
                     : "Add to resume"}
                 </button>
@@ -437,9 +428,7 @@ const AddSection = ({ setShowAddSection }) => {
               <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
               <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
                 <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
-                  {initialSections.find(
-                    (section) => section.id === "achievement"
-                  )
+                  {isActiveSection("achievement")
                     ? "Remove section"
                     : "Add to resume"}
                 </button>
