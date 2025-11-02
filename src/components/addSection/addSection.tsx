@@ -3,7 +3,6 @@ import { FaFacebookF } from "react-icons/fa6";
 import { FaLinkedinIn } from "react-icons/fa6";
 import { MdOutlineArrowUpward } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
-import { useEffect } from "react";
 
 const defaultSections = [
   { id: "summary", title: "Summary", component: "summary",column: "left" },
@@ -246,7 +245,7 @@ const AddSection = ({ setShowAddSection }) => {
               <div className="w-full h-full bg-white shadow-[0px_1px_2px_0px_rgba(0,0,0,0.75)]"></div>
               <div className="z-30 absolute top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-80 invisible group-hover:visible flex justify-center items-center w-full h-full transition-all duration-200">
                 <button className="bg-blue-600 px-12 py-2 cursor-pointer text-white text-xl rounded">
-                  {isActiveSection("exprience")
+                  {isActiveSection("experience")
                     ? "Remove section"
                     : "Add to resume"}
                 </button>

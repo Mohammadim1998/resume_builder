@@ -48,15 +48,19 @@ const ResumePreview = ({ setShowPreview, formData, sections, resumeRef }) => {
               {sectionData.title || "Education"}
             </h2>
             <div className="space-y-2">
-              <h3 className="font-semibold text-gray-700">
-                {sectionData.degree || "Degree"}
-              </h3>
-              <p className="text-gray-600">
-                {sectionData.school || "School/University"}
-              </p>
-              <p className="text-gray-500 text-sm">
-                {formatValue(sectionData.date) || "Date"}
-              </p>
+              {sectionData.items.map((item) => (
+                <div key={item.id} className="space-y-2">
+                  <h3 className="font-semibold text-gray-700">
+                    {item.degree || "Degree"}
+                  </h3>
+                  <p className="text-gray-600">
+                    {item.school || "School/University"}
+                  </p>
+                  <p className="text-gray-500 text-sm">
+                    {formatValue(item.date) || "Date"}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         );
@@ -67,27 +71,27 @@ const ResumePreview = ({ setShowPreview, formData, sections, resumeRef }) => {
               {sectionData.title || "Experience"}
             </h2>
             <div className="space-y-4">
-              <div>
-                <h3 className="font-semibold text-gray-700">
-                  {sectionData.subTitle || "Job Title"}
-                </h3>
-                <p className="text-gray-600">
-                  {sectionData.company || "Company"}
-                </p>
-                <p className="text-gray-500 text-sm">
-                  {formatValue(sectionData.date) || "Date"} |{" "}
-                  {sectionData.location || "Location"}
-                </p>
-                <p className="text-gray-600 mt-2">
-                  {sectionData.shortDescription ||
-                    "Short description of your role..."}
-                </p>
-                {sectionData.longDescription && (
-                  <p className="text-gray-600 mt-1 whitespace-pre-wrap">
-                    {sectionData.longDescription}
+              {sectionData.items.map((item) => (
+                <div key={item.id}>
+                  <h3 className="font-semibold text-gray-700">
+                    {item.subTitle || "Job Title"}
+                  </h3>
+                  <p className="text-gray-600">{item.company || "Company"}</p>
+                  <p className="text-gray-500 text-sm">
+                    {formatValue(item.date) || "Date"} |{" "}
+                    {item.location || "Location"}
                   </p>
-                )}
-              </div>
+                  <p className="text-gray-600 mt-2">
+                    {item.shortDescription ||
+                      "Short description of your role..."}
+                  </p>
+                  {item.longDescription && (
+                    <p className="text-gray-600 mt-1 whitespace-pre-wrap">
+                      {item.longDescription}
+                    </p>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         );
@@ -98,23 +102,30 @@ const ResumePreview = ({ setShowPreview, formData, sections, resumeRef }) => {
               {sectionData.title || "Projects"}
             </h2>
             <div className="space-y-3">
-              <div>
-                <h3 className="font-semibold text-gray-700">
-                  {sectionData.name || "Project Name"}
-                </h3>
-                <p className="text-gray-500 text-sm">
-                  {formatValue(sectionData.date) || "Date"}
-                </p>
-                <p className="text-gray-600 mt-1">
-                  {sectionData.shortDescription || "Project description..."}
-                </p>
-                {sectionData.outcome && (
+              {sectionData.items.map((item) => (
+                <div key={item.id}>
+                  <h3 className="font-semibold text-gray-700">
+                    {item.name || "Project Name"}
+                  </h3>
+                  <div className="flex items-center gap-x-4">
+                    <p className="text-gray-500 text-sm">
+                      {formatValue(item.date) || "Date"}
+                    </p>
+                    <h3 className="font-semibold text-gray-700">
+                      {item.location || "Location"}
+                    </h3>
+                  </div>
                   <p className="text-gray-600 mt-1">
-                    <strong>Outcome: </strong>
-                    {sectionData.outcome}
+                    {item.shortDescription || "Project description..."}
                   </p>
-                )}
-              </div>
+                  {item.outcome && (
+                    <p className="text-gray-600 mt-1">
+                      <strong>Outcome: </strong>
+                      {item.outcome}
+                    </p>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         );
@@ -125,14 +136,16 @@ const ResumePreview = ({ setShowPreview, formData, sections, resumeRef }) => {
               {sectionData.title || "Key Achievements"}
             </h2>
             <div className="space-y-2">
-              <div>
-                <h3 className="font-semibold text-gray-700">
-                  {sectionData.name || "Achievement Name"}
-                </h3>
-                <p className="text-gray-600">
-                  {sectionData.description || "Description..."}
-                </p>
-              </div>
+              {sectionData.items.map((item) => (
+                <div key={item.id}>
+                  <h3 className="font-semibold text-gray-700">
+                    {item.name || "Achievement Name"}
+                  </h3>
+                  <p className="text-gray-600">
+                    {item.description || "Description..."}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         );
@@ -143,14 +156,16 @@ const ResumePreview = ({ setShowPreview, formData, sections, resumeRef }) => {
               {sectionData.title || "Strength"}
             </h2>
             <div className="space-y-2">
-              <div>
-                <h3 className="font-semibold text-gray-700">
-                  {sectionData.strength || "Strength"}
-                </h3>
-                <p className="text-gray-600">
-                  {sectionData.explain || "Explain..."}
-                </p>
-              </div>
+              {sectionData.items.map((item) => (
+                <div key={item.id}>
+                  <h3 className="font-semibold text-gray-700">
+                    {item.strength || "Strength"}
+                  </h3>
+                  <p className="text-gray-600">
+                    {item.explain || "Explain..."}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         );
@@ -160,12 +175,13 @@ const ResumePreview = ({ setShowPreview, formData, sections, resumeRef }) => {
             <h2 className="text-xl font-bold text-gray-800 mb-2 border-b-4 border-black pb-1">
               {sectionData.title || "Languages"}
             </h2>
-            <div className="space-y-1">
-              <p className="text-gray-600">
-                {sectionData.lang || "Language"} -{" "}
-                {sectionData.level || "Level"}
-              </p>
-            </div>
+            {sectionData.items.map((item) => (
+              <div key={item.id} className="space-y-1">
+                <p className="text-gray-600">
+                  {item.lang || "Language"} - {item.level || "Level"}
+                </p>
+              </div>
+            ))}
           </div>
         );
       case "training":
@@ -174,14 +190,11 @@ const ResumePreview = ({ setShowPreview, formData, sections, resumeRef }) => {
             <h2 className="text-xl font-bold text-gray-800 mb-2 border-b-4 border-black pb-1">
               {sectionData.title || "Training / Courses"}
             </h2>
-            <div className="space-y-1">
-              <p className="text-gray-600">
-                {sectionData.course1 || "Course Title"}
-              </p>
-              <p className="text-gray-600">
-                {sectionData.course2 || "Course Title"}
-              </p>
-            </div>
+            {sectionData.items.map((item) => (
+              <div key={item.id} className="space-y-1">
+                <p className="text-gray-600">{item.course || "Course Title"}</p>
+              </div>
+            ))}
           </div>
         );
       case "skills":
@@ -190,11 +203,12 @@ const ResumePreview = ({ setShowPreview, formData, sections, resumeRef }) => {
             <h2 className="text-xl font-bold text-gray-800 mb-2 border-b-4 border-black pb-1">
               {sectionData.title || "Skills"}
             </h2>
-            <div className="space-y-1">
-              <p className="text-gray-600">
-                {sectionData.skill1 || "Skill1"} -{" "}
-                {sectionData.skill2 || "Skill2"}
-              </p>
+            <div className="flex items-center gap-x-4">
+              {sectionData.items.map((item) => (
+                <div key={item.id} className="space-y-1">
+                  <p className="text-gray-600">{item.skill || "Skill"}</p>
+                </div>
+              ))}
             </div>
           </div>
         );
@@ -204,11 +218,12 @@ const ResumePreview = ({ setShowPreview, formData, sections, resumeRef }) => {
             <h2 className="text-xl font-bold text-gray-800 mb-2 border-b-4 border-black pb-1">
               {sectionData.title || "SocialMedia"}
             </h2>
-            <div className="space-y-1">
-              <p className="text-gray-600">
-                {sectionData.social || "SocialMedia"} -{" "}
-                {sectionData.identify || "identify"}
-              </p>
+            <div>
+              {sectionData.items.map((item) => (
+                <p key={item.id} className="text-gray-600">
+                  {item.social || "SocialMedia"} - {item.identify || "identify"}
+                </p>
+              ))}
             </div>
           </div>
         );
