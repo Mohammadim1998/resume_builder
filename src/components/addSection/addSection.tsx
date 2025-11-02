@@ -6,16 +6,16 @@ import { IoMdClose } from "react-icons/io";
 import { useEffect } from "react";
 
 const defaultSections = [
-  { id: "summary", title: "Summary", component: "summary" },
-  { id: "projects", title: "Projects", component: "projects" },
-  { id: "languages", title: "Languages", component: "languages" },
-  { id: "skills", title: "Skills", component: "skills" },
-  { id: "education", title: "Education", component: "education" },
-  { id: "experience", title: "Experience", component: "experience" },
-  { id: "achievement", title: "Achievements", component: "achievement" },
-  { id: "strengths", title: "Strengths", component: "strengths" },
-  { id: "socialMedia", title: "SocialMedia", component: "socialMedia" },
-  { id: "training", title: "Training", component: "training" },
+  { id: "summary", title: "Summary", component: "summary",column: "left" },
+  { id: "projects", title: "Projects", component: "projects",column: "left" },
+  { id: "languages", title: "Languages", component: "languages",column: "left" },
+  { id: "skills", title: "Skills", component: "skills",column: "left" },
+  { id: "education", title: "Education", component: "education",column: "left" },
+  { id: "experience", title: "Experience", component: "experience",column: "left" },
+  { id: "achievement", title: "Achievements", component: "achievement",column: "left" },
+  { id: "strengths", title: "Strengths", component: "strengths",column: "left" },
+  { id: "socialMedia", title: "SocialMedia", component: "socialMedia",column: "left" },
+  { id: "training", title: "Training", component: "training",column: "left" },
 ];
 const AddSection = ({ setShowAddSection }) => {
   const { toggleSection, initialSections} = useMobile();

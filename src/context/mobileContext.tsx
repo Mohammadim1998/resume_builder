@@ -11,13 +11,29 @@ import jsPDF from "jspdf";
 const MobileContext = createContext();
 
 const defaultSections = [
-  { id: "summary", title: "Summary", component: "summary" },
-  { id: "projects", title: "Projects", component: "projects" },
-  { id: "languages", title: "Languages", component: "languages" },
-  { id: "skills", title: "Skills", component: "skills" },
-  { id: "education", title: "Education", component: "education" },
-  { id: "experience", title: "Experience", component: "experience" },
+  { id: "summary", title: "Summary", component: "summary", column: "left" },
+  { id: "projects", title: "Projects", component: "projects", column: "left" },
+  {
+    id: "languages",
+    title: "Languages",
+    component: "languages",
+    column: "right",
+  },
+  { id: "skills", title: "Skills", component: "skills", column: "left" },
+  {
+    id: "education",
+    title: "Education",
+    component: "education",
+    column: "right",
+  },
+  {
+    id: "experience",
+    title: "Experience",
+    component: "experience",
+    column: "right",
+  },
 ];
+
 export const MobileProvider = ({ children }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [initialSections, setInitialSections] = useState(() => {
@@ -57,7 +73,7 @@ export const MobileProvider = ({ children }) => {
 
   const removeSection = (id) => {
     setInitialSections((prev) => prev.filter((section) => section.id !== id));
-    console.log("Removed Section: ",initialSections,id);
+    console.log("Removed Section: ", initialSections, id);
   };
   const toggleSection = (section) => {
     setInitialSections((prev) => {
@@ -68,7 +84,7 @@ export const MobileProvider = ({ children }) => {
         return [...prev, section];
       }
     });
-    console.log("toggled Section: ",initialSections,section);
+    console.log("toggled Section: ", initialSections, section);
   };
   const removeSectionItem = (sectionName, id) => {
     setFormData((prev) => ({
@@ -268,12 +284,16 @@ export const MobileProvider = ({ children }) => {
   });
 
   /* Download PDF */
-  const resumeRef = useRef();
 
+  const resumeRef = useRef();
   const handleDownloadPDF = async () => {
     const element = resumeRef.current;
 
-    if (!element) return;
+    if (!element) {
+      console.warn("Resume element not found. Please open preview first.");
+      alert("لطفا ابتدا پیش‌نمایش رزومه را باز کنید.");
+      return;
+    }
 
     try {
       // ایجاد canvas از محتوای رزومه

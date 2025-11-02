@@ -23,7 +23,6 @@ const ResumePreview = ({ setShowPreview, formData, sections, resumeRef }) => {
   const renderSection = (section) => {
     const sectionData = formData[section.component];
     if (!sectionData) return null;
-    console.log("sectionData: ", sectionData);
 
     switch (section.component) {
       case "summary":
@@ -42,7 +41,6 @@ const ResumePreview = ({ setShowPreview, formData, sections, resumeRef }) => {
             ))}
           </div>
         );
-
       case "education":
         return (
           <div key={section.id} className="mb-6">
@@ -62,7 +60,6 @@ const ResumePreview = ({ setShowPreview, formData, sections, resumeRef }) => {
             </div>
           </div>
         );
-
       case "experience":
         return (
           <div key={section.id} className="mb-6">
@@ -94,7 +91,6 @@ const ResumePreview = ({ setShowPreview, formData, sections, resumeRef }) => {
             </div>
           </div>
         );
-
       case "projects":
         return (
           <div key={section.id} className="mb-6">
@@ -122,7 +118,6 @@ const ResumePreview = ({ setShowPreview, formData, sections, resumeRef }) => {
             </div>
           </div>
         );
-
       case "achievement":
         return (
           <div key={section.id} className="mb-6">
@@ -159,7 +154,6 @@ const ResumePreview = ({ setShowPreview, formData, sections, resumeRef }) => {
             </div>
           </div>
         );
-
       case "languages":
         return (
           <div key={section.id} className="mb-6">
@@ -218,7 +212,6 @@ const ResumePreview = ({ setShowPreview, formData, sections, resumeRef }) => {
             </div>
           </div>
         );
-
       default:
         return null;
     }

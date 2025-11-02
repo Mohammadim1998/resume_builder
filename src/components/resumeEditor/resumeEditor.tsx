@@ -48,24 +48,35 @@ const ResumeEditor = () => {
     handleDownloadPDF,
     resumeRef,
     initialSections,
-    removeSection,
+    setInitialSections,
   } = useMobile();
   const [sections, setSections] = useState(initialSections);
-  console.log("sections: ", sections);
-  console.log("initialSections: ", initialSections);
-
   const [showRearrange, setShowRearrange] = useState(false);
   const [showAddSection, setShowAddSection] = useState(false);
   const [showAddSectionMobileState, setShowAddSectionMobileState] =
     useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [showSidebar, setshowSidebar] = useState(false);
+  console.log("initialSections: ", initialSections);
+  console.log("sections: ", sections);
 
   useEffect(() => {
     setSections(initialSections);
   }, [initialSections]);
-  
-  const updateOrder = (newOrder) => setSections(newOrder);
+
+  // const updateOrder = (newOrder) => setSections(newOrder);
+  const updateOrder = (newOrder) => {
+    console.log("Updating order in ResumeEditor:", newOrder);
+
+    // 1. به‌روزرسانی state محلی
+    setSections(newOrder);
+
+    // 2. به‌روزرسانی context اصلی
+    setInitialSections(newOrder);
+
+    // 3. بستن پنل
+    setShowRearrange(false);
+  };
   /* End place for reArrange */
 
   useEffect(() => {
@@ -198,7 +209,19 @@ const ResumeEditor = () => {
 
           <Address value={formData.address} onChange={handleAddressChange} />
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 gap-y-2 mt-4">
-            {sections.map(renderSections)}
+            {/* Left Column */}
+            <div className="space-y-4">
+              {sections
+                .filter((sec) => sec.column === "left")
+                .map(renderSections)}
+            </div>
+
+            {/* Right Column */}
+            <div className="space-y-4">
+              {sections
+                .filter((sec) => sec.column === "right")
+                .map(renderSections)}
+            </div>
           </div>
         </div>
 
@@ -206,10 +229,7 @@ const ResumeEditor = () => {
           <RearrangePanel
             sections={sections}
             onClose={() => setShowRearrange(false)}
-            onSave={(newOrder) => {
-              updateOrder(newOrder);
-              setShowRearrange(false);
-            }}
+            onSave={updateOrder}
           />
         )}
         {/* Add Section in tablet and wide screen */}

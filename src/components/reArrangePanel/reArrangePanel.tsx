@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 
 export default function RearrangePanel({ sections, onClose, onSave }) {
@@ -7,6 +7,22 @@ export default function RearrangePanel({ sections, onClose, onSave }) {
     left: sections.slice(0, Math.ceil(sections.length / 2)),
     right: sections.slice(Math.ceil(sections.length / 2)),
   });
+
+  useEffect(() => {
+    const hasColumns = sections.some(sec => sec.column);
+    
+    if (hasColumns) {
+      setColumns({
+        left: sections.filter(sec => sec.column === 'left'),
+        right: sections.filter(sec => sec.column === 'right')
+      });
+    } else {
+      setColumns({
+        left: sections.slice(0, Math.ceil(sections.length / 2)),
+        right: sections.slice(Math.ceil(sections.length / 2)),
+      });
+    }
+  }, [sections]);
 
   const onDragEnd = (result) => {
     const { source, destination } = result;
@@ -23,9 +39,12 @@ export default function RearrangePanel({ sections, onClose, onSave }) {
   };
 
   const handleSave = () => {
-    const merged = [...columns.left, ...columns.right];
-    onSave(merged);
-  };
+  const merged = [
+    ...columns.left.map(sec => ({ ...sec, column: 'left' })),
+    ...columns.right.map(sec => ({ ...sec, column: 'right' }))
+  ];
+  onSave(merged);
+};
 
   return (
     <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
